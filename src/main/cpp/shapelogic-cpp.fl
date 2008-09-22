@@ -11,110 +11,117 @@ comment {/*
 } {in_source in_header
 } 
 
-Function {} {open
+class ShapeLogicFltk {open
 } {
-  Fl_Window {} {
-    label {ShapeLogic fltk v 0.1} open
-    xywh {501 311 690 500} type Double resizable visible
+  decl {int x;} {}
+  Function {ShapeLogicFltk()} {open
   } {
-    Fl_Menu_Bar {} {open
-      xywh {0 0 690 20}
+    Fl_Window {} {
+      label {ShapeLogic fltk v 0.1} open
+      xywh {506 316 690 500} type Double resizable visible
     } {
-      Submenu {} {
-        label File open
-        xywh {0 0 70 21}
-      } {
-        MenuItem {} {
-          label {Open...} selected
-          xywh {0 0 36 21} shortcut 0x4006f
-        }
-        MenuItem {} {
-          label Save
-          xywh {0 0 36 21} shortcut 0x40073
-        }
-        MenuItem {} {
-          label Quit
-          xywh {0 0 36 21}
-        }
-      }
-      Submenu {} {
-        label Edit open
-        xywh {0 0 70 21}
-      } {
-        MenuItem {} {
-          label Undo
-          xywh {0 0 36 21} shortcut 0x4007a
-        }
-        MenuItem {} {
-          label Clear
-          xywh {0 0 36 21}
-        }
-        MenuItem {} {
-          label Fill
-          xywh {0 0 36 21}
-        }
-        MenuItem {} {
-          label Invert
-          xywh {0 0 36 21} shortcut 0x50069
-        }
-      }
-      Submenu {} {
-        label Image open
-        xywh {5 5 70 21}
+      Fl_Menu_Bar {} {open
+        xywh {0 0 690 20}
       } {
         Submenu {} {
-          label Type open
+          label File open
           xywh {0 0 70 21}
         } {
           MenuItem {} {
-            label {8-bit}
-            xywh {5 5 36 21}
+            label {Open...}
+            xywh {0 0 36 21} shortcut 0x4006f
           }
           MenuItem {} {
-            label {16-bit}
-            xywh {0 0 36 21}
+            label Save
+            xywh {0 0 36 21} shortcut 0x40073
           }
           MenuItem {} {
-            label {RGB Color}
+            label Quit
             xywh {0 0 36 21}
           }
         }
-      }
-      Submenu {} {
-        label Process open
-        xywh {10 10 70 21}
-      } {
-        MenuItem {} {
-          label Smooth
-          xywh {0 0 36 21} shortcut 0x50073
-        }
-        MenuItem {} {
-          label Sharpen
-          xywh {0 0 36 21}
-        }
-      }
-      Submenu {} {
-        label Plugins open
-        xywh {0 0 70 21}
-      } {
         Submenu {} {
-          label ShapeLogic open
+          label Edit open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label Undo
+            xywh {0 0 36 21} shortcut 0x4007a
+          }
+          MenuItem {} {
+            label Clear
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Fill
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Invert
+            xywh {0 0 36 21} shortcut 0x50069
+          }
+        }
+        Submenu {} {
+          label Image open
           xywh {5 5 70 21}
-        } {}
+        } {
+          Submenu {} {
+            label Type open
+            xywh {0 0 70 21}
+          } {
+            MenuItem {} {
+              label {8-bit}
+              xywh {5 5 36 21}
+            }
+            MenuItem {} {
+              label {16-bit}
+              xywh {0 0 36 21}
+            }
+            MenuItem {} {
+              label {RGB Color}
+              xywh {0 0 36 21}
+            }
+          }
+        }
         Submenu {} {
-          label ShapeLogicOld open
-          xywh {15 15 70 21}
-        } {}
-      }
-      Submenu {} {
-        label Help open
-        xywh {0 0 70 21}
-      } {
-        MenuItem {} {
-          label {About ShapeLogic}
-          xywh {0 0 36 21}
+          label Process open
+          xywh {10 10 70 21}
+        } {
+          MenuItem {} {
+            label Smooth
+            xywh {0 0 36 21} shortcut 0x50073
+          }
+          MenuItem {} {
+            label Sharpen
+            xywh {0 0 36 21}
+          }
+        }
+        Submenu {} {
+          label Plugins open
+          xywh {0 0 70 21}
+        } {
+          Submenu {} {
+            label ShapeLogic open
+            xywh {5 5 70 21}
+          } {}
+          Submenu {} {
+            label ShapeLogicOld open
+            xywh {15 15 70 21}
+          } {}
+        }
+        Submenu {} {
+          label Help open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label {About ShapeLogic}
+            xywh {0 0 36 21}
+          }
         }
       }
     }
   }
 } 
+
+Function {} {open selected
+} {} 

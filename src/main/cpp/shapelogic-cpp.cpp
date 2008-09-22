@@ -9,7 +9,7 @@
 
 #include "shapelogic-cpp.h"
 
-Fl_Menu_Item menu_[] = {
+Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"File", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Open...", 0x4006f,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Save", 0x40073,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -44,16 +44,21 @@ Fl_Menu_Item menu_[] = {
  {0,0,0,0,0,0,0,0,0}
 };
 
-int main(int argc, char **argv) {
+ShapeLogicFltk::ShapeLogicFltk() {
   Fl_Double_Window* w;
   { Fl_Double_Window* o = new Fl_Double_Window(690, 500, "ShapeLogic fltk v 0.1");
     w = o;
+    o->user_data((void*)(this));
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 690, 20);
       o->menu(menu_);
     }
     o->end();
     o->resizable(o);
+    w->show();
   }
-  w->show(argc, argv);
+}
+
+int main(int argc, char **argv) {
+  ShapeLogicFltk shapeLogicFltk;
   return Fl::run();
 }

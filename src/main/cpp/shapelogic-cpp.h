@@ -12,5 +12,11 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Menu_Bar.H>
-extern Fl_Menu_Item menu_[];
+
+class ShapeLogicFltk {
+  int x;
+public:
+  ShapeLogicFltk();
+  static Fl_Menu_Item menu_[];
+};
 #endif

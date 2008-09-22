@@ -54,8 +54,8 @@ ShapeLogicFltk::ShapeLogicFltk() {
     }
     o->end();
     o->resizable(o);
-    w->show();
   }
+  w->show();
 }
 
 int main(int argc, char **argv) {

@@ -14,7 +14,6 @@
 #include <FL/Fl_Menu_Bar.H>
 
 class ShapeLogicFltk {
-  int x;
 public:
   ShapeLogicFltk();
   static Fl_Menu_Item menu_[];

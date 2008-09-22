@@ -13,7 +13,6 @@ comment {/*
 
 class ShapeLogicFltk {open
 } {
-  decl {int x;} {}
   Function {ShapeLogicFltk()} {open
   } {
     Fl_Window {} {
@@ -120,8 +119,12 @@ class ShapeLogicFltk {open
         }
       }
     }
+    code {w->show();} {selected
+    }
   }
 } 
 
-Function {} {open selected
-} {} 
+Function {} {open
+} {
+  code {ShapeLogicFltk shapeLogicFltk;} {}
+} 

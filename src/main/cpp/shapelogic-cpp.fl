@@ -11,13 +11,17 @@ comment {/*
 } {in_source in_header
 } 
 
+decl {\#include <iostream>} {} 
+
+decl {\#include <FL/Fl_File_Chooser.H>} {} 
+
 class ShapeLogicFltk {open
 } {
   Function {ShapeLogicFltk()} {open
   } {
     Fl_Window {} {
       label {ShapeLogic fltk v 0.1} open
-      xywh {506 316 690 500} type Double resizable visible
+      xywh {506 316 690 500} type Double hide resizable
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 690 20}
@@ -28,11 +32,33 @@ class ShapeLogicFltk {open
         } {
           MenuItem {} {
             label {Open...}
+            callback {Fl_File_Chooser chooser(".",			// directory
+		    "*",			// filter
+		    Fl_File_Chooser::MULTI, 	// chooser type
+		    "Title Of Chooser");	// title
+  chooser.show();
+
+// Block until user picks something.
+//     (The other way to do this is to use a callback())
+//
+  while(chooser.shown())
+  { Fl::wait(); }
+
+// User hit cancel?
+  if ( chooser.value() == NULL ) { 
+    std::cout << "(User hit 'Cancel')\\n"; 
+    return; 
+  }
+
+// Print what the user picked
+  std::cout << "--------------------\\n";
+  std::cout << "DIRECTORY: " << chooser.directory() << std::endl;
+  std::cout << "FILE: " << chooser.value() << std::endl;} selected
             xywh {0 0 36 21} shortcut 0x4006f
           }
           MenuItem {} {
             label Save
-            xywh {0 0 36 21} shortcut 0x40073
+            xywh {0 0 36 21} shortcut 0x40073 divider
           }
           MenuItem {} {
             label Quit
@@ -45,7 +71,7 @@ class ShapeLogicFltk {open
         } {
           MenuItem {} {
             label Undo
-            xywh {0 0 36 21} shortcut 0x4007a
+            xywh {0 0 36 21} shortcut 0x4007a divider
           }
           MenuItem {} {
             label Clear
@@ -53,7 +79,7 @@ class ShapeLogicFltk {open
           }
           MenuItem {} {
             label Fill
-            xywh {0 0 36 21}
+            xywh {0 0 36 21} divider
           }
           MenuItem {} {
             label Invert
@@ -119,8 +145,7 @@ class ShapeLogicFltk {open
         }
       }
     }
-    code {w->show();} {selected
-    }
+    code {w->show();} {}
   }
 } 
 

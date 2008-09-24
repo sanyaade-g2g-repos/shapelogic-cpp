@@ -12,13 +12,17 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Menu_Bar.H>
+#include <FL/Fl_Box.H>
 
 class ShapeLogicFltk {
 public:
   ShapeLogicFltk();
+  Fl_Double_Window *_window;
   static Fl_Menu_Item menu_[];
 private:
   void cb_Open_i(Fl_Menu_*, void*);
   static void cb_Open(Fl_Menu_*, void*);
+public:
+  Fl_Box *_box;
 };
 #endif

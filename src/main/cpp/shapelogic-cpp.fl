@@ -15,13 +15,15 @@ decl {\#include <iostream>} {}
 
 decl {\#include <FL/Fl_File_Chooser.H>} {} 
 
+decl {\#include <FL/Fl_JPEG_Image.H>} {} 
+
 class ShapeLogicFltk {open
 } {
   Function {ShapeLogicFltk()} {open
   } {
-    Fl_Window {} {
+    Fl_Window _window {
       label {ShapeLogic fltk v 0.1} open
-      xywh {506 316 690 500} type Double hide resizable
+      xywh {506 316 690 500} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 690 20}
@@ -53,7 +55,15 @@ class ShapeLogicFltk {open
 // Print what the user picked
   std::cout << "--------------------\\n";
   std::cout << "DIRECTORY: " << chooser.directory() << std::endl;
-  std::cout << "FILE: " << chooser.value() << std::endl;} selected
+  std::cout << "FILE: " << chooser.value() << std::endl;
+  const char * filename = chooser.value();
+  if (!filename)
+    return;
+  Fl_JPEG_Image * jpg = new Fl_JPEG_Image(filename);
+  if ( jpg->h() == 0 ) 
+    return;
+  _box->image(*jpg);
+  _window->redraw();} selected
             xywh {0 0 36 21} shortcut 0x4006f
           }
           MenuItem {} {
@@ -143,6 +153,9 @@ class ShapeLogicFltk {open
             xywh {0 0 36 21}
           }
         }
+      }
+      Fl_Box _box {
+        xywh {0 18 690 479} labeltype NO_LABEL resizable
       }
     }
     code {w->show();} {}

@@ -10,6 +10,7 @@
 #include "shapelogic-cpp.h"
 #include <iostream>
 #include <FL/Fl_File_Chooser.H>
+#include <FL/Fl_JPEG_Image.H>
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   Fl_File_Chooser chooser(".",			// directory
@@ -34,6 +35,15 @@ void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   std::cout << "--------------------\n";
   std::cout << "DIRECTORY: " << chooser.directory() << std::endl;
   std::cout << "FILE: " << chooser.value() << std::endl;
+  const char * filename = chooser.value();
+  if (!filename)
+    return;
+  Fl_JPEG_Image * jpg = new Fl_JPEG_Image(filename);
+  if ( jpg->h() == 0 ) 
+    return;
+  _box->image(*jpg);
+  _window->resizable(_window);
+  _window->redraw();
 }
 void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Open_i(o,v);
@@ -76,14 +86,17 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
 
 ShapeLogicFltk::ShapeLogicFltk() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = new Fl_Double_Window(690, 500, "ShapeLogic fltk v 0.1");
+  { Fl_Double_Window* o = _window = new Fl_Double_Window(690, 500, "ShapeLogic fltk v 0.1");
     w = o;
     o->user_data((void*)(this));
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 690, 20);
       o->menu(menu_);
     }
+    { Fl_Box* o = _box = new Fl_Box(0, 18, 690, 479);
+      o->labeltype(FL_NO_LABEL);
+      Fl_Group::current()->resizable(o);
+    }
     o->end();
-    o->resizable(o);
   }
   w->show();
 }

@@ -11,31 +11,10 @@
 #include <iostream>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_JPEG_Image.H>
+#include "Util.h"
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
-  Fl_File_Chooser chooser(".",			// directory
-		    "*",			// filter
-		    Fl_File_Chooser::MULTI, 	// chooser type
-		    "Title Of Chooser");	// title
-  chooser.show();
-
-// Block until user picks something.
-//     (The other way to do this is to use a callback())
-//
-  while(chooser.shown())
-  { Fl::wait(); }
-
-// User hit cancel?
-  if ( chooser.value() == NULL ) { 
-    std::cout << "(User hit 'Cancel')\n"; 
-    return; 
-  }
-
-// Print what the user picked
-  std::cout << "--------------------\n";
-  std::cout << "DIRECTORY: " << chooser.directory() << std::endl;
-  std::cout << "FILE: " << chooser.value() << std::endl;
-  const char * filename = chooser.value();
+  const char * filename = Util::singleFileDialog();
   if (!filename)
     return;
   Fl_JPEG_Image * jpg = new Fl_JPEG_Image(filename);

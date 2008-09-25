@@ -26,9 +26,9 @@ void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   { Fl::wait(); }
 
 // User hit cancel?
-  if ( chooser.value() == NULL ) {
-    std::cout << "(User hit 'Cancel')\n";
-    return;
+  if ( chooser.value() == NULL ) { 
+    std::cout << "(User hit 'Cancel')\n"; 
+    return; 
   }
 
 // Print what the user picked
@@ -89,14 +89,14 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
 
 ShapeLogicFltk::ShapeLogicFltk() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = _window = new Fl_Double_Window(725, 595, "ShapeLogic fltk v 0.1");
+  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic fltk v 0.1");
     w = o;
     o->user_data((void*)(this));
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 730, 20);
       o->menu(menu_);
     }
-    { Fl_Group* o = _imageGroup = new Fl_Group(0,0,_window->w(),_window->h());
-    _imageGroup->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);
+    { Fl_Group* o = _imageGroup = new Fl_Group(0, 20, 730, 580);
+      _imageGroup->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);
       o->end();
       Fl_Group::current()->resizable(o);
     }

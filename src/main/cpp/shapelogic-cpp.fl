@@ -23,7 +23,7 @@ class ShapeLogicFltk {open
   } {
     Fl_Window _window {
       label {ShapeLogic fltk v 0.1} open
-      xywh {268 233 725 595} type Double resizable visible
+      xywh {248 193 730 600} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 730 20}
@@ -159,7 +159,8 @@ class ShapeLogicFltk {open
         }
       }
       Fl_Group _imageGroup {open selected
-        xywh {0 575 730 20} resizable
+        xywh {0 20 730 580} resizable
+        code0 {_imageGroup->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);}
       } {}
     }
     code {w->show();} {}

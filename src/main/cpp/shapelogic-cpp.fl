@@ -23,10 +23,10 @@ class ShapeLogicFltk {open
   } {
     Fl_Window _window {
       label {ShapeLogic fltk v 0.1} open
-      xywh {506 316 690 500} type Double resizable visible
+      xywh {268 233 725 595} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
-        xywh {0 0 690 20}
+        xywh {0 0 730 20}
       } {
         Submenu {} {
           label File open
@@ -60,10 +60,14 @@ class ShapeLogicFltk {open
   if (!filename)
     return;
   Fl_JPEG_Image * jpg = new Fl_JPEG_Image(filename);
-  if ( jpg->h() == 0 ) 
+  if ( jpg->h() == 0 ) {
+     std::cout << "image heigh = 0" << std::endl;
     return;
-  _box->image(*jpg);
-  _window->redraw();} selected
+   }
+   std::cout << "image width, heigh = "<<jpg->w()<<", "<<jpg->h() << std::endl;
+   _imageGroup->image(jpg);
+//  _window->resizable(_window);
+  _window->redraw();}
             xywh {0 0 36 21} shortcut 0x4006f
           }
           MenuItem {} {
@@ -154,9 +158,9 @@ class ShapeLogicFltk {open
           }
         }
       }
-      Fl_Box _box {
-        xywh {0 18 690 479} labeltype NO_LABEL resizable
-      }
+      Fl_Group _imageGroup {open selected
+        xywh {0 575 730 20} resizable
+      } {}
     }
     code {w->show();} {}
   }

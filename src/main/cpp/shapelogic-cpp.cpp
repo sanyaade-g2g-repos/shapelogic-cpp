@@ -39,10 +39,13 @@ void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   if (!filename)
     return;
   Fl_JPEG_Image * jpg = new Fl_JPEG_Image(filename);
-  if ( jpg->h() == 0 ) 
+  if ( jpg->h() == 0 ) {
+     std::cout << "image heigh = 0" << std::endl;
     return;
-  _box->image(*jpg);
-  _window->resizable(_window);
+   }
+   std::cout << "image width, heigh = "<<jpg->w()<<", "<<jpg->h() << std::endl;
+   _imageGroup->image(jpg);
+//  _window->resizable(_window);
   _window->redraw();
 }
 void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
@@ -86,14 +89,14 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
 
 ShapeLogicFltk::ShapeLogicFltk() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = _window = new Fl_Double_Window(690, 500, "ShapeLogic fltk v 0.1");
+  { Fl_Double_Window* o = _window = new Fl_Double_Window(725, 595, "ShapeLogic fltk v 0.1");
     w = o;
     o->user_data((void*)(this));
-    { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 690, 20);
+    { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 730, 20);
       o->menu(menu_);
     }
-    { Fl_Box* o = _box = new Fl_Box(0, 18, 690, 479);
-      o->labeltype(FL_NO_LABEL);
+    { Fl_Group* o = _imageGroup = new Fl_Group(0, 575, 730, 20);
+      o->end();
       Fl_Group::current()->resizable(o);
     }
     o->end();

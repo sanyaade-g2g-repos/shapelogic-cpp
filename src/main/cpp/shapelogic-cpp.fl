@@ -13,7 +13,8 @@ comment {/*
 
 decl {\#include <iostream>} {} 
 
-decl {\#include <string>} {} 
+decl {\#include <string>} {public
+} 
 
 decl {\#include <FL/Fl_File_Chooser.H>} {} 
 
@@ -71,9 +72,10 @@ class ShapeLogicFltk {open
           MenuItem {} {
             label Undo
             callback {delete _currentImage;
-  _currentImage =_lastImage;
-   _imageGroup->image(_currentImage);
-  _window->redraw();} selected
+_currentImage =_lastImage;
+_lastImage = NULL;
+_imageGroup->image(_currentImage);
+_window->redraw();}
             xywh {0 0 36 21} shortcut 0x4007a divider
           }
           MenuItem {} {
@@ -86,6 +88,20 @@ class ShapeLogicFltk {open
           }
           MenuItem {} {
             label Invert
+            callback {// get the image data
+  int height    = _currentImage->h();
+  int width     = _currentImage->w();
+  int channels  = _currentImage->d();
+  uchar * data      = (uchar *)_currentImage->data()[0];
+
+  // invert the image
+  for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
+    int index = (i+j*width) * channels+k;
+    data[index]=255-data[index];
+  }
+  _currentImage->uncache();
+  _imageGroup->image(_currentImage);
+  _window->redraw();} selected
             xywh {0 0 36 21} shortcut 0x50069
           }
         }

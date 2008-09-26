@@ -9,7 +9,6 @@
 
 #include "shapelogic-cpp.h"
 #include <iostream>
-#include <string>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_JPEG_Image.H>
 #include "Util.h"
@@ -37,12 +36,33 @@ void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
 
 void ShapeLogicFltk::cb_Undo_i(Fl_Menu_*, void*) {
   delete _currentImage;
-  _currentImage =_lastImage;
-   _imageGroup->image(_currentImage);
-  _window->redraw();
+_currentImage =_lastImage;
+_lastImage = NULL;
+_imageGroup->image(_currentImage);
+_window->redraw();
 }
 void ShapeLogicFltk::cb_Undo(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Undo_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Invert_i(Fl_Menu_*, void*) {
+  // get the image data
+  int height    = _currentImage->h();
+  int width     = _currentImage->w();
+  int channels  = _currentImage->d();
+  uchar * data      = (uchar *)_currentImage->data()[0];
+
+  // invert the image
+  for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
+    int index = (i+j*width) * channels+k;
+    data[index]=255-data[index];
+  }
+  _currentImage->uncache();
+  _imageGroup->image(_currentImage);
+  _window->redraw();
+}
+void ShapeLogicFltk::cb_Invert(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Invert_i(o,v);
 }
 
 Fl_Menu_Item ShapeLogicFltk::menu_[] = {
@@ -55,7 +75,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Undo", 0x4007a,  (Fl_Callback*)ShapeLogicFltk::cb_Undo, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {"Clear", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Fill", 0,  0, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
- {"Invert", 0x50069,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Invert", 0x50069,  (Fl_Callback*)ShapeLogicFltk::cb_Invert, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Image", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Type", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},

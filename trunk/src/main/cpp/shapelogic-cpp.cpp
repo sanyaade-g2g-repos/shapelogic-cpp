@@ -46,7 +46,9 @@ void ShapeLogicFltk::cb_Undo(Fl_Menu_* o, void* v) {
 }
 
 void ShapeLogicFltk::cb_Invert_i(Fl_Menu_*, void*) {
-  // get the image data
+  delete _lastImage;
+  _lastImage = _currentImage->copy();
+// get the image data
   int height    = _currentImage->h();
   int width     = _currentImage->w();
   int channels  = _currentImage->d();

@@ -9,6 +9,7 @@
 
 #include "shapelogic-cpp.h"
 #include <iostream>
+#include <string>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_JPEG_Image.H>
 #include "Util.h"
@@ -17,18 +18,31 @@ void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = Util::singleFileDialog();
   if (!filename)
     return;
-  Fl_JPEG_Image * jpg = new Fl_JPEG_Image(filename);
-  if ( jpg->h() == 0 ) {
+  Fl_Image * image = new Fl_JPEG_Image(filename);
+  if ( image->h() == 0 ) {
      std::cout << "image heigh = 0" << std::endl;
-    return;
+     delete image;
+     return;
    }
-   std::cout << "image width, heigh = "<<jpg->w()<<", "<<jpg->h() << std::endl;
-   _imageGroup->image(jpg);
-//  _window->resizable(_window);
+   if (_lastImage) delete _lastImage;
+   _lastImage = _currentImage;
+   _currentImage = image;
+   _filename = filename;
+   _imageGroup->image(_currentImage);
   _window->redraw();
 }
 void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Open_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Undo_i(Fl_Menu_*, void*) {
+  delete _currentImage;
+  _currentImage =_lastImage;
+   _imageGroup->image(_currentImage);
+  _window->redraw();
+}
+void ShapeLogicFltk::cb_Undo(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Undo_i(o,v);
 }
 
 Fl_Menu_Item ShapeLogicFltk::menu_[] = {
@@ -38,7 +52,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Quit", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Edit", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {"Undo", 0x4007a,  0, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Undo", 0x4007a,  (Fl_Callback*)ShapeLogicFltk::cb_Undo, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {"Clear", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Fill", 0,  0, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {"Invert", 0x50069,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -82,6 +96,8 @@ ShapeLogicFltk::ShapeLogicFltk() {
     o->end();
   }
   w->show();
+_currentImage = NULL;
+_lastImage = NULL;
 }
 
 int main(int argc, char **argv) {

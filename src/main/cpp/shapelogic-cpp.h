@@ -13,6 +13,7 @@
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Group.H>
+#include <string>
 
 class ShapeLogicFltk {
 public:
@@ -22,7 +23,13 @@ public:
 private:
   void cb_Open_i(Fl_Menu_*, void*);
   static void cb_Open(Fl_Menu_*, void*);
+  void cb_Undo_i(Fl_Menu_*, void*);
+  static void cb_Undo(Fl_Menu_*, void*);
 public:
   Fl_Group *_imageGroup;
+private:
+  Fl_Image * _currentImage;
+  Fl_Image * _lastImage;
+  std::string _filename;
 };
 #endif

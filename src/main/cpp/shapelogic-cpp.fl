@@ -88,7 +88,9 @@ _window->redraw();}
           }
           MenuItem {} {
             label Invert
-            callback {// get the image data
+            callback {delete _lastImage;
+  _lastImage = _currentImage->copy();
+// get the image data
   int height    = _currentImage->h();
   int width     = _currentImage->w();
   int channels  = _currentImage->d();

@@ -1,0 +1,13 @@
+#I thought that this should be in user-config.jam or site-config.jam, but that did not get picked up
+using gcc ;
+
+#Main common requirements: use costom boost distribution
+project
+    : requirements <include>../src/boost_1_36_0/ <threading>multi
+    ;
+
+install dist : src/main/cpp ;
+
+#This will cause the ShapeLogic C++ target to be run when the top target is run
+build-project src/main/cpp ;
+

@@ -11,10 +11,10 @@
 #include <iostream>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_JPEG_Image.H>
-#include "Util.h"
+#include "FltkUtil.h"
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
-  const char * filename = Util::singleFileDialog();
+  const char * filename = FltkUtil::singleFileDialog();
   if (!filename)
     return;
   Fl_Image * image = new Fl_JPEG_Image(filename);

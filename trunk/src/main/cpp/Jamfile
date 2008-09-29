@@ -1,0 +1,5 @@
+#Defines all the FLTK libraries
+lib fltk fltk_images fltk_forms jpeg ;
+
+#Compile all cpp files and all the fltk libraries
+exe shapelogic-cpp : [ glob *.cpp ] fltk fltk_images fltk_forms jpeg ;

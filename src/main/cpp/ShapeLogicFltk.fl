@@ -1,0 +1,180 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0107 
+header_name {.h} 
+code_name {.cpp}
+comment {/*
+ * shapelogic-cpp.cxx
+ *
+ *  Created on: Sep 17, 2008
+ *      Author: Sami Badawi
+ */
+} {in_source in_header
+} 
+
+decl {\#include <iostream>} {} 
+
+decl {\#include <string>} {public
+} 
+
+decl {\#include <FL/Fl_File_Chooser.H>} {} 
+
+decl {\#include <FL/Fl_JPEG_Image.H>} {} 
+
+decl {\#include "FltkUtil.h"} {} 
+
+class ShapeLogicFltk {open
+} {
+  Function {ShapeLogicFltk()} {open
+  } {
+    Fl_Window _window {
+      label {ShapeLogic fltk v 0.1} open
+      xywh {545 131 730 600} type Double resizable visible
+    } {
+      Fl_Menu_Bar {} {open
+        xywh {0 0 730 20}
+      } {
+        Submenu {} {
+          label File open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label {Open...}
+            callback {const char * filename = FltkUtil::singleFileDialog();
+  if (!filename)
+    return;
+  Fl_Image * image = new Fl_JPEG_Image(filename);
+  if ( image->h() == 0 ) {
+     std::cout << "image heigh = 0" << std::endl;
+     delete image;
+     return;
+   }
+   if (_lastImage) delete _lastImage;
+   _lastImage = _currentImage;
+   _currentImage = image;
+   _filename = filename;
+   _imageGroup->image(_currentImage);
+  _window->redraw();}
+            xywh {0 0 36 21} shortcut 0x4006f
+          }
+          MenuItem {} {
+            label Save
+            xywh {0 0 36 21} shortcut 0x40073 divider
+          }
+          MenuItem {} {
+            label Quit
+            xywh {0 0 36 21}
+          }
+        }
+        Submenu {} {
+          label Edit open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label Undo
+            callback {delete _currentImage;
+_currentImage =_lastImage;
+_lastImage = NULL;
+_imageGroup->image(_currentImage);
+_window->redraw();}
+            xywh {0 0 36 21} shortcut 0x4007a divider
+          }
+          MenuItem {} {
+            label Clear
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Fill
+            xywh {0 0 36 21} divider
+          }
+          MenuItem {} {
+            label Invert
+            callback {delete _lastImage;
+  _lastImage = _currentImage->copy();
+// get the image data
+  int height    = _currentImage->h();
+  int width     = _currentImage->w();
+  int channels  = _currentImage->d();
+  uchar * data      = (uchar *)_currentImage->data()[0];
+
+  // invert the image
+  for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
+    int index = (i+j*width) * channels+k;
+    data[index]=255-data[index];
+  }
+  _currentImage->uncache();
+  _imageGroup->image(_currentImage);
+  _window->redraw();}
+            xywh {0 0 36 21} shortcut 0x50069
+          }
+        }
+        Submenu {} {
+          label Image open
+          xywh {5 5 70 21}
+        } {
+          Submenu {} {
+            label Type open
+            xywh {0 0 70 21}
+          } {
+            MenuItem {} {
+              label {8-bit}
+              xywh {5 5 36 21}
+            }
+            MenuItem {} {
+              label {16-bit}
+              xywh {0 0 36 21}
+            }
+            MenuItem {} {
+              label {RGB Color}
+              xywh {0 0 36 21}
+            }
+          }
+        }
+        Submenu {} {
+          label Process open
+          xywh {10 10 70 21}
+        } {
+          MenuItem {} {
+            label Smooth
+            xywh {0 0 36 21} shortcut 0x50073
+          }
+          MenuItem {} {
+            label Sharpen
+            xywh {0 0 36 21}
+          }
+        }
+        Submenu {} {
+          label Plugins open
+          xywh {0 0 70 21}
+        } {
+          Submenu {} {
+            label ShapeLogic open
+            xywh {5 5 70 21}
+          } {}
+          Submenu {} {
+            label ShapeLogicOld open
+            xywh {15 15 70 21}
+          } {}
+        }
+        Submenu {} {
+          label Help open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label {About ShapeLogic}
+            xywh {0 0 36 21}
+          }
+        }
+      }
+      Fl_Group _imageGroup {open
+        xywh {0 20 730 580} resizable
+        code0 {_imageGroup->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);}
+      } {}
+    }
+    code {w->show();
+_currentImage = NULL;
+_lastImage = NULL;} {}
+  }
+  decl {Fl_Image * _currentImage;} {}
+  decl {Fl_Image * _lastImage;} {}
+  decl {std::string _filename;} {}
+} 

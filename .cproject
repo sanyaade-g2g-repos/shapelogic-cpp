@@ -35,6 +35,7 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.2081631028" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 <option id="gnu.cpp.link.option.libs.692358158" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 <listOptionValue builtIn="false" value="fltk"/>
+<listOptionValue builtIn="false" value="gtest"/>
 <listOptionValue builtIn="false" value="fltk_images"/>
 <listOptionValue builtIn="false" value="jpeg"/>
 <listOptionValue builtIn="false" value="fltk_forms"/>

@@ -10,4 +10,5 @@ install dist : src/main/cpp ;
 
 #This will cause the ShapeLogic C++ target to be run when the top target is run
 build-project src/main/cpp ;
+build-project src/test/cpp ;
 

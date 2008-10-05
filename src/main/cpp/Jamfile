@@ -1,5 +1,8 @@
 import testing ;
-import path ; 
+
+project shapelogic-top :
+  usage-requirements <include>.
+;
 
 #Defines all the FLTK libraries
 lib fltk fltk_images fltk_forms jpeg gtest ;

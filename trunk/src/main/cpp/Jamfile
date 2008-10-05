@@ -1,5 +1,19 @@
+import testing ;
+import path ; 
+
 #Defines all the FLTK libraries
-lib fltk fltk_images fltk_forms jpeg ;
+lib fltk fltk_images fltk_forms jpeg gtest ;
 
 #Compile all cpp files and all the fltk libraries
-exe shapelogic-cpp : [ glob *.cpp ] fltk fltk_images fltk_forms jpeg ;
+#unit-test shapelogic-cpp : [ glob *.cpp ../../test/cpp/*.cc ] fltk fltk_images fltk_forms jpeg gtest 
+#: <include>. ;
+
+unit-test shapelogic-cpp : shapelogic-cpp.cpp shapelogic ;
+
+lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] fltk fltk_images fltk_forms jpeg ;
+
+#test-suite test_shapelogic-cpp :  
+#    [ run      shapelogic-cpp ]
+#;
+
+#unit-test : shapelogic-cpp ;

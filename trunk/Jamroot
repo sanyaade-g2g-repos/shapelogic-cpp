@@ -1,5 +1,5 @@
 #I thought that this should be in user-config.jam or site-config.jam, but that did not get picked up
-using gcc ;
+#using gcc ;
 
 #Main common requirements: use costom boost distribution
 project

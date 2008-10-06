@@ -22,6 +22,9 @@ decl {\#include <FL/Fl_JPEG_Image.H>} {}
 
 decl {\#include "FltkUtil.h"} {} 
 
+decl {\#include "shapelogic-cpp.h"} {selected
+} 
+
 class ShapeLogicFltk {open
 } {
   Function {ShapeLogicFltk()} {open
@@ -177,4 +180,10 @@ _lastImage = NULL;} {}
   decl {Fl_Image * _currentImage;} {}
   decl {Fl_Image * _lastImage;} {}
   decl {std::string _filename;} {}
+} 
+
+Function {main_proxy(int argc, char **argv)} {open return_type int
+} {
+  code {ShapeLogicFltk shapeLogicFltk;
+return Fl::run();} {}
 } 

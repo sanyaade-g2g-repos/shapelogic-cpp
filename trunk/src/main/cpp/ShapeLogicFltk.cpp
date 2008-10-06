@@ -12,6 +12,7 @@
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_JPEG_Image.H>
 #include "FltkUtil.h"
+#include "shapelogic-cpp.h"
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog();
@@ -120,4 +121,9 @@ ShapeLogicFltk::ShapeLogicFltk() {
   w->show();
 _currentImage = NULL;
 _lastImage = NULL;
+}
+
+int main_proxy(int argc, char **argv) {
+  ShapeLogicFltk shapeLogicFltk;
+return Fl::run();
 }

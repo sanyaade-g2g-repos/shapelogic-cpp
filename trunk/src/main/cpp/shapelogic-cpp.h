@@ -9,10 +9,5 @@
 
 #ifndef shapelogic_cpp_h
 #define shapelogic_cpp_h
-#include <FL/Fl.H>
-#include <string>
-#include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Menu_Bar.H>
-#include <FL/Fl_Group.H>
-
+int main_proxy(int argc, char **argv);
 #endif

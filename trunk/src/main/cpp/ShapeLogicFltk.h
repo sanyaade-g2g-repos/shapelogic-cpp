@@ -34,4 +34,5 @@ private:
   Fl_Image * _lastImage;
   std::string _filename;
 };
+int main_proxy(int argc, char **argv);
 #endif

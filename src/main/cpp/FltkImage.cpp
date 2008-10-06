@@ -49,7 +49,7 @@ int FltkImage::getPixelCount() {
 array type (byte[], short[], float[] or int[]) varies
 depending on the image type. */
 unsigned char * FltkImage::getPixels() {
-
+    return 0;
 }
 
 /** Sets a new pixel array for the image. The length of the array must be equal to width*height.
@@ -61,7 +61,7 @@ void FltkImage::setPixels(unsigned char * pixels) {
 /** Returns true if this image uses an inverting LUT
 that displays zero as white and 255 as black. */
 bool FltkImage::isInvertedLut() {
-
+    return false;
 }
 
 /** Returns the number of color channels in the image. The color channels can be
@@ -97,5 +97,5 @@ bool FltkImage::isRgb() {
 //}
 
 int FltkImage::getLineStride() {
-
+    return 0;
 }

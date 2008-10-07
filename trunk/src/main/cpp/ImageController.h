@@ -18,12 +18,14 @@ public:
 
 //Image operations
 	virtual void open(const char * filename);
-	virtual void undo();
 
 	virtual void run(const char * name, const char * arg);
-	virtual void invert();
 	virtual void clear();
 	virtual void fill();
+	virtual void invert();
+	virtual void undo();
+
+	virtual void startOperation();
 
 //Getter and setter methods
 	virtual Fl_Image * getCurrentImage();

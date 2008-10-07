@@ -18,17 +18,8 @@ void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog();
   if (!filename)
     return;
-  Fl_Image * image = new Fl_JPEG_Image(filename);
-  if ( image->h() == 0 ) {
-     std::cout << "image heigh = 0" << std::endl;
-     delete image;
-     return;
-   }
-   if (_lastImage) delete _lastImage;
-   _lastImage = _currentImage;
-   _currentImage = image;
-   _filename = filename;
-   _imageGroup->image(_currentImage);
+  _imageController.open(filename);
+   _imageGroup->image(_imageController.getCurrentImage());
   _window->redraw();
 }
 void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
@@ -36,10 +27,8 @@ void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
 }
 
 void ShapeLogicFltk::cb_Undo_i(Fl_Menu_*, void*) {
-  delete _currentImage;
-_currentImage =_lastImage;
-_lastImage = NULL;
-_imageGroup->image(_currentImage);
+  _imageController.undo();
+_imageGroup->image(_imageController.getCurrentImage());
 _window->redraw();
 }
 void ShapeLogicFltk::cb_Undo(Fl_Menu_* o, void* v) {
@@ -47,21 +36,9 @@ void ShapeLogicFltk::cb_Undo(Fl_Menu_* o, void* v) {
 }
 
 void ShapeLogicFltk::cb_Invert_i(Fl_Menu_*, void*) {
-  delete _lastImage;
-  _lastImage = _currentImage->copy();
-// get the image data
-  int height    = _currentImage->h();
-  int width     = _currentImage->w();
-  int channels  = _currentImage->d();
-  uchar * data      = (uchar *)_currentImage->data()[0];
-
-  // invert the image
-  for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
-    int index = (i+j*width) * channels+k;
-    data[index]=255-data[index];
-  }
-  _currentImage->uncache();
-  _imageGroup->image(_currentImage);
+  _imageController.invert();
+  _imageController.getCurrentImage()->uncache();
+  _imageGroup->image(_imageController.getCurrentImage());
   _window->redraw();
 }
 void ShapeLogicFltk::cb_Invert(Fl_Menu_* o, void* v) {
@@ -119,8 +96,6 @@ ShapeLogicFltk::ShapeLogicFltk() {
     o->end();
   }
   w->show();
-_currentImage = NULL;
-_lastImage = NULL;
 }
 
 int main_proxy(int argc, char **argv) {

@@ -11,6 +11,7 @@
 #define ShapeLogicFltk_h
 #include <FL/Fl.H>
 #include <string>
+#include "ImageController.h"
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Group.H>
@@ -30,9 +31,7 @@ private:
 public:
   Fl_Group *_imageGroup;
 private:
-  Fl_Image * _currentImage;
-  Fl_Image * _lastImage;
-  std::string _filename;
+  ImageController _imageController;
 };
 int main_proxy(int argc, char **argv);
 #endif

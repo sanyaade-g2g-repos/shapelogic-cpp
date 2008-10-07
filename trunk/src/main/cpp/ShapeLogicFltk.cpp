@@ -13,6 +13,7 @@
 #include <FL/Fl_JPEG_Image.H>
 #include "FltkUtil.h"
 #include "shapelogic-cpp.h"
+#include <FL/Fl_Color_Chooser.H>
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog();
@@ -54,6 +55,22 @@ void ShapeLogicFltk::cb_Invert(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Invert_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Foreground_i(Fl_Menu_*, void*) {
+  unsigned char * foreground = _imageController._foreground;
+  fl_color_chooser("Chose foreground color", foreground[0], foreground[1], foreground[2]);
+}
+void ShapeLogicFltk::cb_Foreground(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Foreground_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Background_i(Fl_Menu_*, void*) {
+  unsigned char * background = _imageController._background;
+  fl_color_chooser("Chose foreground color", background[0], background[1], background[2]);
+}
+void ShapeLogicFltk::cb_Background(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Background_i(o,v);
+}
+
 Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"File", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Open...", 0x4006f,  (Fl_Callback*)ShapeLogicFltk::cb_Open, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -71,6 +88,10 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"8-bit", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"16-bit", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"RGB Color", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ {"Color", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Foreground", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Foreground, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Background", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Background, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,0,0},
  {"Process", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},

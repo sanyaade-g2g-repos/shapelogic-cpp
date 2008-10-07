@@ -28,7 +28,7 @@ public:
 //Getter and setter methods
 	virtual Fl_Image * getCurrentImage();
 
-	unsigned char _forground[3];
+	unsigned char _foreground[3];
 	unsigned char _background[3];
 private:
 	Fl_Image * _currentImage;

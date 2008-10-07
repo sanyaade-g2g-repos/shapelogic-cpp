@@ -27,6 +27,8 @@ decl {\#include "ImageController.h"} {public
 
 decl {\#include "shapelogic-cpp.h"} {} 
 
+decl {\#include <FL/Fl_Color_Chooser.H>} {} 
+
 class ShapeLogicFltk {open
 } {
   Function {ShapeLogicFltk()} {open
@@ -67,27 +69,22 @@ class ShapeLogicFltk {open
         } {
           MenuItem {} {
             label Undo
-            callback {_imageController.undo();
-_imageGroup->image(_imageController.getCurrentImage());
-_window->redraw();}
+            callback {imageSetup("Undo");}
             xywh {0 0 36 21} shortcut 0x4007a divider
           }
           MenuItem {} {
             label Clear
-            callback {_imageController.clear();
-imageSetup();} selected
+            callback {imageSetup("Clear");}
             xywh {0 0 36 21}
           }
           MenuItem {} {
             label Fill
-            callback {_imageController.fill();
-imageSetup();}
+            callback {imageSetup("Fill");}
             xywh {0 0 36 21} divider
           }
           MenuItem {} {
             label Invert
-            callback {_imageController.invert();
-imageSetup();}
+            callback {imageSetup("Invert");}
             xywh {0 0 36 21} shortcut 0x50069
           }
         }
@@ -110,6 +107,23 @@ imageSetup();}
             MenuItem {} {
               label {RGB Color}
               xywh {0 0 36 21}
+            }
+          }
+          Submenu {} {
+            label Color open
+            xywh {0 0 70 21}
+          } {
+            MenuItem {} {
+              label Foreground
+              callback {unsigned char * foreground = _imageController._foreground;
+  fl_color_chooser("Chose foreground color", foreground[0], foreground[1], foreground[2]);}
+              xywh {0 0 36 21}
+            }
+            MenuItem {} {
+              label Background
+              callback {unsigned char * background = _imageController._background;
+  fl_color_chooser("Chose foreground color", background[0], background[1], background[2]);} selected
+              xywh {10 10 36 21}
             }
           }
         }
@@ -157,9 +171,10 @@ imageSetup();}
     code {w->show();} {}
   }
   decl {ImageController _imageController;} {}
-  Function {imageSetup()} {open return_type void
+  Function {imageSetup(const char* command)} {open return_type void
   } {
-    code {_imageController.getCurrentImage()->uncache();
+    code {_imageController.run(command, NULL);
+  _imageController.getCurrentImage()->uncache();
   _imageGroup->image(_imageController.getCurrentImage());
   _window->redraw();} {}
   }

@@ -2,5 +2,5 @@ import testing ;
 
 lib gtest_main ;
 
-unit-test shapelogic-cpp-test : [ glob *.cc ] ../../main/cpp//shapelogic gtest_main ;
+unit-test shapelogic-cpp-test : [ glob *.cpp ] ../../main/cpp//shapelogic gtest_main ;
 

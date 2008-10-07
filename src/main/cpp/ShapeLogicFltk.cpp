@@ -35,11 +35,25 @@ void ShapeLogicFltk::cb_Undo(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Undo_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Clear_i(Fl_Menu_*, void*) {
+  _imageController.clear();
+imageSetup();
+}
+void ShapeLogicFltk::cb_Clear(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Clear_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Fill_i(Fl_Menu_*, void*) {
+  _imageController.fill();
+imageSetup();
+}
+void ShapeLogicFltk::cb_Fill(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Fill_i(o,v);
+}
+
 void ShapeLogicFltk::cb_Invert_i(Fl_Menu_*, void*) {
   _imageController.invert();
-  _imageController.getCurrentImage()->uncache();
-  _imageGroup->image(_imageController.getCurrentImage());
-  _window->redraw();
+imageSetup();
 }
 void ShapeLogicFltk::cb_Invert(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Invert_i(o,v);
@@ -53,8 +67,8 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {"Edit", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Undo", 0x4007a,  (Fl_Callback*)ShapeLogicFltk::cb_Undo, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
- {"Clear", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {"Fill", 0,  0, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Clear", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Clear, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Fill", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Fill, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {"Invert", 0x50069,  (Fl_Callback*)ShapeLogicFltk::cb_Invert, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Image", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -96,6 +110,12 @@ ShapeLogicFltk::ShapeLogicFltk() {
     o->end();
   }
   w->show();
+}
+
+void ShapeLogicFltk::imageSetup() {
+  _imageController.getCurrentImage()->uncache();
+  _imageGroup->image(_imageController.getCurrentImage());
+  _window->redraw();
 }
 
 int main_proxy(int argc, char **argv) {

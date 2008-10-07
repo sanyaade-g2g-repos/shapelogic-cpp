@@ -74,18 +74,20 @@ _window->redraw();}
           }
           MenuItem {} {
             label Clear
+            callback {_imageController.clear();
+imageSetup();} selected
             xywh {0 0 36 21}
           }
           MenuItem {} {
             label Fill
+            callback {_imageController.fill();
+imageSetup();}
             xywh {0 0 36 21} divider
           }
           MenuItem {} {
             label Invert
             callback {_imageController.invert();
-  _imageController.getCurrentImage()->uncache();
-  _imageGroup->image(_imageController.getCurrentImage());
-  _window->redraw();}
+imageSetup();}
             xywh {0 0 36 21} shortcut 0x50069
           }
         }
@@ -152,10 +154,15 @@ _window->redraw();}
         code0 {_imageGroup->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);}
       } {}
     }
-    code {w->show();} {selected
-    }
+    code {w->show();} {}
   }
   decl {ImageController _imageController;} {}
+  Function {imageSetup()} {open return_type void
+  } {
+    code {_imageController.getCurrentImage()->uncache();
+  _imageGroup->image(_imageController.getCurrentImage());
+  _window->redraw();} {}
+  }
 } 
 
 Function {main_proxy(int argc, char **argv)} {open return_type int

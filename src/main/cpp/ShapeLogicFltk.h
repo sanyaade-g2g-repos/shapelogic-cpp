@@ -32,6 +32,10 @@ private:
   static void cb_Fill(Fl_Menu_*, void*);
   void cb_Invert_i(Fl_Menu_*, void*);
   static void cb_Invert(Fl_Menu_*, void*);
+  void cb_Foreground_i(Fl_Menu_*, void*);
+  static void cb_Foreground(Fl_Menu_*, void*);
+  void cb_Background_i(Fl_Menu_*, void*);
+  static void cb_Background(Fl_Menu_*, void*);
 public:
   Fl_Group *_imageGroup;
 private:

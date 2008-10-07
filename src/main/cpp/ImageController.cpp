@@ -13,7 +13,7 @@ ImageController::ImageController() {
 	_currentImage = NULL;
 	_lastImage = NULL;
 	for (int i=0; i<3; i++) {
-		_forground[i] = 0;
+		_foreground[i] = 0;
 		_background[i] = 255;
 	}
 }
@@ -99,7 +99,7 @@ void ImageController::fill() {
 	  // invert the image
 	  for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
 	    int index = (i+j*width) * channels+k;
-	    data[index]= _forground[k];
+	    data[index]= _foreground[k];
 	  }
 	  _currentImage->uncache();
 }

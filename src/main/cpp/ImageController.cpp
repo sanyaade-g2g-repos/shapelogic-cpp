@@ -53,53 +53,51 @@ Fl_Image * ImageController::getCurrentImage() {
 	return _currentImage;
 }
 
-void ImageController::invert() {
+void ImageController::startOperation() {
 	  delete _lastImage;
 	  _lastImage = _currentImage->copy();
-	// get the image data
-	  int height    = _currentImage->h();
-	  int width     = _currentImage->w();
-	  int channels  = _currentImage->d();
-	  uchar * data      = (uchar *)_currentImage->data()[0];
+}
 
-	  // invert the image
-	  for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
-	    int index = (i+j*width) * channels+k;
-	    data[index]=255-data[index];
-	  }
-	  _currentImage->uncache();
+void ImageController::invert() {
+	startOperation();
+	int height    = _currentImage->h();
+	int width     = _currentImage->w();
+	int channels  = _currentImage->d();
+	uchar * data      = (uchar *)_currentImage->data()[0];
+
+	// invert the image
+	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
+		int index = (i+j*width) * channels+k;
+		data[index]=255-data[index];
+	}
 }
 
 void ImageController::clear() {
-	  delete _lastImage;
-	  _lastImage = _currentImage->copy();
-	// get the image data
-	  int height    = _currentImage->h();
-	  int width     = _currentImage->w();
-	  int channels  = _currentImage->d();
-	  uchar * data      = (uchar *)_currentImage->data()[0];
+	startOperation();
+	int height    = _currentImage->h();
+	int width     = _currentImage->w();
+	int channels  = _currentImage->d();
+	uchar * data      = (uchar *)_currentImage->data()[0];
 
-	  // invert the image
-	  for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
-	    int index = (i+j*width) * channels+k;
-	    data[index]= _background[k];
-	  }
-	  _currentImage->uncache();
+	// invert the image
+	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
+		int index = (i+j*width) * channels+k;
+		data[index]= _background[k];
+	}
+	_currentImage->uncache();
 }
 
 void ImageController::fill() {
-	  delete _lastImage;
-	  _lastImage = _currentImage->copy();
-	// get the image data
-	  int height    = _currentImage->h();
-	  int width     = _currentImage->w();
-	  int channels  = _currentImage->d();
-	  uchar * data      = (uchar *)_currentImage->data()[0];
+	startOperation();
+	int height    = _currentImage->h();
+	int width     = _currentImage->w();
+	int channels  = _currentImage->d();
+	uchar * data      = (uchar *)_currentImage->data()[0];
 
-	  // invert the image
-	  for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
-	    int index = (i+j*width) * channels+k;
-	    data[index]= _foreground[k];
-	  }
-	  _currentImage->uncache();
+	// invert the image
+	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
+		int index = (i+j*width) * channels+k;
+		data[index]= _foreground[k];
+	}
+	_currentImage->uncache();
 }

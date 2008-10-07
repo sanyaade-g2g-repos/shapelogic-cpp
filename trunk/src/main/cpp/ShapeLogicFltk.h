@@ -26,12 +26,18 @@ private:
   static void cb_Open(Fl_Menu_*, void*);
   void cb_Undo_i(Fl_Menu_*, void*);
   static void cb_Undo(Fl_Menu_*, void*);
+  void cb_Clear_i(Fl_Menu_*, void*);
+  static void cb_Clear(Fl_Menu_*, void*);
+  void cb_Fill_i(Fl_Menu_*, void*);
+  static void cb_Fill(Fl_Menu_*, void*);
   void cb_Invert_i(Fl_Menu_*, void*);
   static void cb_Invert(Fl_Menu_*, void*);
 public:
   Fl_Group *_imageGroup;
 private:
   ImageController _imageController;
+public:
+  void imageSetup();
 };
 int main_proxy(int argc, char **argv);
 #endif

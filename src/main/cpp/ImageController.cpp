@@ -28,12 +28,13 @@ void ImageController::run(const char *name, const char *arg) {
 	if (command == "Invert")	invert();
 	else if (command == "Fill")	fill();
 	else if (command == "Clear")	clear();
+	else if (command == "Undo")	undo();
 }
 
 void ImageController::undo() {
-	delete _currentImage;
+	Fl_Image * tempImage = _currentImage;
 	_currentImage =_lastImage;
-	_lastImage = NULL;
+	_lastImage = tempImage;
 }
 
 void ImageController::open(const char *filename) {

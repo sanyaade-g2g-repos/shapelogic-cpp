@@ -1,6 +1,7 @@
-import testing ;
+#Top testing Jamfile
+#import testing ; #Done in top file
 
 lib gtest_main ;
 
-unit-test shapelogic-cpp-test : [ glob *.cpp ] ../../main/cpp//shapelogic gtest_main ;
+unit-test shapelogic-cpp-test : [ glob *.cpp ] $(TOP)/src/main/cpp//shapelogic gtest_main ;
 

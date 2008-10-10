@@ -28,28 +28,28 @@ void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
 }
 
 void ShapeLogicFltk::cb_Undo_i(Fl_Menu_*, void*) {
-  imageSetup("Undo");
+  imageSetup("Undo", NULL);
 }
 void ShapeLogicFltk::cb_Undo(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Undo_i(o,v);
 }
 
 void ShapeLogicFltk::cb_Clear_i(Fl_Menu_*, void*) {
-  imageSetup("Clear");
+  imageSetup("Clear", NULL);
 }
 void ShapeLogicFltk::cb_Clear(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Clear_i(o,v);
 }
 
 void ShapeLogicFltk::cb_Fill_i(Fl_Menu_*, void*) {
-  imageSetup("Fill");
+  imageSetup("Fill", NULL);
 }
 void ShapeLogicFltk::cb_Fill(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Fill_i(o,v);
 }
 
 void ShapeLogicFltk::cb_Invert_i(Fl_Menu_*, void*) {
-  imageSetup("Invert");
+  imageSetup("Invert", NULL);
 }
 void ShapeLogicFltk::cb_Invert(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Invert_i(o,v);
@@ -128,8 +128,8 @@ ShapeLogicFltk::ShapeLogicFltk() {
   w->show();
 }
 
-void ShapeLogicFltk::imageSetup(const char* command) {
-  _imageController.run(command, NULL);
+void ShapeLogicFltk::imageSetup(const char* command, const char* arg) {
+  _imageController.run(command, arg);
   _imageController.getCurrentImage()->uncache();
   _imageGroup->image(_imageController.getCurrentImage());
   _window->redraw();

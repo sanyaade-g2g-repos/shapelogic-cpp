@@ -41,7 +41,7 @@ public:
 private:
   ImageController _imageController;
 public:
-  void imageSetup(const char* command);
+  void imageSetup(const char* command, const char* arg);
 };
 int main_proxy(int argc, char **argv);
 #endif

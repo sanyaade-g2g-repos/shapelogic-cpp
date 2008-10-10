@@ -35,7 +35,7 @@ class ShapeLogicFltk {open
   } {
     Fl_Window _window {
       label {ShapeLogic fltk v 0.1} open
-      xywh {545 131 730 600} type Double resizable visible
+      xywh {545 131 730 600} type Double hide resizable
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 730 20}
@@ -69,22 +69,22 @@ class ShapeLogicFltk {open
         } {
           MenuItem {} {
             label Undo
-            callback {imageSetup("Undo");}
+            callback {imageSetup("Undo", NULL);}
             xywh {0 0 36 21} shortcut 0x4007a divider
           }
           MenuItem {} {
             label Clear
-            callback {imageSetup("Clear");}
+            callback {imageSetup("Clear", NULL);}
             xywh {0 0 36 21}
           }
           MenuItem {} {
             label Fill
-            callback {imageSetup("Fill");}
+            callback {imageSetup("Fill", NULL);}
             xywh {0 0 36 21} divider
           }
           MenuItem {} {
             label Invert
-            callback {imageSetup("Invert");}
+            callback {imageSetup("Invert", NULL);} selected
             xywh {0 0 36 21} shortcut 0x50069
           }
         }
@@ -122,7 +122,7 @@ class ShapeLogicFltk {open
             MenuItem {} {
               label Background
               callback {unsigned char * background = _imageController._background;
-  fl_color_chooser("Chose foreground color", background[0], background[1], background[2]);} selected
+  fl_color_chooser("Chose foreground color", background[0], background[1], background[2]);}
               xywh {10 10 36 21}
             }
           }
@@ -171,9 +171,9 @@ class ShapeLogicFltk {open
     code {w->show();} {}
   }
   decl {ImageController _imageController;} {}
-  Function {imageSetup(const char* command)} {open return_type void
+  Function {imageSetup(const char* command, const char* arg)} {open return_type void
   } {
-    code {_imageController.run(command, NULL);
+    code {_imageController.run(command, arg);
   _imageController.getCurrentImage()->uncache();
   _imageGroup->image(_imageController.getCurrentImage());
   _window->redraw();} {}

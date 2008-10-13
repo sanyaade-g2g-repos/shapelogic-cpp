@@ -32,6 +32,9 @@ TEST(GILOperation, xGradientImage) {
 	const char * outputFilename = "/home/sbadawi/shapelogic-cpp/src/test/resources/images/particles/embryos6out.jpg";
 	Fl_Image * image = new Fl_JPEG_Image(inputFilename);
 //	imageOut = new Fl_Image(image->w(), image->h(), image->d());;
+	EXPECT_EQ(3, image->d());
+	Fl_RGB_Image * rgbImage = dynamic_cast<Fl_RGB_Image *>(image);
+	EXPECT_TRUE(rgbImage != NULL);
 	Fl_Image * imageOut = image->copy();
 	EXPECT_EQ(image->h(), imageOut->h());
 	EXPECT_EQ(image->w(), imageOut->w());

@@ -38,24 +38,6 @@ void x_gradient(const SrcView& src, const DstView& dst) {
         typename DstView::x_iterator dst_it = dst.row_begin(y);
 
         for (int x=1; x < max_x; ++x) {
-            for (int c=0; c< 1; ++c) {
-//            for (int c=0; c< SrcView::num_channels; ++c) {
-            	dst_it[x][c] = (src_it[x+1][c] - src_it[x-1][c])/2;
-            }
-        }
-    }
-}
-
-void x_gradient8rgb(const boost::gil::rgb8_view_t& src, const boost::gil::rgb8_view_t& dst) {
-
-    int max_x = src.width()-1;
-    for (int y=0; y<src.height(); ++y) {
-    	boost::gil::rgb8_view_t::x_iterator src_it = src.row_begin(y);
-    	boost::gil::rgb8_view_t::x_iterator dst_it = dst.row_begin(y);
-
-        for (int x=1; x < max_x; ++x) {
-//            for (int c=0; c< 1; ++c) {
-//            for (int c=0; c< rgb8_view_t::num_channels; ++c) {
             for (int c=0; c< num_channels<rgb8_view_t>::value; ++c) {
             	dst_it[x][c] = (src_it[x+1][c] - src_it[x-1][c])/2;
             }
@@ -81,7 +63,7 @@ void x_gradient_generic(const SrcView& src, const DstView& dst) {
 template <typename SrcView, typename DstView>
 void x_luminosity_gradient(const SrcView& src, const DstView& dst) {
     typedef pixel<typename channel_type<SrcView>::type, gray_layout_t> gray_pixel_t;
-    x_gradient(color_converted_view<gray_pixel_t>(src), dst);
+    x_gradient_generic(color_converted_view<gray_pixel_t>(src), dst);
 }
 
 
@@ -106,7 +88,7 @@ void GILOperation::fltkGradient(Fl_Image * input, Fl_Image * output) {
 	rgb8_view_t outputView = make_rgb8_view_t(output);
 	cerr << "Input ";
 	printFirst(inputView);
-	x_gradient8rgb(inputView, outputView);
+	x_gradient(inputView, outputView);
 //	x_gradient8rgb(make_rgb8_view_t(input),make_rgb8_view_t(output));
 	cerr << "Output ";
 	printFirst(outputView);

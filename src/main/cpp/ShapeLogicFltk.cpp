@@ -17,11 +17,7 @@
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog();
-  if (!filename)
-    return;
-  _imageController.open(filename);
-   _imageGroup->image(_imageController.getCurrentImage());
-  _window->redraw();
+imageSetup("Open", filename);
 }
 void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Open_i(o,v);
@@ -71,6 +67,13 @@ void ShapeLogicFltk::cb_Background(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Background_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Edge_i(Fl_Menu_*, void*) {
+  imageSetup("Edge", NULL);
+}
+void ShapeLogicFltk::cb_Edge(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Edge_i(o,v);
+}
+
 Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"File", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Open...", 0x4006f,  (Fl_Callback*)ShapeLogicFltk::cb_Open, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -97,6 +100,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Process", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Smooth", 0x50073,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sharpen", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Edge", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Edge, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Plugins", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"ShapeLogic", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},

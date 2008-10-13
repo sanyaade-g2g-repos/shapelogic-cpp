@@ -36,6 +36,8 @@ private:
   static void cb_Foreground(Fl_Menu_*, void*);
   void cb_Background_i(Fl_Menu_*, void*);
   static void cb_Background(Fl_Menu_*, void*);
+  void cb_Edge_i(Fl_Menu_*, void*);
+  static void cb_Edge(Fl_Menu_*, void*);
 public:
   Fl_Group *_imageGroup;
 private:

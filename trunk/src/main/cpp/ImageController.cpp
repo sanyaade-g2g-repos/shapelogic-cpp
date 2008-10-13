@@ -8,6 +8,7 @@
 #include "ImageController.h"
 #include <string>
 #include <FL/Fl_JPEG_Image.H>
+#include "GILOperation.h"
 
 ImageController::ImageController() {
 	_currentImage = NULL;
@@ -29,6 +30,8 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Fill")	fill();
 	else if (command == "Clear")	clear();
 	else if (command == "Undo")	undo();
+	else if (command == "Open")	open(arg);
+	else if (command == "Edge")	edge();
 }
 
 void ImageController::undo() {
@@ -43,7 +46,7 @@ void ImageController::open(const char *filename) {
 	     delete image;
 	     return;
 	   }
-	   if (_lastImage) delete _lastImage;
+	   delete _lastImage;
 	   _lastImage = _currentImage;
 	   _currentImage = image;
 	   _filename = filename;
@@ -55,10 +58,30 @@ Fl_Image * ImageController::getCurrentImage() {
 
 void ImageController::startOperation() {
 	  delete _lastImage;
-	  _lastImage = _currentImage->copy();
+	  _lastImage = NULL;
+	  if (_directOperation) {
+		  _lastImage = _currentImage->copy();
+	  }
+	  else {
+		  //Create a new image with the same properties
+		  const uchar* buffer = new uchar[_currentImage->w() * _currentImage->h() * _currentImage->d()];
+		  _nextImage = new Fl_RGB_Image(buffer,_currentImage->w(), _currentImage->h(), _currentImage->d());
+	  }
+}
+
+void ImageController::endOperation() {
+	  if (_directOperation) {
+
+	  }
+	  else {
+		  _lastImage = _currentImage;
+		  _currentImage = _nextImage;
+		  _nextImage = NULL;
+	  }
 }
 
 void ImageController::invert() {
+	_directOperation = true;
 	startOperation();
 	int height    = _currentImage->h();
 	int width     = _currentImage->w();
@@ -70,9 +93,11 @@ void ImageController::invert() {
 		int index = (i+j*width) * channels+k;
 		data[index]=255-data[index];
 	}
+	endOperation();
 }
 
 void ImageController::clear() {
+	_directOperation = true;
 	startOperation();
 	int height    = _currentImage->h();
 	int width     = _currentImage->w();
@@ -84,10 +109,11 @@ void ImageController::clear() {
 		int index = (i+j*width) * channels+k;
 		data[index]= _background[k];
 	}
-	_currentImage->uncache();
+	endOperation();
 }
 
 void ImageController::fill() {
+	_directOperation = true;
 	startOperation();
 	int height    = _currentImage->h();
 	int width     = _currentImage->w();
@@ -99,5 +125,13 @@ void ImageController::fill() {
 		int index = (i+j*width) * channels+k;
 		data[index]= _foreground[k];
 	}
-	_currentImage->uncache();
+	endOperation();
 }
+
+void ImageController::edge() {
+	_directOperation = false;
+	startOperation();
+	GILOperation::fltkGradient(_currentImage, _nextImage);
+	endOperation();
+}
+

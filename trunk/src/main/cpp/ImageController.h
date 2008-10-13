@@ -21,11 +21,13 @@ public:
 
 	virtual void run(const char * name, const char * arg);
 	virtual void clear();
+	virtual void edge();
 	virtual void fill();
 	virtual void invert();
 	virtual void undo();
 
 	virtual void startOperation();
+	virtual void endOperation();
 
 //Getter and setter methods
 	virtual Fl_Image * getCurrentImage();
@@ -35,7 +37,9 @@ public:
 private:
 	Fl_Image * _currentImage;
 	Fl_Image * _lastImage;
+	Fl_Image * _nextImage;
 	std::string _filename;
+    bool _directOperation;
 };
 
 #endif /* IMAGECONTROLLER_H_ */

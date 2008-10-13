@@ -10,11 +10,13 @@
 #include <gtest/gtest.h>
 #include <boost/lambda/lambda.hpp>
 #include <GILOperation.h>
+#include <boost/gil/extension/io/jpeg_dynamic_io.hpp>
 #include <FL/Fl_JPEG_Image.H>
 #include <iostream>
 
 namespace {
 using namespace std;
+using namespace boost::gil;
 
 //Fl_Image * image = NULL;
 //Fl_Image * imageOut = NULL;
@@ -33,8 +35,12 @@ TEST(GILOperation, xGradientImage) {
 	Fl_Image * image = new Fl_JPEG_Image(inputFilename);
 //	imageOut = new Fl_Image(image->w(), image->h(), image->d());;
 	EXPECT_EQ(3, image->d());
+	EXPECT_EQ(3, num_channels<boost::gil::rgb8_view_t>::value);
 	Fl_RGB_Image * rgbImage = dynamic_cast<Fl_RGB_Image *>(image);
 	EXPECT_TRUE(rgbImage != NULL);
+	rgb8_view_t view = GILOperation::make_rgb8_view_t(image);
+	int fistByte = view.row_begin(0)[0][0];
+	EXPECT_EQ(191, fistByte);
 	Fl_Image * imageOut = image->copy();
 	EXPECT_EQ(image->h(), imageOut->h());
 	EXPECT_EQ(image->w(), imageOut->w());

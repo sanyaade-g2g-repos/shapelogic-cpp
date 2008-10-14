@@ -1,0 +1,29 @@
+# The Jamfile and Jamroot should work both for Windows, OS X and UNIX, 
+# this is a temorary version for Windows, this does not call the unit tests
+#Defines all the FLTK libraries
+lib z : :  <file>../../../../src/fltk-1.1.9/lib/fltkzd.lib ;
+lib fltk : : <file>../../../../src/fltk-1.1.9/lib/fltkd.lib ;
+lib fltk_images : : <file>../../../../src/fltk-1.1.9/lib/fltkimagesd.lib ;
+lib fltk_forms : : <file>../../../../src/fltk-1.1.9/lib/fltkformsd.lib ;
+lib jpeg : : <file>../../../../src/fltk-1.1.9/lib/fltkjpegd.lib ;
+lib png : : <file>../../../../src/fltk-1.1.9/lib/fltkpngd.lib ;
+
+#lib user32 gdi32 wsock32 ;
+#lib wsock32 : : <file>"/C:/Program Files/Microsoft SDKs/Windows/v6.0A/Lib/WSock32.Lib" ;
+
+
+lib wsock32 comctl32 ;
+lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
+
+
+#Compile all cpp files and all the fltk libraries
+exe shapelogic-cpp : [ glob *.cpp ] 
+    z fltk fltk_images fltk_forms jpeg png z 
+    wsock32 comctl32 
+    ws2_32 user32 gdi32 comdlg32 shell32 advapi32 ole32
+    :
+      <include>../../../../src/fltk-1.1.9/ <include>../../../../src/fltk-1.1.9/vc2005/ <include>../../../../src/fltk-1.1.9/zlib/
+      <include>../../../../src/fltk-1.1.9/jpeg/ 
+      <include>../../../../src/boost_1_36_0/ :
+      <define>WIN32 <define>_WIN32
+ ;

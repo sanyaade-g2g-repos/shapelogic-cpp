@@ -74,6 +74,27 @@ void ShapeLogicFltk::cb_Edge(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Edge_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Sobel_X_i(Fl_Menu_*, void*) {
+  imageSetup("Sobel_X", NULL);
+}
+void ShapeLogicFltk::cb_Sobel_X(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Sobel_X_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Sobel_Y_i(Fl_Menu_*, void*) {
+  imageSetup("Sobel_Y", NULL);
+}
+void ShapeLogicFltk::cb_Sobel_Y(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Sobel_Y_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Sobel_XY_i(Fl_Menu_*, void*) {
+  imageSetup("Sobel_XY", NULL);
+}
+void ShapeLogicFltk::cb_Sobel_XY(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Sobel_XY_i(o,v);
+}
+
 Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"File", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Open...", 0x4006f,  (Fl_Callback*)ShapeLogicFltk::cb_Open, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -101,6 +122,9 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Smooth", 0x50073,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sharpen", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Edge", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Edge, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Sobel_X", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_X, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Sobel_Y", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_Y, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Sobel_XY", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_XY, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Plugins", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"ShapeLogic", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},

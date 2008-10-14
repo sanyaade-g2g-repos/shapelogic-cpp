@@ -140,6 +140,21 @@ imageSetup("Open", filename);}
             callback {imageSetup("Edge", NULL);}
             xywh {0 0 36 21}
           }
+          MenuItem {} {
+            label Sobel_X
+            callback {imageSetup("Sobel_X", NULL);}
+            xywh {10 10 36 21}
+          }
+          MenuItem {} {
+            label Sobel_Y
+            callback {imageSetup("Sobel_Y", NULL);}
+            xywh {20 20 36 21}
+          }
+          MenuItem {} {
+            label Sobel_XY
+            callback {imageSetup("Sobel_XY", NULL);} selected
+            xywh {30 30 36 21}
+          }
         }
         Submenu {} {
           label Plugins open
@@ -159,7 +174,7 @@ imageSetup("Open", filename);}
           xywh {0 0 70 21}
         } {
           MenuItem {} {
-            label {About ShapeLogic} selected
+            label {About ShapeLogic}
             xywh {0 0 36 21}
           }
         }

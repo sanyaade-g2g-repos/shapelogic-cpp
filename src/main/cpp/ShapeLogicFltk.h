@@ -38,6 +38,12 @@ private:
   static void cb_Background(Fl_Menu_*, void*);
   void cb_Edge_i(Fl_Menu_*, void*);
   static void cb_Edge(Fl_Menu_*, void*);
+  void cb_Sobel_X_i(Fl_Menu_*, void*);
+  static void cb_Sobel_X(Fl_Menu_*, void*);
+  void cb_Sobel_Y_i(Fl_Menu_*, void*);
+  static void cb_Sobel_Y(Fl_Menu_*, void*);
+  void cb_Sobel_XY_i(Fl_Menu_*, void*);
+  static void cb_Sobel_XY(Fl_Menu_*, void*);
 public:
   Fl_Group *_imageGroup;
 private:

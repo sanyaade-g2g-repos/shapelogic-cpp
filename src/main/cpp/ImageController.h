@@ -24,6 +24,9 @@ public:
 	virtual void edge();
 	virtual void fill();
 	virtual void invert();
+	virtual void sobelX();
+	virtual void sobelXY();
+	virtual void sobelY();
 	virtual void undo();
 
 	virtual void startOperation();

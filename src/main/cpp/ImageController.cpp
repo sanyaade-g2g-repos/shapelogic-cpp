@@ -32,6 +32,9 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Undo")	undo();
 	else if (command == "Open")	open(arg);
 	else if (command == "Edge")	edge();
+	else if (command == "Sobel_X")	sobelX();
+	else if (command == "Sobel_XY")	sobelXY();
+	else if (command == "Sobel_Y")	sobelY();
 }
 
 void ImageController::undo() {
@@ -132,6 +135,27 @@ void ImageController::edge() {
 	_directOperation = false;
 	startOperation();
 	GILOperation::fltkGradient(_currentImage, _nextImage);
+	endOperation();
+}
+
+void ImageController::sobelX() {
+	_directOperation = false;
+	startOperation();
+	GILOperation::fltkSobelX(_currentImage, _nextImage);
+	endOperation();
+}
+
+void ImageController::sobelY() {
+	_directOperation = false;
+	startOperation();
+	GILOperation::fltkSobelY(_currentImage, _nextImage);
+	endOperation();
+}
+
+void ImageController::sobelXY() {
+	_directOperation = false;
+	startOperation();
+	GILOperation::fltkSobelXY(_currentImage, _nextImage);
 	endOperation();
 }
 

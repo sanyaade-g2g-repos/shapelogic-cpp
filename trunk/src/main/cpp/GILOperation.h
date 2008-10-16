@@ -14,6 +14,7 @@ class Fl_Image;
 
 class GILOperation {
 public:
+	static void fltkBlur(Fl_Image * input, Fl_Image * output);
 	static void fltkGradient(Fl_Image * input, Fl_Image * output);
 	static void fltkSobelX(Fl_Image * input, Fl_Image * output);
 	static void fltkSobelY(Fl_Image * input, Fl_Image * output);

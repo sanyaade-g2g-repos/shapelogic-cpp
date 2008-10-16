@@ -30,6 +30,8 @@ ShapeLogic C++ can be build from command line:
 cd shapelogic-cpp
 bjam
 
+This will both build ShapeLogic and run the unit tests.
+
 ShapeLogic C++ can be build from Eclipse CDE:
 There is a project file coming with the project
 
@@ -49,5 +51,7 @@ Then from a command line run:
 
 cd shapelogic-cpp
 bjam
+
+This will build ShapeLogic but will not run the unit tests.
 
 For more information see http://www.shapelogic.org/cpp-setup-windows.html

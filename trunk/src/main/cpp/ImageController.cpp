@@ -6,9 +6,12 @@
  */
 
 #include "ImageController.h"
-#include <string>
-#include <FL/Fl_JPEG_Image.H>
 #include "GILOperation.h"
+#include <string>
+#include <cstdlib>
+#include <FL/Fl_JPEG_Image.H>
+//#include <FL/Fl_Shared_Image.H> // Image I/O
+#include <FL/fl_ask.H>
 
 ImageController::ImageController() {
 	_currentImage = NULL;
@@ -26,15 +29,18 @@ ImageController::~ImageController() {
 
 void ImageController::run(const char *name, const char *arg) {
 	std::string command(name);
-	if (command == "Invert")	invert();
-	else if (command == "Fill")	fill();
-	else if (command == "Clear")	clear();
-	else if (command == "Undo")	undo();
-	else if (command == "Open")	open(arg);
+	if (command == "About") about();
+	else if (command == "Blur") blur();
+	else if (command == "Clear") clear();
 	else if (command == "Edge")	edge();
-	else if (command == "Sobel_X")	sobelX();
-	else if (command == "Sobel_XY")	sobelXY();
-	else if (command == "Sobel_Y")	sobelY();
+	else if (command == "Fill")	fill();
+	else if (command == "Invert") invert();
+	else if (command == "Open")	open(arg);
+	else if (command == "Quit") quit();
+	else if (command == "Sobel_X") sobelX();
+	else if (command == "Sobel_XY") sobelXY();
+	else if (command == "Sobel_Y") sobelY();
+	else if (command == "Undo")	undo();
 }
 
 void ImageController::undo() {
@@ -45,6 +51,8 @@ void ImageController::undo() {
 
 void ImageController::open(const char *filename) {
 	  Fl_Image * image = new Fl_JPEG_Image(filename);
+//	  Fl_Shared_Image *image = Fl_Shared_Image::get(filename);
+
 	  if ( image->h() == 0 ) {
 	     delete image;
 	     return;
@@ -157,5 +165,21 @@ void ImageController::sobelXY() {
 	startOperation();
 	GILOperation::fltkSobelXY(_currentImage, _nextImage);
 	endOperation();
+}
+
+void ImageController::blur() {
+	_directOperation = false;
+	startOperation();
+	GILOperation::fltkBlur(_currentImage, _nextImage);
+	endOperation();
+}
+
+void ImageController::quit() {
+	exit(0);
+}
+
+void ImageController::about() {
+	const char * message = "ShapeLogic C++ 0.1\nAuthor Sami Badawi\nMIT license";
+	fl_message(message);
 }
 

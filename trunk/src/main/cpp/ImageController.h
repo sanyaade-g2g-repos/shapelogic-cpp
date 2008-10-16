@@ -9,6 +9,7 @@
 #define IMAGECONTROLLER_H_
 
 class Fl_Image;
+//class Fl_Shared_Image;
 #include <string>
 
 class ImageController {
@@ -20,10 +21,14 @@ public:
 	virtual void open(const char * filename);
 
 	virtual void run(const char * name, const char * arg);
+
+	virtual void about();
+	virtual void blur();
 	virtual void clear();
 	virtual void edge();
 	virtual void fill();
 	virtual void invert();
+	virtual void quit();
 	virtual void sobelX();
 	virtual void sobelXY();
 	virtual void sobelY();

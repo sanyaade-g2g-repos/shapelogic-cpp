@@ -35,7 +35,7 @@ class ShapeLogicFltk {open
   } {
     Fl_Window _window {
       label {ShapeLogic C++ v 0.1} open
-      xywh {545 131 730 600} type Double resizable visible
+      xywh {351 139 730 600} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 730 20}
@@ -49,10 +49,6 @@ class ShapeLogicFltk {open
             callback {const char * filename = FltkUtil::singleFileDialog();
 imageSetup("Open", filename);}
             xywh {0 0 36 21} shortcut 0x4006f
-          }
-          MenuItem {} {
-            label Save
-            xywh {0 0 36 21} shortcut 0x40073 divider
           }
           MenuItem {} {
             label Quit
@@ -125,17 +121,13 @@ imageSetup("Open", filename);}
           }
         }
         Submenu {} {
-          label Process open
+          label Process open selected
           xywh {10 10 70 21}
         } {
           MenuItem {} {
             label Smooth
             callback {imageSetup("Blur", NULL);}
             xywh {0 0 36 21} shortcut 0x50073
-          }
-          MenuItem {} {
-            label Sharpen
-            xywh {0 0 36 21}
           }
           MenuItem {} {
             label Edge

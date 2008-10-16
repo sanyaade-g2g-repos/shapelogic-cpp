@@ -2,7 +2,7 @@
 ShapeLogic C++ v 0.1
 ====================
 
-This is a very rudimenary release. This is not an adequate description of how
+This is a very rudimentary release. This is not an adequate description of how
 to build ShapeLogic C++, but just a few pointers.
 See project site for more information: http://www.shapelogic.org/cpp.html
 

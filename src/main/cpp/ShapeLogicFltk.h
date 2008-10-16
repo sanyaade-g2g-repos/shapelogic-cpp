@@ -24,6 +24,8 @@ public:
 private:
   void cb_Open_i(Fl_Menu_*, void*);
   static void cb_Open(Fl_Menu_*, void*);
+  void cb_Quit_i(Fl_Menu_*, void*);
+  static void cb_Quit(Fl_Menu_*, void*);
   void cb_Undo_i(Fl_Menu_*, void*);
   static void cb_Undo(Fl_Menu_*, void*);
   void cb_Clear_i(Fl_Menu_*, void*);
@@ -36,6 +38,8 @@ private:
   static void cb_Foreground(Fl_Menu_*, void*);
   void cb_Background_i(Fl_Menu_*, void*);
   static void cb_Background(Fl_Menu_*, void*);
+  void cb_Smooth_i(Fl_Menu_*, void*);
+  static void cb_Smooth(Fl_Menu_*, void*);
   void cb_Edge_i(Fl_Menu_*, void*);
   static void cb_Edge(Fl_Menu_*, void*);
   void cb_Sobel_X_i(Fl_Menu_*, void*);
@@ -44,6 +48,8 @@ private:
   static void cb_Sobel_Y(Fl_Menu_*, void*);
   void cb_Sobel_XY_i(Fl_Menu_*, void*);
   static void cb_Sobel_XY(Fl_Menu_*, void*);
+  void cb_About_i(Fl_Menu_*, void*);
+  static void cb_About(Fl_Menu_*, void*);
 public:
   Fl_Group *_imageGroup;
 private:

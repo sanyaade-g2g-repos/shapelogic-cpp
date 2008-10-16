@@ -119,7 +119,6 @@ void ShapeLogicFltk::cb_About(Fl_Menu_* o, void* v) {
 Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"File", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Open...", 0x4006f,  (Fl_Callback*)ShapeLogicFltk::cb_Open, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {"Save", 0x40073,  0, 0, 128, FL_NORMAL_LABEL, 0, 14, 0},
  {"Quit", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Quit, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Edit", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -141,7 +140,6 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {"Process", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Smooth", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Smooth, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {"Sharpen", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Edge", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Edge, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_X", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_X, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_Y", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_Y, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

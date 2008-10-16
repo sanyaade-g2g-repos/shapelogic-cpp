@@ -18,7 +18,8 @@ using namespace std;
 //-----------------------Helper functions-----------------------------
 
 rgb8_view_t GILOperation::make_rgb8_view_t(Fl_Image * input) {
-	rgb8_view_t view = interleaved_view(input->w(),input->h(),(rgb8_view_t::value_type *)(*input->data()),input->w()*3);
+	rgb8_view_t view = interleaved_view(input->w(), input->h(),
+			(rgb8_view_t::value_type *)(*input->data()),input->w()*3);
 	return view;
 }
 
@@ -34,6 +35,8 @@ void printFirst(rgb8_view_t & view) {
 
 
 //-----------------------x_gradient functions-----------------------------
+//x_gradient returns a signed output, that will not be represented right in a normal jpeg image
+//TODO example code should be removed
 
 template <typename Out>
 struct halfdiff_cast_channels {
@@ -78,6 +81,7 @@ void GILOperation::fltkGradient(Fl_Image * input, Fl_Image * output) {
 }
 
 //-----------------------x_luminosity_gradient functions-----------------------------
+//TODO example code should be removed
 
 template <typename SrcView, typename DstView>
 void x_luminosity_gradient(const SrcView& src, const DstView& dst) {
@@ -138,7 +142,7 @@ void sobel_y(const SrcView& src, const DstView& dst) {
 
         for (int x=0; x < max_x; ++x) {
             for (int c=0; c< num_channels<rgb8_view_t>::value; ++c) {
-            	dst_channel_t srcPlus1 = src_it[x+width][c];
+            	dst_channel_t srcPlus1 = src_it[x+width][c]; //TODO should be replaced by line length
             	dst_channel_t srcMinus1 = src_it[x-width][c];
             	dst_it[x][c] = (srcPlus1 > srcMinus1) ?
             			srcPlus1 - srcMinus1 :
@@ -166,7 +170,7 @@ void sobel_xy(const SrcView& src, const DstView& dst) {
 
         for (int x=1; x < max_x; ++x) {
             for (int c=0; c< num_channels<rgb8_view_t>::value; ++c) {
-            	dst_channel_t srcPlus1 = src_it[x+width][c];
+            	dst_channel_t srcPlus1 = src_it[x+width][c]; //TODO should be replaced by line length
             	dst_channel_t srcMinus1 = src_it[x-width][c];
             	dst_channel_t sobelY = (srcPlus1 > srcMinus1) ?
             			srcPlus1 - srcMinus1 :
@@ -184,5 +188,40 @@ void sobel_xy(const SrcView& src, const DstView& dst) {
 
 void GILOperation::fltkSobelXY(Fl_Image * input, Fl_Image * output) {
 	sobel_y(make_rgb8_view_t(input),make_rgb8_view_t(output));
+}
+
+//-----------------------blur functions-----------------------------
+
+template <typename SrcView, typename DstView>
+void blur(const SrcView& src, const DstView& dst) {
+    typedef typename channel_type<DstView>::type dst_channel_t;
+
+    int max_x = src.width() - 1;
+    int width = src.width();
+    for (int y=1; y<src.height()-1; ++y) {
+        typename SrcView::x_iterator src_it = src.row_begin(y);
+        typename DstView::x_iterator dst_it = dst.row_begin(y);
+
+        for (int x=1; x < max_x; ++x) {
+            for (int c=0; c< num_channels<rgb8_view_t>::value; ++c) {
+            	dst_it[x][c] =
+            		src_it[x-1-width][c] / 16 +
+            		src_it[x-width][c] / 8 +
+            		src_it[x-1-width][c] / 16 +
+
+            		src_it[x-1][c] / 8 +
+            		src_it[x][c] / 4 +
+            		src_it[x-1][c] / 8 +
+
+            		src_it[x-1+width][c] / 16 +
+            		src_it[x+width][c] / 8 +
+            		src_it[x-1+width][c] / 16;
+            }
+        }
+    }
+}
+
+void GILOperation::fltkBlur(Fl_Image * input, Fl_Image * output) {
+	blur(make_rgb8_view_t(input),make_rgb8_view_t(output));
 }
 

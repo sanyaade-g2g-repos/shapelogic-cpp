@@ -9,11 +9,13 @@
 #include "GILOperation.h"
 #include <string>
 #include <cstdlib>
+#include <FL/Fl_Bitmap.H>
 #include <FL/Fl_JPEG_Image.H>
-//#include <FL/Fl_Shared_Image.H> // Image I/O
+#include <FL/Fl_Shared_Image.H> // Image I/O
 #include <FL/fl_ask.H>
 
 ImageController::ImageController() {
+	fl_register_images();
 	_currentImage = NULL;
 	_lastImage = NULL;
 	for (int i=0; i<3; i++) {
@@ -50,9 +52,10 @@ void ImageController::undo() {
 }
 
 void ImageController::open(const char *filename) {
-	  Fl_Image * image = new Fl_JPEG_Image(filename);
-//	  Fl_Shared_Image *image = Fl_Shared_Image::get(filename);
-
+	  Fl_Shared_Image *sharedImage = Fl_Shared_Image::get(filename);
+//	  Fl_Image * image = new Fl_JPEG_Image(filename);
+	  Fl_Image * image = sharedImage->copy();
+	  sharedImage->release();
 	  if ( image->h() == 0 ) {
 	     delete image;
 	     return;
@@ -76,7 +79,10 @@ void ImageController::startOperation() {
 	  else {
 		  //Create a new image with the same properties
 		  const uchar* buffer = new uchar[_currentImage->w() * _currentImage->h() * _currentImage->d()];
-		  _nextImage = new Fl_RGB_Image(buffer,_currentImage->w(), _currentImage->h(), _currentImage->d());
+		  if (_currentImage->d() == 1)
+			  _nextImage = new Fl_Bitmap(buffer,_currentImage->w(), _currentImage->h());
+		  else
+			  _nextImage = new Fl_RGB_Image(buffer,_currentImage->w(), _currentImage->h(), _currentImage->d());
 	  }
 }
 

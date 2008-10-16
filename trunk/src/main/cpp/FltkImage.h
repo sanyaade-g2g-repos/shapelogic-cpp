@@ -46,7 +46,7 @@ public:
 
 	/** Returns the number of color channels in the image. The color channels can be
 	*  accessed by toFloat(channelNumber, fp) and written by setPixels(channelNumber, fp).
-	* @return 1 for grayscale images, 3 for RGB images
+	* @return 1 for gray scale images, 3 for RGB images
 	*/
 	virtual int getNChannels();
 

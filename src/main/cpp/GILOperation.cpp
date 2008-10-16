@@ -19,8 +19,18 @@ using namespace std;
 
 rgb8_view_t GILOperation::make_rgb8_view_t(Fl_Image * input) {
 	rgb8_view_t view = interleaved_view(input->w(), input->h(),
-			(rgb8_view_t::value_type *)(*input->data()),input->w()*3);
+			(rgb8_view_t::value_type *)(*input->data()),input->w()*input->d());
 	return view;
+}
+
+gray8_view_t make_gray8_view_t(Fl_Image * input) {
+	gray8_view_t view = interleaved_view(input->w(), input->h(),
+			(gray8_view_t::value_type *)(*input->data()),input->w()*input->d());
+	return view;
+}
+
+bool isGray8(Fl_Image * input) {
+	return input->d() == 1;
 }
 
 int getFirstByteInImage(rgb8_view_t & view) {
@@ -125,7 +135,10 @@ void sobel_x(const SrcView& src, const DstView& dst) {
 }
 
 void GILOperation::fltkSobelX(Fl_Image * input, Fl_Image * output) {
-	sobel_x(make_rgb8_view_t(input),make_rgb8_view_t(output));
+	if (isGray8(input))
+		sobel_x(make_gray8_view_t(input),make_gray8_view_t(output));
+	else
+		sobel_x(make_rgb8_view_t(input),make_rgb8_view_t(output));
 }
 
 //-----------------------sobel_y functions-----------------------------

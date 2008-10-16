@@ -53,7 +53,7 @@ TEST(GILOperation, xSobelImage) {
 }
 
 TEST(GILOperation, xSobelImageGrayGif) {
-	string inputFilename = testImageDir + "blobs.gif";
+	string inputFilename = testImageDir + "spot1Noise10.gif";
 	Fl_Image * image = new Fl_GIF_Image(inputFilename.c_str());
 	EXPECT_EQ(1, image->d());
 	Fl_Pixmap * pixmapImage = dynamic_cast<Fl_Pixmap *>(image); //GIF is a Fl_Pixmap with LUT not a gray bitmap
@@ -66,7 +66,7 @@ TEST(GILOperation, xSobelImageGrayGif) {
 }
 
 TEST(GILOperation, xSobelImageGrayPng) {
-	string inputFilename = testImageDir + "blobs.png";
+	string inputFilename = testImageDir + "spot1Noise10.png";
 	Fl_Image * image = new Fl_PNG_Image(inputFilename.c_str());
 	EXPECT_EQ(3, image->d()) << "gray image does not have 1 channel";
 	Fl_RGB_Image * rgbImage = dynamic_cast<Fl_RGB_Image *>(image); //PNG is a Fl_RGB_Pixmap even if it is a gray image

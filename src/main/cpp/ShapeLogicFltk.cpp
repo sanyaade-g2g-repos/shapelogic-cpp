@@ -165,11 +165,11 @@ ShapeLogicFltk::ShapeLogicFltk() {
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 730, 20);
       o->menu(menu_);
     }
-    { Fl_Group* o = _imageGroup = new Fl_Group(0, 20, 730, 580);
-      _imageGroup->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);
+    { Fl_Scroll* o = _imageScroll = new Fl_Scroll(0, 20, 730, 580);
       o->end();
       Fl_Group::current()->resizable(o);
     }
+    _imageBox = new Fl_Box(0, 20, 730, 580);
     o->end();
   }
   w->show();
@@ -178,7 +178,11 @@ ShapeLogicFltk::ShapeLogicFltk() {
 void ShapeLogicFltk::imageSetup(const char* command, const char* arg) {
   _imageController.run(command, arg);
   _imageController.getCurrentImage()->uncache();
-  _imageGroup->image(_imageController.getCurrentImage());
+  _imageScroll->clear(); //Removes and deletes all children
+  int menuBarHeight = 20;
+  _imageBox = new Fl_Box(0,menuBarHeight,_imageController.getCurrentImage()->w(),_imageController.getCurrentImage()->h());
+  _imageScroll->add(_imageBox);
+  _imageBox->image(_imageController.getCurrentImage());
   _window->redraw();
 }
 

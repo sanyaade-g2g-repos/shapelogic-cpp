@@ -35,7 +35,7 @@ class ShapeLogicFltk {open
   } {
     Fl_Window _window {
       label {ShapeLogic C++ v 0.1} open
-      xywh {351 139 730 600} type Double resizable visible
+      xywh {321 62 730 600} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 730 20}
@@ -121,7 +121,7 @@ imageSetup("Open", filename);}
           }
         }
         Submenu {} {
-          label Process open selected
+          label Process open
           xywh {10 10 70 21}
         } {
           MenuItem {} {
@@ -174,10 +174,12 @@ imageSetup("Open", filename);}
           }
         }
       }
-      Fl_Group _imageGroup {open
+      Fl_Scroll _imageScroll {open
         xywh {0 20 730 580} resizable
-        code0 {_imageGroup->align(FL_ALIGN_CENTER | FL_ALIGN_INSIDE | FL_ALIGN_CLIP);}
       } {}
+      Fl_Box _imageBox {
+        xywh {0 20 730 580}
+      }
     }
     code {w->show();} {}
   }
@@ -186,8 +188,13 @@ imageSetup("Open", filename);}
   } {
     code {_imageController.run(command, arg);
   _imageController.getCurrentImage()->uncache();
-  _imageGroup->image(_imageController.getCurrentImage());
-  _window->redraw();} {}
+  _imageScroll->clear(); //Removes and deletes all children
+  int menuBarHeight = 20;
+  _imageBox = new Fl_Box(0,menuBarHeight,_imageController.getCurrentImage()->w(),_imageController.getCurrentImage()->h());
+  _imageScroll->add(_imageBox);
+  _imageBox->image(_imageController.getCurrentImage());
+  _window->redraw();} {selected
+    }
   }
 } 
 

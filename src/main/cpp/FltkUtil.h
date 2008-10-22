@@ -10,9 +10,7 @@
 
 class FltkUtil {
 public:
-	FltkUtil();
-	virtual ~FltkUtil();
-	static const char * singleFileDialog();
+	static const char * singleFileDialog(bool onlyExisting);
 };
 
 #endif /* UTIL_H_ */

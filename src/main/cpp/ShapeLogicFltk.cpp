@@ -16,7 +16,7 @@
 #include <FL/Fl_Color_Chooser.H>
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
-  const char * filename = FltkUtil::singleFileDialog();
+  const char * filename = FltkUtil::singleFileDialog(true);
 imageSetup("Open", filename);
 }
 void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
@@ -31,7 +31,7 @@ void ShapeLogicFltk::cb_Save(Fl_Menu_* o, void* v) {
 }
 
 void ShapeLogicFltk::cb_Save1_i(Fl_Menu_*, void*) {
-  const char * filename = FltkUtil::singleFileDialog();
+  const char * filename = FltkUtil::singleFileDialog(false);
 imageSetup("Save_As", filename);
 }
 void ShapeLogicFltk::cb_Save1(Fl_Menu_* o, void* v) {

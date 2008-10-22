@@ -15,7 +15,6 @@ namespace {
 using namespace std;
 using namespace boost::lambda;
 
-
 // Test the lambda expression in Boost
 TEST(SLStringUtil, dummy) {
 	string fileName1 = "image.jpg";
@@ -28,6 +27,12 @@ TEST(SLStringUtil, dummy) {
 	EXPECT_FALSE(SLStringUtil::isJpeg(fileName2.c_str()));
 	EXPECT_EQ(preExtension, SLStringUtil::preFileExtension(fileName1.c_str()));
 
+}
+
+TEST(SLStringUtil, toLowerTest) {
+	string fileName1 = "IMAGE.JPG";
+	string fileName2 = "image.jpg";
+	EXPECT_EQ(fileName2, SLStringUtil::toLower(fileName1.c_str()));
 }
 
 }

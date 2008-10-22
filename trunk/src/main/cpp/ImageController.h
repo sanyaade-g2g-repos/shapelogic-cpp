@@ -18,7 +18,6 @@ public:
 	virtual ~ImageController();
 
 //Image operations
-	virtual void open(const char * filename);
 
 	virtual void run(const char * name, const char * arg);
 
@@ -28,7 +27,10 @@ public:
 	virtual void edge();
 	virtual void fill();
 	virtual void invert();
+	virtual void open(const char * filename);
 	virtual void quit();
+	virtual void save();
+	virtual void saveAs(const char * filename);
 	virtual void sobelX();
 	virtual void sobelXY();
 	virtual void sobelY();

@@ -42,6 +42,7 @@
 <listOptionValue builtIn="false" value="gtest"/>
 <listOptionValue builtIn="false" value="fltk_images"/>
 <listOptionValue builtIn="false" value="jpeg"/>
+<listOptionValue builtIn="false" value="tiff"/>
 <listOptionValue builtIn="false" value="fltk_forms"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.843740363" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">

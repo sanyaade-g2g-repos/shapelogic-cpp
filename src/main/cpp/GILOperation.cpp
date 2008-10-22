@@ -238,3 +238,8 @@ void GILOperation::fltkBlur(Fl_Image * input, Fl_Image * output) {
 	blur(make_rgb8_view_t(input),make_rgb8_view_t(output));
 }
 
+//-----------------------save jpg-----------------------------
+
+void GILOperation::saveJpg(const char * filename, Fl_Image * input) {
+	jpeg_write_view(filename, make_rgb8_view_t(input));
+}

@@ -51,6 +51,17 @@ imageSetup("Open", filename);}
             xywh {0 0 36 21} shortcut 0x4006f
           }
           MenuItem {} {
+            label Save
+            callback {imageSetup("Save", NULL);} selected
+            xywh {20 20 36 21} shortcut 0x40073
+          }
+          MenuItem {} {
+            label {Save As...}
+            callback {const char * filename = FltkUtil::singleFileDialog();
+imageSetup("Save_As", filename);}
+            xywh {10 10 36 21} shortcut 0x40061
+          }
+          MenuItem {} {
             label Quit
             callback {imageSetup("Quit", NULL);}
             xywh {0 0 36 21}
@@ -193,8 +204,7 @@ imageSetup("Open", filename);}
   _imageBox = new Fl_Box(0,menuBarHeight,_imageController.getCurrentImage()->w(),_imageController.getCurrentImage()->h());
   _imageScroll->add(_imageBox);
   _imageBox->image(_imageController.getCurrentImage());
-  _window->redraw();} {selected
-    }
+  _window->redraw();} {}
   }
 } 
 

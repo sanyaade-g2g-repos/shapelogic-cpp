@@ -7,12 +7,15 @@
 
 #include "ImageController.h"
 #include "GILOperation.h"
+#include "SLStringUtil.h"
 #include <string>
 #include <cstdlib>
 #include <FL/Fl_Bitmap.H>
 #include <FL/Fl_JPEG_Image.H>
 #include <FL/Fl_Shared_Image.H> // Image I/O
 #include <FL/fl_ask.H>
+
+using namespace std;
 
 ImageController::ImageController() {
 	fl_register_images();
@@ -39,6 +42,8 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Invert") invert();
 	else if (command == "Open")	open(arg);
 	else if (command == "Quit") quit();
+	else if (command == "Save") save();
+	else if (command == "Save_As") saveAs(arg);
 	else if (command == "Sobel_X") sobelX();
 	else if (command == "Sobel_XY") sobelXY();
 	else if (command == "Sobel_Y") sobelY();
@@ -64,6 +69,23 @@ void ImageController::open(const char *filename) {
 	   _lastImage = _currentImage;
 	   _currentImage = image;
 	   _filename = filename;
+}
+
+void ImageController::saveAs(const char *filename) {
+	if (filename == NULL)
+		return;
+	if (SLStringUtil::isJpeg(filename)) {
+		GILOperation::saveJpg(filename, _currentImage);
+	}
+	else {
+		std::string message = "The file could not be written ";
+		message += filename;
+		fl_message(message.c_str());
+	}
+}
+
+void ImageController::save() {
+	saveAs(_filename.c_str());
 }
 
 Fl_Image * ImageController::getCurrentImage() {
@@ -185,7 +207,8 @@ void ImageController::quit() {
 }
 
 void ImageController::about() {
-	const char * message = "ShapeLogic C++ 0.1\nAuthor Sami Badawi\nMIT license";
-	fl_message(message);
+	string message = "ShapeLogic C++ 0.1\nAuthor Sami Badawi\nMIT license\nCompile date: ";
+	message += __DATE__;
+	fl_message(message.c_str());
 }
 

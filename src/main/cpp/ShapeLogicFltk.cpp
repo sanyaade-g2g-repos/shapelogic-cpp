@@ -23,6 +23,21 @@ void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Open_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Save_i(Fl_Menu_*, void*) {
+  imageSetup("Save", NULL);
+}
+void ShapeLogicFltk::cb_Save(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Save_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Save1_i(Fl_Menu_*, void*) {
+  const char * filename = FltkUtil::singleFileDialog();
+imageSetup("Save_As", filename);
+}
+void ShapeLogicFltk::cb_Save1(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Save1_i(o,v);
+}
+
 void ShapeLogicFltk::cb_Quit_i(Fl_Menu_*, void*) {
   imageSetup("Quit", NULL);
 }
@@ -119,6 +134,8 @@ void ShapeLogicFltk::cb_About(Fl_Menu_* o, void* v) {
 Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"File", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Open...", 0x4006f,  (Fl_Callback*)ShapeLogicFltk::cb_Open, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Save", 0x40073,  (Fl_Callback*)ShapeLogicFltk::cb_Save, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Save As...", 0x40061,  (Fl_Callback*)ShapeLogicFltk::cb_Save1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Quit", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Quit, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Edit", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},

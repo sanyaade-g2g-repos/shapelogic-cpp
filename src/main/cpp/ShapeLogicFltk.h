@@ -25,6 +25,10 @@ public:
 private:
   void cb_Open_i(Fl_Menu_*, void*);
   static void cb_Open(Fl_Menu_*, void*);
+  void cb_Save_i(Fl_Menu_*, void*);
+  static void cb_Save(Fl_Menu_*, void*);
+  void cb_Save1_i(Fl_Menu_*, void*);
+  static void cb_Save1(Fl_Menu_*, void*);
   void cb_Quit_i(Fl_Menu_*, void*);
   static void cb_Quit(Fl_Menu_*, void*);
   void cb_Undo_i(Fl_Menu_*, void*);

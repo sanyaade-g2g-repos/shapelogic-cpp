@@ -57,27 +57,27 @@ void ImageController::undo() {
 }
 
 void ImageController::open(const char *filename) {
-	  Fl_Shared_Image *sharedImage = Fl_Shared_Image::get(filename);
-//	  Fl_Image * image = new Fl_JPEG_Image(filename);
-	  Fl_Image * image = sharedImage->copy();
-	  sharedImage->release();
-	  if ( image->h() == 0 ) {
-	     delete image;
-	     return;
-	   }
-	   delete _lastImage;
-	   _lastImage = _currentImage;
-	   _currentImage = image;
-	   _filename = filename;
+	if (SLStringUtil::empty(filename))
+		return;
+	Fl_Shared_Image *sharedImage = Fl_Shared_Image::get(filename);
+	//	  Fl_Image * image = new Fl_JPEG_Image(filename);
+	Fl_Image * image = sharedImage->copy();
+	sharedImage->release();
+	if ( image->h() == 0 ) {
+		delete image;
+		return;
+	}
+	delete _lastImage;
+	_lastImage = _currentImage;
+	_currentImage = image;
+	_filename = filename;
 }
 
 void ImageController::saveAs(const char *filename) {
-	if (filename == NULL)
+	if (SLStringUtil::empty(filename))
 		return;
-	if (SLStringUtil::isJpeg(filename)) {
-		GILOperation::saveJpg(filename, _currentImage);
-	}
-	else {
+	GILOperation::saveAnyImage(filename, _currentImage);
+	if (false) {
 		std::string message = "The file could not be written ";
 		message += filename;
 		fl_message(message.c_str());

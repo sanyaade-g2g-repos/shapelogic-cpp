@@ -62,6 +62,7 @@ private:
   ImageController _imageController;
 public:
   void imageSetup(const char* command, const char* arg);
+  void updateLabel();
 };
 int main_proxy(int argc, char **argv);
 #endif

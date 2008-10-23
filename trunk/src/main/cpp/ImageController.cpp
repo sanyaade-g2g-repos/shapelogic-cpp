@@ -212,7 +212,12 @@ void ImageController::quit() {
 }
 
 void ImageController::about() {
-	string message = "ShapeLogic C++ 0.1\nAuthor Sami Badawi\nMIT license\nCompile date: ";
+	string message = "ShapeLogic C++ 0.2\n"
+			"Author Sami Badawi\n"
+			"http://www.shapelogic.org\n"
+			"MIT license\n"
+			"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, \n"
+			"Compile date: ";
 	message += __DATE__;
 	fl_message(message.c_str());
 }

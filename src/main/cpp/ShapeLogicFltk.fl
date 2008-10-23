@@ -29,13 +29,15 @@ decl {\#include "shapelogic-cpp.h"} {}
 
 decl {\#include <FL/Fl_Color_Chooser.H>} {} 
 
+decl {const char * appLabel = "ShapeLogic C++ v 0.2 ";} {} 
+
 class ShapeLogicFltk {open
 } {
   Function {ShapeLogicFltk()} {open
   } {
     Fl_Window _window {
-      label {ShapeLogic C++ v 0.1} open
-      xywh {321 62 730 600} type Double hide resizable
+      label {ShapeLogic C++ v 0.2} open
+      xywh {321 62 730 600} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 730 20}
@@ -47,18 +49,21 @@ class ShapeLogicFltk {open
           MenuItem {} {
             label {Open...}
             callback {const char * filename = FltkUtil::singleFileDialog(true);
-imageSetup("Open", filename);} selected
+imageSetup("Open", filename);
+updateLabel();}
             xywh {0 0 36 21} shortcut 0x4006f
           }
           MenuItem {} {
             label Save
-            callback {imageSetup("Save", NULL);}
+            callback {imageSetup("Save", NULL);
+updateLabel();}
             xywh {20 20 36 21} shortcut 0x40073
           }
           MenuItem {} {
             label {Save As...}
             callback {const char * filename = FltkUtil::singleFileDialog(false);
-imageSetup("Save_As", filename);}
+imageSetup("Save_As", filename);
+updateLabel();}
             xywh {10 10 36 21} shortcut 0x40061
           }
           MenuItem {} {
@@ -185,7 +190,7 @@ imageSetup("Save_As", filename);}
           }
         }
       }
-      Fl_Scroll _imageScroll {open
+      Fl_Scroll _imageScroll {
         xywh {0 20 730 580} resizable
       } {}
       Fl_Box _imageBox {
@@ -205,6 +210,13 @@ imageSetup("Save_As", filename);}
   _imageScroll->add(_imageBox);
   _imageBox->image(_imageController.getCurrentImage());
   _window->redraw();} {}
+  }
+  Function {updateLabel()} {open return_type void
+  } {
+    code {std::string fullLabel = appLabel;
+  fullLabel += _imageController.getFilename();
+  _window->label(fullLabel.c_str());} {selected
+    }
   }
 } 
 

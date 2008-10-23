@@ -14,10 +14,12 @@
 #include "FltkUtil.h"
 #include "shapelogic-cpp.h"
 #include <FL/Fl_Color_Chooser.H>
+static const char * appLabel = "ShapeLogic C++ v 0.2 ";
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog(true);
 imageSetup("Open", filename);
+updateLabel();
 }
 void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Open_i(o,v);
@@ -25,6 +27,7 @@ void ShapeLogicFltk::cb_Open(Fl_Menu_* o, void* v) {
 
 void ShapeLogicFltk::cb_Save_i(Fl_Menu_*, void*) {
   imageSetup("Save", NULL);
+updateLabel();
 }
 void ShapeLogicFltk::cb_Save(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Save_i(o,v);
@@ -33,6 +36,7 @@ void ShapeLogicFltk::cb_Save(Fl_Menu_* o, void* v) {
 void ShapeLogicFltk::cb_Save1_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog(false);
 imageSetup("Save_As", filename);
+updateLabel();
 }
 void ShapeLogicFltk::cb_Save1(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Save1_i(o,v);
@@ -176,7 +180,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
 
 ShapeLogicFltk::ShapeLogicFltk() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic C++ v 0.1");
+  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic C++ v 0.2");
     w = o;
     o->user_data((void*)(this));
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 730, 20);
@@ -201,6 +205,12 @@ void ShapeLogicFltk::imageSetup(const char* command, const char* arg) {
   _imageScroll->add(_imageBox);
   _imageBox->image(_imageController.getCurrentImage());
   _window->redraw();
+}
+
+void ShapeLogicFltk::updateLabel() {
+  std::string fullLabel = appLabel;
+  fullLabel += _imageController.getFilename();
+  _window->label(fullLabel.c_str());
 }
 
 int main_proxy(int argc, char **argv) {

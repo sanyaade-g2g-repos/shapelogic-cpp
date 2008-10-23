@@ -1,12 +1,12 @@
 ====================
-ShapeLogic C++ v 0.1
+ShapeLogic C++ v 0.2
 ====================
 
 This is a very rudimentary release. This is not an adequate description of how
 to build ShapeLogic C++, but just a few pointers.
 See project site for more information: http://www.shapelogic.org/cpp.html
 
-Also ShapeLogic C++ v 0.1 release does not do much, the main function is to
+Also ShapeLogic C++ v 0.2 release does not do much, the main function is to
 show how the different components of ShapeLogic C++ work together.
 
 Main components:
@@ -18,7 +18,7 @@ Main components:
 
 Make sure that they are available on your system.
 
-In ShapeLogic C++ 0.2 OpenCV will be added for reading and writing different
+In ShapeLogic C++ 0.3 OpenCV will be added for reading and writing more
 image formats and for a long list of existing computer vision algorithms.
 
 -------------------------------------------------------------------------------

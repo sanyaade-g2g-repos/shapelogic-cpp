@@ -244,13 +244,18 @@ void GILOperation::fltkBlur(Fl_Image * input, Fl_Image * output) {
 
 //-----------------------save jpg-----------------------------
 
-void GILOperation::saveJpg(const char * filename, Fl_Image * input) {
-	jpeg_write_view(filename, make_rgb8_view_t(input));
+bool GILOperation::saveJpg(const char * filename, Fl_Image * input) {
+	if (SLStringUtil::isJpeg(filename)) {
+		jpeg_write_view(filename, make_rgb8_view_t(input));
+		return true;
+	}
+	return false;
 }
 
-void GILOperation::saveAnyImage(const char * filename, Fl_Image * input) {
-
+bool GILOperation::saveAnyImage(const char * filename, Fl_Image * input) {
 	if (SLStringUtil::isJpeg(filename)) jpeg_write_view(filename, make_rgb8_view_t(input));
 	else if (SLStringUtil::isPng(filename)) png_write_view(filename, make_rgb8_view_t(input));
 //	else if (SLStringUtil::isTiff(filename)) tiff_write_view(filename, make_rgb8_view_t(input));
+	else return false;
+	return true;
 }

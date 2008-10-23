@@ -6,6 +6,7 @@
  */
 
 #include "SLStringUtil.h"
+#include <algorithm>
 
 using namespace std;
 

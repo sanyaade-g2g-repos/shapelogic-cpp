@@ -76,7 +76,8 @@ void ImageController::open(const char *filename) {
 void ImageController::saveAs(const char *filename) {
 	if (SLStringUtil::empty(filename))
 		return;
-	GILOperation::saveAnyImage(filename, _currentImage);
+	if (GILOperation::saveAnyImage(filename, _currentImage))
+		_filename = filename;
 	if (false) {
 		std::string message = "The file could not be written ";
 		message += filename;
@@ -90,6 +91,10 @@ void ImageController::save() {
 
 Fl_Image * ImageController::getCurrentImage() {
 	return _currentImage;
+}
+
+string ImageController::getFilename() {
+	return _filename;
 }
 
 void ImageController::startOperation() {

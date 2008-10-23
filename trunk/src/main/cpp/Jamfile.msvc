@@ -24,6 +24,7 @@ exe shapelogic-cpp : [ glob *.cpp ]
     :
       <include>../../../../src/fltk-1.1.9/ <include>../../../../src/fltk-1.1.9/vc2005/ <include>../../../../src/fltk-1.1.9/zlib/
       <include>../../../../src/fltk-1.1.9/jpeg/ 
+      <include>../../../../src/fltk-1.1.9/png/ 
       <include>../../../../src/boost_1_36_0/ :
       <define>WIN32 <define>_WIN32
  ;

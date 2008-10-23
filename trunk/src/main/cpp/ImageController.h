@@ -41,6 +41,7 @@ public:
 
 //Getter and setter methods
 	virtual Fl_Image * getCurrentImage();
+	virtual std::string getFilename();
 
 	unsigned char _foreground[3];
 	unsigned char _background[3];

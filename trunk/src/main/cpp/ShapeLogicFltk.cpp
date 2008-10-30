@@ -78,7 +78,7 @@ void ShapeLogicFltk::cb_Invert(Fl_Menu_* o, void* v) {
 }
 
 void ShapeLogicFltk::cb_Foreground_i(Fl_Menu_*, void*) {
-  unsigned char * foreground = _imageController._foreground;
+  unsigned char * foreground = getImageController()->_foreground;
   fl_color_chooser("Chose foreground color", foreground[0], foreground[1], foreground[2]);
 }
 void ShapeLogicFltk::cb_Foreground(Fl_Menu_* o, void* v) {
@@ -86,7 +86,7 @@ void ShapeLogicFltk::cb_Foreground(Fl_Menu_* o, void* v) {
 }
 
 void ShapeLogicFltk::cb_Background_i(Fl_Menu_*, void*) {
-  unsigned char * background = _imageController._background;
+  unsigned char * background = getImageController()->_background;
   fl_color_chooser("Chose foreground color", background[0], background[1], background[2]);
 }
 void ShapeLogicFltk::cb_Background(Fl_Menu_* o, void* v) {
@@ -190,27 +190,32 @@ ShapeLogicFltk::ShapeLogicFltk() {
       o->end();
       Fl_Group::current()->resizable(o);
     }
-    _imageBox = new Fl_Box(0, 20, 730, 580);
+    _imageBox = new ImageBox(0, 20, 730, 580);
+    _imageBox->setScroll(_imageScroll);
     o->end();
   }
   w->show();
 }
 
 void ShapeLogicFltk::imageSetup(const char* command, const char* arg) {
-  _imageController.run(command, arg);
-  _imageController.getCurrentImage()->uncache();
+  getImageController()->run(command, arg);
+  getImageController()->getCurrentImage()->uncache();
   _imageScroll->clear(); //Removes and deletes all children
   int menuBarHeight = 20;
-  _imageBox = new Fl_Box(0,menuBarHeight,_imageController.getCurrentImage()->w(),_imageController.getCurrentImage()->h());
+  _imageBox = new ImageBox(0,menuBarHeight,getImageController()->getCurrentImage()->w(),getImageController()->getCurrentImage()->h());
   _imageScroll->add(_imageBox);
-  _imageBox->image(_imageController.getCurrentImage());
+  _imageBox->image(getImageController()->getCurrentImage());
   _window->redraw();
 }
 
 void ShapeLogicFltk::updateLabel() {
   std::string fullLabel = appLabel;
-  fullLabel += _imageController.getFilename();
+  fullLabel += getImageController()->getFilename();
   _window->label(fullLabel.c_str());
+}
+
+ImageController * ShapeLogicFltk::getImageController() {
+  return ImageController::getInstance();
 }
 
 int main_proxy(int argc, char **argv) {

@@ -15,7 +15,7 @@
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Scroll.H>
-#include <FL/Fl_Box.H>
+#include "ImageBox.h"
 
 class ShapeLogicFltk {
 public:
@@ -57,12 +57,10 @@ private:
   static void cb_About(Fl_Menu_*, void*);
 public:
   Fl_Scroll *_imageScroll;
-  Fl_Box *_imageBox;
-private:
-  ImageController _imageController;
-public:
+  ImageBox *_imageBox;
   void imageSetup(const char* command, const char* arg);
   void updateLabel();
+  ImageController * getImageController();
 };
 int main_proxy(int argc, char **argv);
 #endif

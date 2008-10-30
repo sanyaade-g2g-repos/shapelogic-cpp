@@ -36,8 +36,8 @@ class ShapeLogicFltk {open
   Function {ShapeLogicFltk()} {open
   } {
     Fl_Window _window {
-      label {ShapeLogic C++ v 0.2} open
-      xywh {321 62 730 600} type Double resizable visible
+      label {ShapeLogic C++ v 0.3} open
+      xywh {451 49 730 600} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 730 20}
@@ -124,13 +124,13 @@ updateLabel();}
           } {
             MenuItem {} {
               label Foreground
-              callback {unsigned char * foreground = _imageController._foreground;
+              callback {unsigned char * foreground = getImageController()->_foreground;
   fl_color_chooser("Chose foreground color", foreground[0], foreground[1], foreground[2]);}
               xywh {0 0 36 21}
             }
             MenuItem {} {
               label Background
-              callback {unsigned char * background = _imageController._background;
+              callback {unsigned char * background = getImageController()->_background;
   fl_color_chooser("Chose foreground color", background[0], background[1], background[2]);}
               xywh {10 10 36 21}
             }
@@ -195,27 +195,32 @@ updateLabel();}
       } {}
       Fl_Box _imageBox {
         xywh {0 20 730 580}
+        code0 {\#include "ImageBox.h"}
+        class ImageBox
       }
     }
     code {w->show();} {}
   }
-  decl {ImageController _imageController;} {}
   Function {imageSetup(const char* command, const char* arg)} {open return_type void
   } {
-    code {_imageController.run(command, arg);
-  _imageController.getCurrentImage()->uncache();
+    code {getImageController()->run(command, arg);
+  getImageController()->getCurrentImage()->uncache();
   _imageScroll->clear(); //Removes and deletes all children
   int menuBarHeight = 20;
-  _imageBox = new Fl_Box(0,menuBarHeight,_imageController.getCurrentImage()->w(),_imageController.getCurrentImage()->h());
+  _imageBox = new Fl_Box(0,menuBarHeight,getImageController()->getCurrentImage()->w(),getImageController()->getCurrentImage()->h());
   _imageScroll->add(_imageBox);
-  _imageBox->image(_imageController.getCurrentImage());
+  _imageBox->image(getImageController()->getCurrentImage());
   _window->redraw();} {}
   }
   Function {updateLabel()} {open return_type void
   } {
     code {std::string fullLabel = appLabel;
-  fullLabel += _imageController.getFilename();
-  _window->label(fullLabel.c_str());} {selected
+  fullLabel += getImageController()->getFilename();
+  _window->label(fullLabel.c_str());} {}
+  }
+  Function {getImageController()} {open return_type {ImageController *}
+  } {
+    code {return ImageController::getInstance();} {selected
     }
   }
 } 

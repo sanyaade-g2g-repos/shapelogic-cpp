@@ -16,6 +16,8 @@ class ImageController {
 public:
 	ImageController();
 	virtual ~ImageController();
+	//Singelton like instance that is used for the screen
+	static ImageController * getInstance();
 
 //Image operations
 
@@ -51,6 +53,7 @@ private:
 	Fl_Image * _nextImage;
 	std::string _filename;
     bool _directOperation;
+    static ImageController * _instance;
 };
 
 #endif /* IMAGECONTROLLER_H_ */

@@ -17,6 +17,8 @@
 
 using namespace std;
 
+ImageController * ImageController::_instance = NULL;
+
 ImageController::ImageController() {
 	fl_register_images();
 	_currentImage = NULL;
@@ -30,6 +32,13 @@ ImageController::ImageController() {
 ImageController::~ImageController() {
 	delete _currentImage;
 	delete _lastImage;
+}
+
+ImageController * ImageController::getInstance() {
+	if (_instance == NULL) {
+		_instance = new ImageController();
+	}
+	return _instance;
 }
 
 void ImageController::run(const char *name, const char *arg) {

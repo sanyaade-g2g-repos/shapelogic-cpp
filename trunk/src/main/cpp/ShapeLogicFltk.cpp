@@ -180,7 +180,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
 
 ShapeLogicFltk::ShapeLogicFltk() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic C++ v 0.2");
+  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic C++ v 0.3");
     w = o;
     o->user_data((void*)(this));
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 730, 20);
@@ -190,11 +190,12 @@ ShapeLogicFltk::ShapeLogicFltk() {
       o->end();
       Fl_Group::current()->resizable(o);
     }
-    _imageBox = new ImageBox(0, 20, 730, 580);
-    _imageBox->setScroll(_imageScroll);
+    { ImageBox* o = _imageBox = new ImageBox(0, 20, 730, 580);
+    }
     o->end();
   }
-  w->show();
+  _imageBox->setScroll(_imageScroll); 
+      w->show();
 }
 
 void ShapeLogicFltk::imageSetup(const char* command, const char* arg) {

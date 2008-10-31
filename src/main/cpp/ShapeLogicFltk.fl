@@ -137,6 +137,31 @@ updateLabel();}
           }
         }
         Submenu {} {
+          label Brushes open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label None
+            callback {imageSetup("Brush", "None");}
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Pen
+            callback {imageSetup("Brush", "Pen");}
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Point_info
+            callback {imageSetup("Brush", "Point_info");}
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Sample_color
+            callback {imageSetup("Brush", "Sample_color");} selected
+            xywh {0 0 36 21}
+          }
+        }
+        Submenu {} {
           label Process open
           xywh {10 10 70 21}
         } {
@@ -193,7 +218,7 @@ updateLabel();}
       Fl_Scroll _imageScroll {
         xywh {0 20 730 580} resizable
       } {}
-      Fl_Box _imageBox {selected
+      Fl_Box _imageBox {
         xywh {0 20 730 580} labeltype NO_LABEL
         code0 {\#include "ImageBox.h"}
         class ImageBox

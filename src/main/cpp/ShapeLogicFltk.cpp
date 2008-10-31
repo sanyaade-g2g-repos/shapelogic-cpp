@@ -9,6 +9,7 @@
 
 #include "ShapeLogicFltk.h"
 #include <iostream>
+#include <cstring>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_JPEG_Image.H>
 #include "FltkUtil.h"
@@ -93,6 +94,34 @@ void ShapeLogicFltk::cb_Background(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Background_i(o,v);
 }
 
+void ShapeLogicFltk::cb_None_i(Fl_Menu_*, void*) {
+  imageSetup("Brush", "None");
+}
+void ShapeLogicFltk::cb_None(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_None_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Pen_i(Fl_Menu_*, void*) {
+  imageSetup("Brush", "Pen");
+}
+void ShapeLogicFltk::cb_Pen(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Pen_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Point_info_i(Fl_Menu_*, void*) {
+  imageSetup("Brush", "Point_info");
+}
+void ShapeLogicFltk::cb_Point_info(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Point_info_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Sample_color_i(Fl_Menu_*, void*) {
+  imageSetup("Brush", "Sample_color");
+}
+void ShapeLogicFltk::cb_Sample_color(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Sample_color_i(o,v);
+}
+
 void ShapeLogicFltk::cb_Smooth_i(Fl_Menu_*, void*) {
   imageSetup("Blur", NULL);
 }
@@ -159,6 +188,12 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Background", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Background, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,0,0},
+ {"Brushes", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"None", 0,  (Fl_Callback*)ShapeLogicFltk::cb_None, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Pen", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Pen, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Point_info", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Point_info, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Sample_color", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sample_color, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
  {"Process", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Smooth", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Smooth, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Edge", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Edge, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -203,12 +238,14 @@ ShapeLogicFltk::ShapeLogicFltk() {
     }
     o->end();
   }
-  _imageBox->setScroll(_imageScroll); 
+  _imageBox->setScroll(_imageScroll);
       w->show();
 }
 
 void ShapeLogicFltk::imageSetup(const char* command, const char* arg) {
   getImageController()->run(command, arg);
+  if (0 == strcmp("Brush",command))
+	  return;
   getImageController()->getCurrentImage()->uncache();
   _imageScroll->clear(); //Removes and deletes all children
   int menuBarHeight = 20;

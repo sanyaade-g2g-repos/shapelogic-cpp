@@ -3,7 +3,7 @@
  *
  * The purpose of ImageBox is to add an event handler to the Fl_Box that is
  * used to display the main image.
- * 
+ *
  *  Created on: Oct 28, 2008
  *      Author: Sami Badawi
  */
@@ -11,6 +11,7 @@
 #include "ImageBox.h"
 #include "ImageController.h"
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 
 #include <FL/Fl.H>
@@ -20,15 +21,13 @@
 
 using namespace std;
 
-static const string DRAW("pointDraw");
-static const string SHOW_PIXEL("showPixel");
 static int imageBoxCount = 0;
 
 ImageBox::ImageBox(int x, int y, int w, int h, const char *l) :
 	Fl_Box(x,y,w,h,l) {
-	_brushType = DRAW.c_str();
 	imageBoxCount++;
 	instanceNo = imageBoxCount;
+	_brushType = "";
 	cout << "ImageBox::ImageBox() # " << instanceNo << " created.\n ";
 }
 
@@ -48,8 +47,10 @@ Fl_Image *  ImageBox::getImage() {
 }
 
 int ImageBox::handle(int e) {
+	_brushType = ImageController::getInstance()->getBrush();
+	bool pen = 0 == strcmp("Pen",_brushType);
 	if ( e == FL_PUSH ) {
-		if (DRAW==_brushType) {
+		if (pen) {
 			pointDraw();
 			refresh();
 			return 1; //In order to get drag
@@ -58,19 +59,18 @@ int ImageBox::handle(int e) {
 			showPixel();
 	}
 	else if ( e == FL_DRAG ) {
-		if (DRAW==_brushType) {
+		if (pen) {
 			pointDraw();
 			refresh(true);
 		}
 	}
 	else if ( e == FL_RELEASE ) {
-		if (DRAW==_brushType) {
+		if (pen) {
 			pointDraw();
 			refresh();
 		}
 	}
 	int returnValue = Fl_Box::handle(e);
-//	cout << "returnValue:" << returnValue << endl;
 	return (returnValue);
 }
 

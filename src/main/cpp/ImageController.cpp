@@ -27,6 +27,7 @@ ImageController::ImageController() {
 		_foreground[i] = 0;
 		_background[i] = 255;
 	}
+	_brush = "";
 }
 
 ImageController::~ImageController() {
@@ -45,6 +46,7 @@ void ImageController::run(const char *name, const char *arg) {
 	std::string command(name);
 	if (command == "About") about();
 	else if (command == "Blur") blur();
+	else if (command == "Brush") setBrush(arg);
 	else if (command == "Clear") clear();
 	else if (command == "Edge")	edge();
 	else if (command == "Fill")	fill();
@@ -147,6 +149,14 @@ void ImageController::invert() {
 		data[index]=255-data[index];
 	}
 	endOperation();
+}
+
+void ImageController::setBrush(const char * brush) {
+	_brush = brush;
+}
+
+const char * ImageController::getBrush() {
+	return _brush;
 }
 
 void ImageController::clear() {

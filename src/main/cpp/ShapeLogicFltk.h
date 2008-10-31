@@ -43,6 +43,14 @@ private:
   static void cb_Foreground(Fl_Menu_*, void*);
   void cb_Background_i(Fl_Menu_*, void*);
   static void cb_Background(Fl_Menu_*, void*);
+  void cb_None_i(Fl_Menu_*, void*);
+  static void cb_None(Fl_Menu_*, void*);
+  void cb_Pen_i(Fl_Menu_*, void*);
+  static void cb_Pen(Fl_Menu_*, void*);
+  void cb_Point_info_i(Fl_Menu_*, void*);
+  static void cb_Point_info(Fl_Menu_*, void*);
+  void cb_Sample_color_i(Fl_Menu_*, void*);
+  static void cb_Sample_color(Fl_Menu_*, void*);
   void cb_Smooth_i(Fl_Menu_*, void*);
   static void cb_Smooth(Fl_Menu_*, void*);
   void cb_Edge_i(Fl_Menu_*, void*);

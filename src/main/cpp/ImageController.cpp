@@ -19,6 +19,8 @@ using namespace std;
 
 ImageController * ImageController::_instance = NULL;
 
+static char messageBuffer[1024];
+
 ImageController::ImageController() {
 	fl_register_images();
 	_currentImage = NULL;
@@ -234,10 +236,9 @@ void ImageController::about() {
 	string message = "ShapeLogic C++ 0.3\n"
 			"Author Sami Badawi\n"
 			"http://www.shapelogic.org\n"
-			"MIT license\n"
-			"THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, \n"
 			"Compile date: ";
 	message += __DATE__;
-	fl_message(message.c_str());
+	strcpy(messageBuffer, message.c_str());
+	fl_message(messageBuffer);
 }
 

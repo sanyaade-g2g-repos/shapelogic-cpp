@@ -31,11 +31,12 @@ public:
 	virtual void setBrushType(const char * brushType);
 	virtual int handle(int e);
 
-//Handler methods
-    virtual void pointDraw();
-    virtual void showPixel();
+//Handler methods returns true if the operation was successful
+    virtual bool pointDraw();
+    virtual bool showPixel();
+    virtual bool sampleColor();
+
     virtual void refresh(bool timedependent = false);
-    virtual void sampleColor();
 
     int instanceNo; //TODO take out
     time_t _timeOfLastRefreshInSeconds;

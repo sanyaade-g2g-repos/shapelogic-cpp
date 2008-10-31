@@ -9,7 +9,6 @@
 
 #include "ShapeLogicFltk.h"
 #include <iostream>
-#include <cstring>
 #include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_JPEG_Image.H>
 #include "FltkUtil.h"
@@ -238,13 +237,15 @@ ShapeLogicFltk::ShapeLogicFltk() {
     }
     o->end();
   }
-  _imageBox->setScroll(_imageScroll);
+  _imageBox->setScroll(_imageScroll); 
       w->show();
 }
 
 void ShapeLogicFltk::imageSetup(const char* command, const char* arg) {
   getImageController()->run(command, arg);
   if (0 == strcmp("Brush",command))
+	  return;
+  if (NULL == getImageController()->getCurrentImage())
 	  return;
   getImageController()->getCurrentImage()->uncache();
   _imageScroll->clear(); //Removes and deletes all children

@@ -193,13 +193,14 @@ updateLabel();}
       Fl_Scroll _imageScroll {
         xywh {0 20 730 580} resizable
       } {}
-      Fl_Box _imageBox {
-        xywh {0 20 730 580}
+      Fl_Box _imageBox {selected
+        xywh {0 20 730 580} labeltype NO_LABEL
         code0 {\#include "ImageBox.h"}
         class ImageBox
       }
     }
-    code {w->show();} {}
+    code {_imageBox->setScroll(_imageScroll); 
+      w->show();} {}
   }
   Function {imageSetup(const char* command, const char* arg)} {open return_type void
   } {
@@ -207,7 +208,7 @@ updateLabel();}
   getImageController()->getCurrentImage()->uncache();
   _imageScroll->clear(); //Removes and deletes all children
   int menuBarHeight = 20;
-  _imageBox = new Fl_Box(0,menuBarHeight,getImageController()->getCurrentImage()->w(),getImageController()->getCurrentImage()->h());
+  _imageBox = new ImageBox(0,menuBarHeight,getImageController()->getCurrentImage()->w(),getImageController()->getCurrentImage()->h());
   _imageScroll->add(_imageBox);
   _imageBox->image(getImageController()->getCurrentImage());
   _window->redraw();} {}
@@ -220,8 +221,7 @@ updateLabel();}
   }
   Function {getImageController()} {open return_type {ImageController *}
   } {
-    code {return ImageController::getInstance();} {selected
-    }
+    code {return ImageController::getInstance();} {}
   }
 } 
 

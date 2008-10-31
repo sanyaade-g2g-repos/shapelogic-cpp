@@ -25,6 +25,8 @@ public:
 
 	virtual void about();
 	virtual void blur();
+	virtual void setBrush(const char * brush);
+	virtual const char * getBrush();
 	virtual void clear();
 	virtual void edge();
 	virtual void fill();
@@ -53,7 +55,9 @@ private:
 	Fl_Image * _nextImage;
 	std::string _filename;
     bool _directOperation;
-    static ImageController * _instance;
+	const char * _brush;
+
+	static ImageController * _instance;
 };
 
 #endif /* IMAGECONTROLLER_H_ */

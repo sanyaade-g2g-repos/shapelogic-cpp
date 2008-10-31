@@ -157,7 +157,7 @@ updateLabel();}
           }
           MenuItem {} {
             label Sample_color
-            callback {imageSetup("Brush", "Sample_color");} selected
+            callback {imageSetup("Brush", "Sample_color");}
             xywh {0 0 36 21}
           }
         }
@@ -230,13 +230,18 @@ updateLabel();}
   Function {imageSetup(const char* command, const char* arg)} {open return_type void
   } {
     code {getImageController()->run(command, arg);
+  if (0 == strcmp("Brush",command))
+	  return;
+  if (NULL == getImageController()->getCurrentImage())
+	  return;
   getImageController()->getCurrentImage()->uncache();
   _imageScroll->clear(); //Removes and deletes all children
   int menuBarHeight = 20;
   _imageBox = new ImageBox(0,menuBarHeight,getImageController()->getCurrentImage()->w(),getImageController()->getCurrentImage()->h());
   _imageScroll->add(_imageBox);
   _imageBox->image(getImageController()->getCurrentImage());
-  _window->redraw();} {}
+  _window->redraw();} {selected
+    }
   }
   Function {updateLabel()} {open return_type void
   } {

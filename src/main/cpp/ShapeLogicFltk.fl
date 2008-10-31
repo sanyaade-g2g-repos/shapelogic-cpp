@@ -29,7 +29,7 @@ decl {\#include "shapelogic-cpp.h"} {}
 
 decl {\#include <FL/Fl_Color_Chooser.H>} {} 
 
-decl {const char * appLabel = "ShapeLogic C++ v 0.2 ";} {} 
+decl {const char * appLabel = "ShapeLogic C++ v 0.3 ";} {} 
 
 class ShapeLogicFltk {open
 } {

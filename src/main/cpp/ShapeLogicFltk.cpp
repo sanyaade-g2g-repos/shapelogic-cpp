@@ -14,7 +14,7 @@
 #include "FltkUtil.h"
 #include "shapelogic-cpp.h"
 #include <FL/Fl_Color_Chooser.H>
-static const char * appLabel = "ShapeLogic C++ v 0.2 ";
+static const char * appLabel = "ShapeLogic C++ v 0.3 ";
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog(true);
@@ -191,6 +191,15 @@ ShapeLogicFltk::ShapeLogicFltk() {
       Fl_Group::current()->resizable(o);
     }
     { ImageBox* o = _imageBox = new ImageBox(0, 20, 730, 580);
+      o->box(FL_NO_BOX);
+      o->color(FL_BACKGROUND_COLOR);
+      o->selection_color(FL_BACKGROUND_COLOR);
+      o->labeltype(FL_NO_LABEL);
+      o->labelfont(0);
+      o->labelsize(14);
+      o->labelcolor(FL_FOREGROUND_COLOR);
+      o->align(FL_ALIGN_CENTER);
+      o->when(FL_WHEN_RELEASE);
     }
     o->end();
   }

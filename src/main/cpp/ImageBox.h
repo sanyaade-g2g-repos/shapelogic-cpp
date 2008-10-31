@@ -35,6 +35,7 @@ public:
     virtual void pointDraw();
     virtual void showPixel();
     virtual void refresh(bool timedependent = false);
+    virtual void sampleColor();
 
     int instanceNo; //TODO take out
     time_t _timeOfLastRefreshInSeconds;

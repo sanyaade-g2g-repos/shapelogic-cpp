@@ -13,11 +13,13 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <sstream>
 
 #include <FL/Fl.H>
 #include <FL/fl_draw.H>
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Scroll.H>
+#include <FL/fl_ask.H>
 
 using namespace std;
 
@@ -28,7 +30,7 @@ ImageBox::ImageBox(int x, int y, int w, int h, const char *l) :
 	imageBoxCount++;
 	instanceNo = imageBoxCount;
 	_brushType = "";
-	cout << "ImageBox::ImageBox() # " << instanceNo << " created.\n ";
+//	cout << "ImageBox::ImageBox() # " << instanceNo << " created.\n ";
 }
 
 ImageBox::~ImageBox() {
@@ -48,15 +50,19 @@ Fl_Image *  ImageBox::getImage() {
 
 int ImageBox::handle(int e) {
 	_brushType = ImageController::getInstance()->getBrush();
-	bool pen = 0 == strcmp("Pen",_brushType);
+	bool pen = (0 == strcmp("Pen",_brushType) );
+	bool pointInfo = (0 == strcmp("Point_info",_brushType) );
+	bool doSampleColor = (0 == strcmp("Sample_color",_brushType));
 	if ( e == FL_PUSH ) {
 		if (pen) {
 			pointDraw();
 			refresh();
 			return 1; //In order to get drag
 		}
-		else
+		else if (pointInfo)
 			showPixel();
+		else if (doSampleColor)
+			sampleColor();
 	}
 	else if ( e == FL_DRAG ) {
 		if (pen) {
@@ -76,32 +82,72 @@ int ImageBox::handle(int e) {
 
 void ImageBox::pointDraw() {
 	Fl_Image * image = getImage(); //this->image();
-	if (image != NULL) {
-		int x = Fl::event_x() - _scroll->x() + _scroll->hscrollbar.value();
-		int y = Fl::event_y() - _scroll->y() + _scroll->scrollbar.value();
-		int width     = image->w();
-		int channels  = image->d();
-		uchar * data      = (uchar *)image->data()[0];
-		if (3 == channels) {
-			int index = ((width * y) + x)*3;
-			for (int i = 0; i < channels; i++)
-				data[index+i] = ImageController::getInstance()->_foreground[i];
-		}
-		else if (1 == channels) {
-			int index = ((width * y) + x);
-			data[index] = ImageController::getInstance()->_foreground[0];
-		}
+	if (image == NULL)
+		return;
+	int x = Fl::event_x() - _scroll->x() + _scroll->hscrollbar.value();
+	int y = Fl::event_y() - _scroll->y() + _scroll->scrollbar.value();
+	int width     = image->w();
+	int channels  = image->d();
+	uchar * data      = (uchar *)image->data()[0];
+	if (3 == channels) {
+		int index = ((width * y) + x)*3;
+		for (int i = 0; i < channels; i++)
+			data[index+i] = ImageController::getInstance()->_foreground[i];
+	}
+	else if (1 == channels) {
+		int index = ((width * y) + x);
+		data[index] = ImageController::getInstance()->_foreground[0];
 	}
 }
 
 void ImageBox::showPixel() {
-	cout << "event_x,event_y: ";
-	cout <<
+	Fl_Image * image = getImage(); //this->image();
+	if (image == NULL)
+		return;
+	int x = Fl::event_x() - _scroll->x() + _scroll->hscrollbar.value();
+	int y = Fl::event_y() - _scroll->y() + _scroll->scrollbar.value();
+	int width     = image->w();
+	int channels  = image->d();
+	uchar * data      = (uchar *)image->data()[0];
+	ostringstream stringStream;
+	stringStream << "Frame x,y: ";
+	stringStream <<
 		Fl::event_x() << ", " <<
 		Fl::event_y() <<
-		" Hit on box: " <<
-		Fl::event_x() - _scroll->x() + _scroll->hscrollbar.value() << ", " <<
-		Fl::event_y() - _scroll->y() + _scroll->scrollbar.value() << "\n";
+		" Image x,y: " << x << ", " << y << endl <<
+		"Color: ";
+	if (3 == channels) {
+		int index = ((width * y) + x)*3;
+		for (int i = 0; i < channels; i++)
+			stringStream << (int)data[index+i] << ", ";
+	}
+	else if (1 == channels) {
+		int index = ((width * y) + x);
+		stringStream << (int)data[index];
+	}
+	stringStream << endl;
+	fl_message(stringStream.str().c_str());
+}
+
+void ImageBox::sampleColor() {
+	Fl_Image * image = getImage(); //this->image();
+	if (image == NULL)
+		return;
+	int x = Fl::event_x() - _scroll->x() + _scroll->hscrollbar.value();
+	int y = Fl::event_y() - _scroll->y() + _scroll->scrollbar.value();
+	int width     = image->w();
+	int channels  = image->d();
+	uchar * data      = (uchar *)image->data()[0];
+	if (3 == channels) {
+		int index = ((width * y) + x)*3;
+		for (int i = 0; i < channels; i++)
+			ImageController::getInstance()->_foreground[i] = data[index+i];
+	}
+	else if (1 == channels) {
+		int index = ((width * y) + x);
+		for (int i = 0; i < 3; i++)
+			ImageController::getInstance()->_foreground[i] = data[index];
+	}
 }
 
 void ImageBox::refresh(bool timedependent) {

@@ -10,6 +10,7 @@
 #include <gtest/gtest.h>
 #include <boost/lambda/lambda.hpp>
 #include <GILOperation.h>
+#include <FltkImage.h>
 #include <boost/gil/extension/io/jpeg_dynamic_io.hpp>
 #include <FL/Fl_GIF_Image.H>
 #include <FL/Fl_JPEG_Image.H>
@@ -40,16 +41,17 @@ TEST(GILOperation, xSobelImage) {
 	EXPECT_EQ(3, num_channels<boost::gil::rgb8_view_t>::value);
 	Fl_RGB_Image * rgbImage = dynamic_cast<Fl_RGB_Image *>(image);
 	EXPECT_TRUE(rgbImage != NULL);
-	Fl_Image * imageOut = rgbImage->copy();
-	GILOperation::fltkSobelX(image, imageOut);
-	rgb8_view_t view = GILOperation::make_rgb8_view_t(image);
+	FltkImage * fltkImage = new FltkImage(rgbImage);
+	FltkImage * imageOut = fltkImage->copy();
+	GILOperation::fltkSobelX(fltkImage, imageOut);
+	rgb8_view_t view = GILOperation::make_rgb8_view_t(fltkImage);
 	int fistByte = view.row_begin(0)[0][0];
 	EXPECT_EQ(191, fistByte);
-	EXPECT_EQ(image->h(), imageOut->h());
-	EXPECT_EQ(image->w(), imageOut->w());
-	EXPECT_EQ(image->d(), imageOut->d());
+	EXPECT_EQ(image->h(), imageOut->getHeight());
+	EXPECT_EQ(image->w(), imageOut->getWidth());
+	EXPECT_EQ(image->d(), imageOut->getNChannels());
 	delete imageOut;
-	delete image;
+	delete fltkImage;
 }
 
 TEST(GILOperation, xSobelImageGrayGif) {
@@ -71,10 +73,11 @@ TEST(GILOperation, xSobelImageGrayPng) {
 	EXPECT_EQ(3, image->d()) << "gray image does not have 1 channel";
 	Fl_RGB_Image * rgbImage = dynamic_cast<Fl_RGB_Image *>(image); //PNG is a Fl_RGB_Pixmap even if it is a gray image
 	EXPECT_TRUE(rgbImage != NULL) << "png image is not of type Fl_RGB_Image";
-	Fl_Image * imageOut = rgbImage->copy();
-	GILOperation::fltkSobelX(image, imageOut);
+	FltkImage * fltkImage = new FltkImage(rgbImage);
+	FltkImage * imageOut = fltkImage->copy();
+	GILOperation::fltkSobelX(fltkImage, imageOut);
 	delete imageOut;
-	delete image;
+	delete fltkImage;
 }
 
 }

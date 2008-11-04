@@ -1,6 +1,12 @@
 /*
  * FltkImage.h
  *
+ * The idea with this class is that it should be able to provide images of all
+ * the classes FLTK, GIL and OpenCV.
+ *
+ * To begin with I will attempt to only have one image buffer stored at the
+ * same time.
+ *
  *  Created on: Oct 2, 2008
  *      Author: Sami Badawi
  */
@@ -64,8 +70,14 @@ public:
 
 	virtual int getLineStride();
 
+//-------------New members
+
+	virtual Fl_Image * getFlImage();
+
+	virtual const unsigned char * getBuffer();
+
 protected:
-	Fl_Image * _image;
+	Fl_Image * _flImage;
 };
 
 #endif /* FLTKIMAGE_H_ */

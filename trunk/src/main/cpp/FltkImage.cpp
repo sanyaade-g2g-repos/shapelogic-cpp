@@ -9,24 +9,28 @@
 #include <FL/Fl_Image.H>
 
 
-FltkImage::FltkImage(Fl_Image * image) : SLImage(), _image(image) {
+FltkImage::FltkImage(Fl_Image * image) : SLImage(), _flImage(image) {
 
 }
 
 FltkImage::~FltkImage() {
-	delete _image;
+	delete _flImage;
 }
 
 
 
 /** Returns the width of this image in pixels. */
 int FltkImage::getWidth() {
-	return _image->w();
+	if (0 !=_flImage)
+		return _flImage->w();
+	return 0;
 }
 
 /** Returns the height of this image in pixels. */
 int FltkImage::getHeight() {
-	return _image->h();
+	if (0 !=_flImage)
+		return _flImage->h();
+	return 0;
 }
 
 //void FltkImage::setRoi(Rectangle roi) {
@@ -99,3 +103,14 @@ bool FltkImage::isRgb() {
 int FltkImage::getLineStride() {
     return 0;
 }
+
+Fl_Image * FltkImage::getFlImage() {
+	return _flImage;
+}
+
+const unsigned char * FltkImage::getBuffer() {
+	if (0 == _flImage)
+		return 0;
+	return (unsigned char *) *_flImage->data();
+}
+

@@ -8,6 +8,7 @@
 #include "ImageController.h"
 #include "GILOperation.h"
 #include "SLStringUtil.h"
+#include "FltkImage.h"
 #include <string>
 #include <cstdlib>
 #include <FL/Fl_Bitmap.H>
@@ -64,7 +65,7 @@ void ImageController::run(const char *name, const char *arg) {
 }
 
 void ImageController::undo() {
-	Fl_Image * tempImage = _currentImage;
+	FltkImage * tempImage = _currentImage;
 	_currentImage =_lastImage;
 	_lastImage = tempImage;
 }
@@ -82,7 +83,7 @@ void ImageController::open(const char *filename) {
 	}
 	delete _lastImage;
 	_lastImage = _currentImage;
-	_currentImage = image;
+	_currentImage = new FltkImage(image);
 	_filename = filename;
 }
 
@@ -103,7 +104,7 @@ void ImageController::save() {
 }
 
 Fl_Image * ImageController::getCurrentImage() {
-	return _currentImage;
+	return _currentImage->getFlImage();
 }
 
 string ImageController::getFilename() {
@@ -118,11 +119,14 @@ void ImageController::startOperation() {
 	  }
 	  else {
 		  //Create a new image with the same properties
-		  const uchar* buffer = new uchar[_currentImage->w() * _currentImage->h() * _currentImage->d()];
-		  if (_currentImage->d() == 1)
-			  _nextImage = new Fl_Bitmap(buffer,_currentImage->w(), _currentImage->h());
+		  int bufferSize = _currentImage->getWidth() * _currentImage->getHeight() * _currentImage->getNChannels();
+		  const uchar* buffer = new uchar[bufferSize];
+		  Fl_Image * nextFlImage = 0;
+		  if (_currentImage->getNChannels() == 1)
+			  nextFlImage = new Fl_Bitmap(buffer,_currentImage->getWidth(), _currentImage->getHeight());
 		  else
-			  _nextImage = new Fl_RGB_Image(buffer,_currentImage->w(), _currentImage->h(), _currentImage->d());
+			  nextFlImage = new Fl_RGB_Image(buffer,_currentImage->getWidth(), _currentImage->getHeight(), _currentImage->getNChannels());
+		  _nextImage = new FltkImage(nextFlImage);
 	  }
 }
 
@@ -140,10 +144,10 @@ void ImageController::endOperation() {
 void ImageController::invert() {
 	_directOperation = true;
 	startOperation();
-	int height    = _currentImage->h();
-	int width     = _currentImage->w();
-	int channels  = _currentImage->d();
-	uchar * data      = (uchar *)_currentImage->data()[0];
+	int height    = _currentImage->getHeight();
+	int width     = _currentImage->getWidth();
+	int channels  = _currentImage->getNChannels();
+	uchar * data      = (uchar *)_currentImage->getBuffer();
 
 	// invert the image
 	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
@@ -164,10 +168,10 @@ const char * ImageController::getBrush() {
 void ImageController::clear() {
 	_directOperation = true;
 	startOperation();
-	int height    = _currentImage->h();
-	int width     = _currentImage->w();
-	int channels  = _currentImage->d();
-	uchar * data      = (uchar *)_currentImage->data()[0];
+	int height    = _currentImage->getHeight();
+	int width     = _currentImage->getWidth();
+	int channels  = _currentImage->getNChannels();
+	uchar * data      = (uchar *)_currentImage->getBuffer();
 
 	// invert the image
 	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
@@ -180,10 +184,10 @@ void ImageController::clear() {
 void ImageController::fill() {
 	_directOperation = true;
 	startOperation();
-	int height    = _currentImage->h();
-	int width     = _currentImage->w();
-	int channels  = _currentImage->d();
-	uchar * data      = (uchar *)_currentImage->data()[0];
+	int height    = _currentImage->getHeight();
+	int width     = _currentImage->getWidth();
+	int channels  = _currentImage->getNChannels();
+	uchar * data      = (uchar *)_currentImage->getBuffer();
 
 	// invert the image
 	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {

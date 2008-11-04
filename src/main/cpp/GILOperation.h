@@ -10,19 +10,19 @@
 
 #include <boost/gil/typedefs.hpp>
 
-class Fl_Image;
+class FltkImage;
 
 class GILOperation {
 public:
-	static void fltkBlur(Fl_Image * input, Fl_Image * output);
-	static void fltkGradient(Fl_Image * input, Fl_Image * output);
-	static void fltkSobelX(Fl_Image * input, Fl_Image * output);
-	static void fltkSobelY(Fl_Image * input, Fl_Image * output);
-	static void fltkSobelXY(Fl_Image * input, Fl_Image * output);
+	static void fltkBlur(FltkImage * input, FltkImage * output);
+	static void fltkGradient(FltkImage * input, FltkImage * output);
+	static void fltkSobelX(FltkImage * input, FltkImage * output);
+	static void fltkSobelY(FltkImage * input, FltkImage * output);
+	static void fltkSobelXY(FltkImage * input, FltkImage * output);
 	static void xLuminosityGradient(const char * inputFile, const char * outputFile);
-	static boost::gil::rgb8_view_t make_rgb8_view_t(Fl_Image * input);
-	static bool saveJpg(const char * filename, Fl_Image * input);
-	static bool saveAnyImage(const char * filename, Fl_Image * input);
+	static boost::gil::rgb8_view_t make_rgb8_view_t(FltkImage * input);
+	static bool saveJpg(const char * filename, FltkImage * input);
+	static bool saveAnyImage(const char * filename, FltkImage * input);
 };
 
 #endif /* GILOPERATION_H_ */

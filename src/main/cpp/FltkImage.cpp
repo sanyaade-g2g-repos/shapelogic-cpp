@@ -108,9 +108,14 @@ Fl_Image * FltkImage::getFlImage() {
 	return _flImage;
 }
 
-const unsigned char * FltkImage::getBuffer() {
+unsigned char * FltkImage::getBuffer() {
 	if (0 == _flImage)
 		return 0;
 	return (unsigned char *) *_flImage->data();
 }
 
+FltkImage * FltkImage::copy() {
+	Fl_Image * copyOfFlImage = _flImage->copy();
+	FltkImage * result = new FltkImage(copyOfFlImage);
+	return result;
+}

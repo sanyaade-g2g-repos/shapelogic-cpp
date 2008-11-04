@@ -9,6 +9,7 @@
 
 #include "GILOperation.h"
 #include "SLStringUtil.h"
+#include "FltkImage.h"
 #include <FL/Fl_JPEG_Image.H>
 #include <iostream>
 #include <boost/gil/extension/io/jpeg_dynamic_io.hpp>
@@ -21,20 +22,20 @@ using namespace std;
 
 //-----------------------Helper functions-----------------------------
 
-rgb8_view_t GILOperation::make_rgb8_view_t(Fl_Image * input) {
-	rgb8_view_t view = interleaved_view(input->w(), input->h(),
-			(rgb8_view_t::value_type *)(*input->data()),input->w()*input->d());
+rgb8_view_t GILOperation::make_rgb8_view_t(FltkImage * input) {
+	rgb8_view_t view = interleaved_view(input->getWidth(), input->getHeight(),
+			(rgb8_view_t::value_type *)(input->getBuffer()),input->getWidth()*input->getNChannels());
 	return view;
 }
 
-gray8_view_t make_gray8_view_t(Fl_Image * input) {
-	gray8_view_t view = interleaved_view(input->w(), input->h(),
-			(gray8_view_t::value_type *)(*input->data()),input->w()*input->d());
+gray8_view_t make_gray8_view_t(FltkImage * input) {
+	gray8_view_t view = interleaved_view(input->getWidth(), input->getHeight(),
+			(gray8_view_t::value_type *)(input->getBuffer()),input->getWidth()*input->getNChannels());
 	return view;
 }
 
-bool isGray8(Fl_Image * input) {
-	return input->d() == 1;
+bool isGray8(FltkImage * input) {
+	return input->getNChannels() == 1;
 }
 
 int getFirstByteInImage(rgb8_view_t & view) {
@@ -90,7 +91,7 @@ void x_gradient_generic(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkGradient(Fl_Image * input, Fl_Image * output) {
+void GILOperation::fltkGradient(FltkImage * input, FltkImage * output) {
 	x_gradient(make_rgb8_view_t(input),make_rgb8_view_t(output));
 }
 
@@ -138,7 +139,7 @@ void sobel_x(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkSobelX(Fl_Image * input, Fl_Image * output) {
+void GILOperation::fltkSobelX(FltkImage * input, FltkImage * output) {
 	if (isGray8(input))
 		sobel_x(make_gray8_view_t(input),make_gray8_view_t(output));
 	else
@@ -169,7 +170,7 @@ void sobel_y(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkSobelY(Fl_Image * input, Fl_Image * output) {
+void GILOperation::fltkSobelY(FltkImage * input, FltkImage * output) {
 	sobel_y(make_rgb8_view_t(input),make_rgb8_view_t(output));
 }
 
@@ -203,7 +204,7 @@ void sobel_xy(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkSobelXY(Fl_Image * input, Fl_Image * output) {
+void GILOperation::fltkSobelXY(FltkImage * input, FltkImage * output) {
 	sobel_y(make_rgb8_view_t(input),make_rgb8_view_t(output));
 }
 
@@ -238,13 +239,13 @@ void blur(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkBlur(Fl_Image * input, Fl_Image * output) {
+void GILOperation::fltkBlur(FltkImage * input, FltkImage * output) {
 	blur(make_rgb8_view_t(input),make_rgb8_view_t(output));
 }
 
 //-----------------------save jpg-----------------------------
 
-bool GILOperation::saveJpg(const char * filename, Fl_Image * input) {
+bool GILOperation::saveJpg(const char * filename, FltkImage * input) {
 	if (SLStringUtil::isJpeg(filename)) {
 		jpeg_write_view(filename, make_rgb8_view_t(input));
 		return true;
@@ -252,7 +253,7 @@ bool GILOperation::saveJpg(const char * filename, Fl_Image * input) {
 	return false;
 }
 
-bool GILOperation::saveAnyImage(const char * filename, Fl_Image * input) {
+bool GILOperation::saveAnyImage(const char * filename, FltkImage * input) {
 	if (SLStringUtil::isJpeg(filename)) jpeg_write_view(filename, make_rgb8_view_t(input));
 	else if (SLStringUtil::isPng(filename)) png_write_view(filename, make_rgb8_view_t(input));
 //	else if (SLStringUtil::isTiff(filename)) tiff_write_view(filename, make_rgb8_view_t(input));

@@ -27,7 +27,7 @@ public:
 	virtual int getWidth();
 
 	/** Returns the height of this image in pixels. */
-	virtual int getHeight() = 0;
+	virtual int getHeight();
 
 //	virtual void setRoi(Rectangle roi) = 0;
 //
@@ -74,7 +74,9 @@ public:
 
 	virtual Fl_Image * getFlImage();
 
-	virtual const unsigned char * getBuffer();
+	virtual unsigned char * getBuffer();
+
+	virtual FltkImage * copy();
 
 protected:
 	Fl_Image * _flImage;

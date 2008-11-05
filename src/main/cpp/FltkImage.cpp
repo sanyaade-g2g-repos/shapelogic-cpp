@@ -7,7 +7,9 @@
 
 #include "FltkImage.h"
 #include <FL/Fl_Image.H>
+#include <boost/gil/extension/dynamic_image/image_view_factory.hpp> //for interleaved_view()
 
+using namespace boost::gil;
 
 FltkImage::FltkImage(Fl_Image * image) : SLImage(), _flImage(image) {
 
@@ -85,6 +87,8 @@ bool FltkImage::isGray() {
 }
 
 bool FltkImage::isGray8() {
+	if (0 !=_flImage)
+		return 1 == _flImage->d();
 	return false;
 }
 
@@ -93,6 +97,8 @@ bool FltkImage::isGray16() {
 }
 
 bool FltkImage::isRgb() {
+	if (0 !=_flImage)
+		return 3 <= _flImage->d();
 	return true;
 }
 
@@ -119,3 +125,24 @@ FltkImage * FltkImage::copy() {
 	FltkImage * result = new FltkImage(copyOfFlImage);
 	return result;
 }
+
+rgb8_view_t FltkImage::make_rgb8_view_t() {
+	rgb8_view_t view =
+		interleaved_view(
+				getWidth(),
+				getHeight(),
+				(rgb8_view_t::value_type *)(getBuffer()),
+				getWidth()*getNChannels());
+	return view;
+}
+
+gray8_view_t FltkImage::make_gray8_view_t() {
+	gray8_view_t view =
+		interleaved_view(
+				getWidth(),
+				getHeight(),
+				(gray8_view_t::value_type *)(getBuffer()),
+				getWidth());
+	return view;
+}
+

@@ -44,7 +44,7 @@ TEST(GILOperation, xSobelImage) {
 	FltkImage * fltkImage = new FltkImage(rgbImage);
 	FltkImage * imageOut = fltkImage->copy();
 	GILOperation::fltkSobelX(fltkImage, imageOut);
-	rgb8_view_t view = GILOperation::make_rgb8_view_t(fltkImage);
+	rgb8_view_t view = fltkImage->make_rgb8_view_t();
 	int fistByte = view.row_begin(0)[0][0];
 	EXPECT_EQ(191, fistByte);
 	EXPECT_EQ(image->h(), imageOut->getHeight());

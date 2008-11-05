@@ -15,6 +15,7 @@
 #define FLTKIMAGE_H_
 
 #include "SLImage.h"
+#include <boost/gil/typedefs.hpp>
 
 class Fl_Image;
 
@@ -77,6 +78,10 @@ public:
 	virtual unsigned char * getBuffer();
 
 	virtual FltkImage * copy();
+
+	virtual boost::gil::rgb8_view_t make_rgb8_view_t();
+
+	virtual boost::gil::gray8_view_t make_gray8_view_t();
 
 protected:
 	Fl_Image * _flImage;

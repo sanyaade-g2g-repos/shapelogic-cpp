@@ -148,17 +148,17 @@ updateLabel();}
           MenuItem {} {
             label Pen
             callback {imageSetup("Brush", "Pen");}
-            xywh {0 0 36 21}
+            xywh {0 0 36 21} shortcut 0xc0070
           }
           MenuItem {} {
             label Point_info
-            callback {imageSetup("Brush", "Point_info");}
-            xywh {0 0 36 21}
+            callback {imageSetup("Brush", "Point_info");} selected
+            xywh {0 0 36 21} shortcut 0xc0069
           }
           MenuItem {} {
             label Sample_color
             callback {imageSetup("Brush", "Sample_color");}
-            xywh {0 0 36 21}
+            xywh {0 0 36 21} shortcut 0xc0063
           }
         }
         Submenu {} {
@@ -240,8 +240,7 @@ updateLabel();}
   _imageBox = new ImageBox(0,menuBarHeight,getImageController()->getCurrentImage()->w(),getImageController()->getCurrentImage()->h());
   _imageScroll->add(_imageBox);
   _imageBox->image(getImageController()->getCurrentImage());
-  _window->redraw();} {selected
-    }
+  _window->redraw();} {}
   }
   Function {updateLabel()} {open return_type void
   } {

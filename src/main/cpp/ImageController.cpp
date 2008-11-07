@@ -8,9 +8,7 @@
 #include "ImageController.h"
 
 #include "GILOperation.h"
-#include "FltkImage.h"
 #include "SLImage.h"
-#include "SLStringUtil.h"
 #include "SLFactory.h"
 
 #include <string>
@@ -83,11 +81,10 @@ void ImageController::open(const char *filename) {
 }
 
 void ImageController::saveAs(const char *filename) {
-	if (SLStringUtil::empty(filename))
-		return;
-	if (GILOperation::saveAnyImage(filename, _currentImage))
+	bool success = SLFactory::getInstance()->saveImageAs(_currentImage, filename);
+	if (success)
 		_filename = filename;
-	if (false) {
+	else {
 		std::string message = "The file could not be written ";
 		message += filename;
 		fl_message(message.c_str());

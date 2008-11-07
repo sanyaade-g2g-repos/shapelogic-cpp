@@ -37,6 +37,8 @@ public:
 
 	FltkImage * makeSimilarFltkImage(const SLImage * image) const;
 
+	bool saveImageAs(SLImage * image, const char *filename);
+
 protected:
 	const char * _imageType;
 

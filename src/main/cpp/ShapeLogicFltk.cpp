@@ -51,6 +51,7 @@ void ShapeLogicFltk::cb_Quit(Fl_Menu_* o, void* v) {
 
 void ShapeLogicFltk::cb_Undo_i(Fl_Menu_*, void*) {
   imageSetup("Undo", NULL);
+updateLabel();
 }
 void ShapeLogicFltk::cb_Undo(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Undo_i(o,v);

@@ -36,7 +36,7 @@ class ShapeLogicFltk {open
   Function {ShapeLogicFltk()} {open
   } {
     Fl_Window _window {
-      label {ShapeLogic C++ v 0.3} open
+      label {ShapeLogic C++ v 0.3} open selected
       xywh {451 49 730 600} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
@@ -78,7 +78,8 @@ updateLabel();}
         } {
           MenuItem {} {
             label Undo
-            callback {imageSetup("Undo", NULL);}
+            callback {imageSetup("Undo", NULL);
+updateLabel();}
             xywh {0 0 36 21} shortcut 0x4007a divider
           }
           MenuItem {} {
@@ -152,7 +153,7 @@ updateLabel();}
           }
           MenuItem {} {
             label Point_info
-            callback {imageSetup("Brush", "Point_info");} selected
+            callback {imageSetup("Brush", "Point_info");}
             xywh {0 0 36 21} shortcut 0xc0069
           }
           MenuItem {} {

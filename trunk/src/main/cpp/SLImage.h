@@ -22,10 +22,10 @@ public:
 	virtual ~SLImage() {}
 
 	/** Returns the width of this image in pixels. */
-	virtual int getWidth() = 0;
+	virtual int getWidth() const = 0;
 
 	/** Returns the height of this image in pixels. */
-	virtual int getHeight() = 0;
+	virtual int getHeight() const = 0;
 
 //	virtual void setRoi(Rectangle roi) = 0;
 //
@@ -33,12 +33,12 @@ public:
 //
 //	virtual Rectangle getRoi() = 0;
 
-	virtual int getPixelCount() = 0;
+	virtual int getPixelCount() const = 0;
 
 	/** Returns a reference to this image's pixel array. The
 	array type (byte[], short[], float[] or int[]) varies
 	depending on the image type. */
-	virtual unsigned char * getPixels() = 0;
+	virtual unsigned char * getPixels() const = 0;
 
 	/** Sets a new pixel array for the image. The length of the array must be equal to width*height.
 	Use setSnapshotPixels(null) to clear the snapshot buffer. */
@@ -46,39 +46,39 @@ public:
 
 	/** Returns true if this image uses an inverting LUT
 	that displays zero as white and 255 as black. */
-	virtual bool isInvertedLut() = 0;
+	virtual bool isInvertedLut() const = 0;
 
 	/** Returns the number of color channels in the image. The color channels can be
 	*  accessed by toFloat(channelNumber, fp) and written by setPixels(channelNumber, fp).
 	* @return 1 for grayscale images, 3 for RGB images
 	*/
-	virtual int getNChannels() = 0;
+	virtual int getNChannels() const = 0;
 
-	virtual bool isEmpty() = 0;
+	virtual bool isEmpty() const = 0;
 
-	virtual bool isGray() = 0;
+	virtual bool isGray() const = 0;
 
-	virtual bool isGray8() = 0;
+	virtual bool isGray8() const = 0;
 
-	virtual bool isGray16() = 0;
+	virtual bool isGray16() const = 0;
 
-	virtual bool isRgb() = 0;
+	virtual bool isRgb() const = 0;
 
 //	virtual Rectangle getActiveRectangle() = 0;
 
-	virtual int getLineStride() = 0;
+	virtual int getLineStride() const = 0;
 
 //-------------New members now part of base class SLImage
 
-	virtual Fl_Image * getFlImage() = 0;
+	virtual Fl_Image * getFlImage() const = 0;
 
-	virtual unsigned char * getBuffer() = 0;
+	virtual unsigned char * getBuffer() const = 0;
 
-	virtual SLImage * copy() = 0;
+	virtual SLImage * copy() const = 0;
 
-	virtual boost::gil::rgb8_view_t make_rgb8_view_t() = 0;
+	virtual boost::gil::rgb8_view_t make_rgb8_view_t() const = 0;
 
-	virtual boost::gil::gray8_view_t make_gray8_view_t() = 0;
+	virtual boost::gil::gray8_view_t make_gray8_view_t() const = 0;
 
 };
 

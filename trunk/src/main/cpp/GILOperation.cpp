@@ -9,7 +9,7 @@
 
 #include "GILOperation.h"
 #include "SLStringUtil.h"
-#include "FltkImage.h"
+#include "SLImage.h"
 #include <FL/Fl_JPEG_Image.H>
 #include <iostream>
 #include <boost/gil/extension/io/jpeg_dynamic_io.hpp>
@@ -74,7 +74,7 @@ void x_gradient_generic(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkGradient(FltkImage * input, FltkImage * output) {
+void GILOperation::fltkGradient(SLImage * input, SLImage * output) {
 	x_gradient(input->make_rgb8_view_t(),output->make_rgb8_view_t());
 }
 
@@ -122,7 +122,7 @@ void sobel_x(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkSobelX(FltkImage * input, FltkImage * output) {
+void GILOperation::fltkSobelX(SLImage * input, SLImage * output) {
 	if (input->isGray8())
 		sobel_x(input->make_gray8_view_t(),output->make_gray8_view_t());
 	else
@@ -153,7 +153,7 @@ void sobel_y(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkSobelY(FltkImage * input, FltkImage * output) {
+void GILOperation::fltkSobelY(SLImage * input, SLImage * output) {
 	sobel_y(input->make_rgb8_view_t(),output->make_rgb8_view_t());
 }
 
@@ -187,7 +187,7 @@ void sobel_xy(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkSobelXY(FltkImage * input, FltkImage * output) {
+void GILOperation::fltkSobelXY(SLImage * input, SLImage * output) {
 	sobel_y(input->make_rgb8_view_t(),output->make_rgb8_view_t());
 }
 
@@ -222,13 +222,13 @@ void blur(const SrcView& src, const DstView& dst) {
     }
 }
 
-void GILOperation::fltkBlur(FltkImage * input, FltkImage * output) {
+void GILOperation::fltkBlur(SLImage * input, SLImage * output) {
 	blur(input->make_rgb8_view_t(),output->make_rgb8_view_t());
 }
 
 //-----------------------save jpg-----------------------------
 
-bool GILOperation::saveJpg(const char * filename, FltkImage * input) {
+bool GILOperation::saveJpg(const char * filename, SLImage * input) {
 	if (SLStringUtil::isJpeg(filename)) {
 		jpeg_write_view(filename, input->make_rgb8_view_t());
 		return true;
@@ -236,7 +236,7 @@ bool GILOperation::saveJpg(const char * filename, FltkImage * input) {
 	return false;
 }
 
-bool GILOperation::saveAnyImage(const char * filename, FltkImage * input) {
+bool GILOperation::saveAnyImage(const char * filename, SLImage * input) {
 	if (SLStringUtil::isJpeg(filename)) jpeg_write_view(filename, input->make_rgb8_view_t());
 	else if (SLStringUtil::isPng(filename)) png_write_view(filename, input->make_rgb8_view_t());
 //	else if (SLStringUtil::isTiff(filename)) tiff_write_view(filename, make_rgb8_view_t(input));

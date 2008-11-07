@@ -71,7 +71,7 @@ public:
 
 	virtual int getLineStride();
 
-//-------------New members
+//-------------New members now part of base class SLImage
 
 	virtual Fl_Image * getFlImage();
 

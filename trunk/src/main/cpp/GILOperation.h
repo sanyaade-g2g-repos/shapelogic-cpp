@@ -8,18 +8,18 @@
 #ifndef GILOPERATION_H_
 #define GILOPERATION_H_
 
-class FltkImage;
+class SLImage;
 
 class GILOperation {
 public:
-	static void fltkBlur(FltkImage * input, FltkImage * output);
-	static void fltkGradient(FltkImage * input, FltkImage * output);
-	static void fltkSobelX(FltkImage * input, FltkImage * output);
-	static void fltkSobelY(FltkImage * input, FltkImage * output);
-	static void fltkSobelXY(FltkImage * input, FltkImage * output);
+	static void fltkBlur(SLImage * input, SLImage * output);
+	static void fltkGradient(SLImage * input, SLImage * output);
+	static void fltkSobelX(SLImage * input, SLImage * output);
+	static void fltkSobelY(SLImage * input, SLImage * output);
+	static void fltkSobelXY(SLImage * input, SLImage * output);
 	static void xLuminosityGradient(const char * inputFile, const char * outputFile);
-	static bool saveJpg(const char * filename, FltkImage * input);
-	static bool saveAnyImage(const char * filename, FltkImage * input);
+	static bool saveJpg(const char * filename, SLImage * input);
+	static bool saveAnyImage(const char * filename, SLImage * input);
 };
 
 #endif /* GILOPERATION_H_ */

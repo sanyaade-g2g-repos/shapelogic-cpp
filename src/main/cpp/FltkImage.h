@@ -15,7 +15,9 @@
 #define FLTKIMAGE_H_
 
 #include "SLImage.h"
+
 #include <boost/gil/typedefs.hpp>
+#include <string>
 
 class Fl_Image;
 
@@ -83,8 +85,14 @@ public:
 
 	virtual boost::gil::gray8_view_t make_gray8_view_t() const;
 
+	virtual const char * getFilename() const;
+
+	virtual void setFilename(const char * filename);
+
 protected:
 	Fl_Image * _flImage;
+
+	std::string _filename;
 };
 
 #endif /* FLTKIMAGE_H_ */

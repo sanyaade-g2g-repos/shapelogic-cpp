@@ -56,7 +56,9 @@ FltkImage * SLFactory::makeFltkImage(const char * filename) const {
 		delete image;
 		return 0;
 	}
-	return new FltkImage(image);
+	FltkImage * result = new FltkImage(image);
+	result->setFilename(filename);
+	return result;
 }
 
 //OpenCVImage * SLFactory::makeOpenCVImage(const char * filename) const {

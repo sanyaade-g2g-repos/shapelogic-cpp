@@ -80,6 +80,9 @@ public:
 
 	virtual boost::gil::gray8_view_t make_gray8_view_t() const = 0;
 
+	virtual const char * getFilename() const = 0;
+
+	virtual void setFilename(const char * filename) = 0;
 };
 
 #endif /* SLIMAGE_H_ */

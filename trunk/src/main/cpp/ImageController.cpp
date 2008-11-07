@@ -68,6 +68,8 @@ void ImageController::undo() {
 	SLImage * tempImage = _currentImage;
 	_currentImage =_lastImage;
 	_lastImage = tempImage;
+	if (0 != _currentImage && 0 != _currentImage->getFilename())
+		_filename = _currentImage->getFilename();
 }
 
 void ImageController::open(const char *filename) {

@@ -6,14 +6,15 @@
  */
 
 #include "ImageController.h"
+
 #include "GILOperation.h"
-#include "SLStringUtil.h"
 #include "FltkImage.h"
+#include "SLImage.h"
+#include "SLStringUtil.h"
+#include "SLFactory.h"
+
 #include <string>
 #include <cstdlib>
-#include <FL/Fl_Bitmap.H>
-#include <FL/Fl_JPEG_Image.H>
-#include <FL/Fl_Shared_Image.H> // Image I/O
 #include <FL/fl_ask.H>
 
 using namespace std;
@@ -23,7 +24,6 @@ ImageController * ImageController::_instance = NULL;
 static char messageBuffer[1024];
 
 ImageController::ImageController() {
-	fl_register_images();
 	_currentImage = NULL;
 	_lastImage = NULL;
 	for (int i=0; i<3; i++) {
@@ -71,19 +71,12 @@ void ImageController::undo() {
 }
 
 void ImageController::open(const char *filename) {
-	if (SLStringUtil::empty(filename))
+	SLImage * image = SLFactory::getInstance()->makeSLImage(filename);
+	if ( 0 == image )
 		return;
-	Fl_Shared_Image *sharedImage = Fl_Shared_Image::get(filename);
-	//	  Fl_Image * image = new Fl_JPEG_Image(filename);
-	Fl_Image * image = sharedImage->copy();
-	sharedImage->release();
-	if ( image->h() == 0 ) {
-		delete image;
-		return;
-	}
 	delete _lastImage;
 	_lastImage = _currentImage;
-	_currentImage = new FltkImage(image);
+	_currentImage = image;
 	_filename = filename;
 }
 
@@ -118,15 +111,7 @@ void ImageController::startOperation() {
 		  _lastImage = _currentImage->copy();
 	  }
 	  else {
-		  //Create a new image with the same properties
-		  int bufferSize = _currentImage->getWidth() * _currentImage->getHeight() * _currentImage->getNChannels();
-		  const uchar* buffer = new uchar[bufferSize];
-		  Fl_Image * nextFlImage = 0;
-		  if (_currentImage->getNChannels() == 1)
-			  nextFlImage = new Fl_Bitmap(buffer,_currentImage->getWidth(), _currentImage->getHeight());
-		  else
-			  nextFlImage = new Fl_RGB_Image(buffer,_currentImage->getWidth(), _currentImage->getHeight(), _currentImage->getNChannels());
-		  _nextImage = new FltkImage(nextFlImage);
+		  _nextImage = SLFactory::getInstance()->makeSimilarImage(_currentImage);
 	  }
 }
 

@@ -5,6 +5,7 @@
  *      Author: Sami Badawi
  */
 
+#include "GILOperation.h"
 #include "FltkImage.h"
 #include "SLFactory.h"
 #include "SLStringUtil.h"
@@ -80,4 +81,15 @@ FltkImage * SLFactory::makeSimilarFltkImage(const SLImage * image) const {
 	  else
 		  nextFlImage = new Fl_RGB_Image(buffer,image->getWidth(), image->getHeight(), image->getNChannels());
 	  return new FltkImage(nextFlImage);
+}
+
+bool SLFactory::saveImageAs(SLImage * image, const char *filename) {
+	if (SLStringUtil::empty(filename))
+		return false;
+	if (GILOperation::saveAnyImage(filename, image)) {
+		image->setFilename(filename);
+		return true;
+	}
+	else
+		return false;
 }

@@ -9,7 +9,7 @@
 #define IMAGECONTROLLER_H_
 
 class Fl_Image;
-class FltkImage;
+class SLImage;
 
 //class Fl_Shared_Image;
 #include <string>
@@ -52,9 +52,9 @@ public:
 	unsigned char _foreground[3];
 	unsigned char _background[3];
 private:
-	FltkImage * _currentImage;
-	FltkImage * _lastImage;
-	FltkImage * _nextImage;
+	SLImage * _currentImage;
+	SLImage * _lastImage;
+	SLImage * _nextImage;
 	std::string _filename;
     bool _directOperation;
 	const char * _brush;

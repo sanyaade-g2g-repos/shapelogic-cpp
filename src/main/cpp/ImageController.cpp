@@ -65,7 +65,7 @@ void ImageController::run(const char *name, const char *arg) {
 }
 
 void ImageController::undo() {
-	FltkImage * tempImage = _currentImage;
+	SLImage * tempImage = _currentImage;
 	_currentImage =_lastImage;
 	_lastImage = tempImage;
 }

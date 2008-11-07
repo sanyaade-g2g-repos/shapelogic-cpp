@@ -8,7 +8,9 @@
 #ifndef SLIMAGE_H_
 #define SLIMAGE_H_
 
-//class Rectangle;
+#include <boost/gil/typedefs.hpp>
+
+class Fl_Image;
 
 /** This is a wrapper class around the real representation of the image.
  *
@@ -65,6 +67,19 @@ public:
 //	virtual Rectangle getActiveRectangle() = 0;
 
 	virtual int getLineStride() = 0;
+
+//-------------New members now part of base class SLImage
+
+	virtual Fl_Image * getFlImage() = 0;
+
+	virtual unsigned char * getBuffer() = 0;
+
+	virtual SLImage * copy() = 0;
+
+	virtual boost::gil::rgb8_view_t make_rgb8_view_t() = 0;
+
+	virtual boost::gil::gray8_view_t make_gray8_view_t() = 0;
+
 };
 
 #endif /* SLIMAGE_H_ */

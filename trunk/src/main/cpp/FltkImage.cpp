@@ -143,3 +143,13 @@ gray8_view_t FltkImage::make_gray8_view_t() const {
 				getWidth());
 	return view;
 }
+
+
+const char * FltkImage::getFilename() const {
+	return _filename.c_str();
+}
+
+void FltkImage::setFilename(const char * filename) {
+	_filename = filename;
+}
+

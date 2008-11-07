@@ -72,8 +72,6 @@ public:
 
 	virtual Fl_Image * getFlImage() const = 0;
 
-	virtual unsigned char * getBuffer() const = 0;
-
 	virtual SLImage * copy() const = 0;
 
 	virtual boost::gil::rgb8_view_t make_rgb8_view_t() const = 0;

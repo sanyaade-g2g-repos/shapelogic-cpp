@@ -53,7 +53,9 @@ int FltkImage::getPixelCount() const {
 array type (byte[], short[], float[] or int[]) varies
 depending on the image type. */
 unsigned char * FltkImage::getPixels() const {
-    return 0;
+	if (0 == _flImage)
+		return 0;
+	return (unsigned char *) *_flImage->data();
 }
 
 /** Sets a new pixel array for the image. The length of the array must be equal to width*height.
@@ -112,12 +114,6 @@ Fl_Image * FltkImage::getFlImage() const {
 	return _flImage;
 }
 
-unsigned char * FltkImage::getBuffer() const {
-	if (0 == _flImage)
-		return 0;
-	return (unsigned char *) *_flImage->data();
-}
-
 FltkImage * FltkImage::copy() const {
 	Fl_Image * copyOfFlImage = _flImage->copy();
 	FltkImage * result = new FltkImage(copyOfFlImage);
@@ -129,7 +125,7 @@ rgb8_view_t FltkImage::make_rgb8_view_t() const {
 		interleaved_view(
 				getWidth(),
 				getHeight(),
-				(rgb8_view_t::value_type *)(getBuffer()),
+				(rgb8_view_t::value_type *)(getPixels()),
 				getWidth()*getNChannels());
 	return view;
 }
@@ -139,7 +135,7 @@ gray8_view_t FltkImage::make_gray8_view_t() const {
 		interleaved_view(
 				getWidth(),
 				getHeight(),
-				(gray8_view_t::value_type *)(getBuffer()),
+				(gray8_view_t::value_type *)(getPixels()),
 				getWidth());
 	return view;
 }

@@ -131,7 +131,7 @@ void ImageController::invert() {
 	int height    = _currentImage->getHeight();
 	int width     = _currentImage->getWidth();
 	int channels  = _currentImage->getNChannels();
-	uchar * data      = (uchar *)_currentImage->getBuffer();
+	uchar * data      = (uchar *)_currentImage->getPixels();
 
 	// invert the image
 	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
@@ -155,7 +155,7 @@ void ImageController::clear() {
 	int height    = _currentImage->getHeight();
 	int width     = _currentImage->getWidth();
 	int channels  = _currentImage->getNChannels();
-	uchar * data      = (uchar *)_currentImage->getBuffer();
+	uchar * data      = (uchar *)_currentImage->getPixels();
 
 	// invert the image
 	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {
@@ -171,7 +171,7 @@ void ImageController::fill() {
 	int height    = _currentImage->getHeight();
 	int width     = _currentImage->getWidth();
 	int channels  = _currentImage->getNChannels();
-	uchar * data      = (uchar *)_currentImage->getBuffer();
+	uchar * data      = (uchar *)_currentImage->getPixels();
 
 	// invert the image
 	for(int j=0;j<height;j++) for(int i=0;i<width;i++) for(int k=0;k<channels;k++) {

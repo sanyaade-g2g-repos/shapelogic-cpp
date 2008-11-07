@@ -25,10 +25,10 @@ public:
 	virtual ~FltkImage();
 
 	/** Returns the width of this image in pixels. */
-	virtual int getWidth();
+	virtual int getWidth() const;
 
 	/** Returns the height of this image in pixels. */
-	virtual int getHeight();
+	virtual int getHeight() const;
 
 //	virtual void setRoi(Rectangle roi) = 0;
 //
@@ -36,12 +36,12 @@ public:
 //
 //	virtual Rectangle getRoi() = 0;
 
-	virtual int getPixelCount();
+	virtual int getPixelCount() const;
 
 	/** Returns a reference to this image's pixel array. The
 	array type (byte[], short[], float[] or int[]) varies
 	depending on the image type. */
-	virtual unsigned char * getPixels();
+	virtual unsigned char * getPixels() const;
 
 	/** Sets a new pixel array for the image. The length of the array must be equal to width*height.
 	Use setSnapshotPixels(null) to clear the snapshot buffer. */
@@ -49,39 +49,39 @@ public:
 
 	/** Returns true if this image uses an inverting LUT
 	that displays zero as white and 255 as black. */
-	virtual bool isInvertedLut();
+	virtual bool isInvertedLut() const;
 
 	/** Returns the number of color channels in the image. The color channels can be
 	*  accessed by toFloat(channelNumber, fp) and written by setPixels(channelNumber, fp).
 	* @return 1 for gray scale images, 3 for RGB images
 	*/
-	virtual int getNChannels();
+	virtual int getNChannels() const;
 
-	virtual bool isEmpty();
+	virtual bool isEmpty() const;
 
-	virtual bool isGray();
+	virtual bool isGray() const;
 
-	virtual bool isGray8();
+	virtual bool isGray8() const;
 
-	virtual bool isGray16();
+	virtual bool isGray16() const;
 
-	virtual bool isRgb();
+	virtual bool isRgb() const;
 
 //	virtual Rectangle getActiveRectangle();
 
-	virtual int getLineStride();
+	virtual int getLineStride() const;
 
 //-------------New members now part of base class SLImage
 
-	virtual Fl_Image * getFlImage();
+	virtual Fl_Image * getFlImage() const;
 
-	virtual unsigned char * getBuffer();
+	virtual unsigned char * getBuffer() const;
 
-	virtual FltkImage * copy();
+	virtual FltkImage * copy() const;
 
-	virtual boost::gil::rgb8_view_t make_rgb8_view_t();
+	virtual boost::gil::rgb8_view_t make_rgb8_view_t() const;
 
-	virtual boost::gil::gray8_view_t make_gray8_view_t();
+	virtual boost::gil::gray8_view_t make_gray8_view_t() const;
 
 protected:
 	Fl_Image * _flImage;

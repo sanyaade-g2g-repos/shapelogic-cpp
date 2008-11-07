@@ -19,17 +19,15 @@ FltkImage::~FltkImage() {
 	delete _flImage;
 }
 
-
-
 /** Returns the width of this image in pixels. */
-int FltkImage::getWidth() {
+int FltkImage::getWidth() const {
 	if (0 !=_flImage)
 		return _flImage->w();
 	return 0;
 }
 
 /** Returns the height of this image in pixels. */
-int FltkImage::getHeight() {
+int FltkImage::getHeight() const {
 	if (0 !=_flImage)
 		return _flImage->h();
 	return 0;
@@ -47,14 +45,14 @@ int FltkImage::getHeight() {
 //
 //}
 
-int FltkImage::getPixelCount() {
+int FltkImage::getPixelCount() const {
 	return getWidth() * getHeight();
 }
 
 /** Returns a reference to this image's pixel array. The
 array type (byte[], short[], float[] or int[]) varies
 depending on the image type. */
-unsigned char * FltkImage::getPixels() {
+unsigned char * FltkImage::getPixels() const {
     return 0;
 }
 
@@ -66,7 +64,7 @@ void FltkImage::setPixels(unsigned char * pixels) {
 
 /** Returns true if this image uses an inverting LUT
 that displays zero as white and 255 as black. */
-bool FltkImage::isInvertedLut() {
+bool FltkImage::isInvertedLut() const {
     return false;
 }
 
@@ -74,29 +72,29 @@ bool FltkImage::isInvertedLut() {
 *  accessed by toFloat(channelNumber, fp) and written by setPixels(channelNumber, fp).
 * @return 1 for grayscale images, 3 for RGB images
 */
-int FltkImage::getNChannels() {
-	return 3;
+int FltkImage::getNChannels() const {
+	return _flImage->d();
 }
 
-bool FltkImage::isEmpty() {
+bool FltkImage::isEmpty() const {
 	return false;
 }
 
-bool FltkImage::isGray() {
+bool FltkImage::isGray() const {
 	return false;
 }
 
-bool FltkImage::isGray8() {
+bool FltkImage::isGray8() const {
 	if (0 !=_flImage)
 		return 1 == _flImage->d();
 	return false;
 }
 
-bool FltkImage::isGray16() {
+bool FltkImage::isGray16() const {
 	return false;
 }
 
-bool FltkImage::isRgb() {
+bool FltkImage::isRgb() const {
 	if (0 !=_flImage)
 		return 3 <= _flImage->d();
 	return true;
@@ -106,27 +104,27 @@ bool FltkImage::isRgb() {
 //
 //}
 
-int FltkImage::getLineStride() {
+int FltkImage::getLineStride() const {
     return 0;
 }
 
-Fl_Image * FltkImage::getFlImage() {
+Fl_Image * FltkImage::getFlImage() const {
 	return _flImage;
 }
 
-unsigned char * FltkImage::getBuffer() {
+unsigned char * FltkImage::getBuffer() const {
 	if (0 == _flImage)
 		return 0;
 	return (unsigned char *) *_flImage->data();
 }
 
-FltkImage * FltkImage::copy() {
+FltkImage * FltkImage::copy() const {
 	Fl_Image * copyOfFlImage = _flImage->copy();
 	FltkImage * result = new FltkImage(copyOfFlImage);
 	return result;
 }
 
-rgb8_view_t FltkImage::make_rgb8_view_t() {
+rgb8_view_t FltkImage::make_rgb8_view_t() const {
 	rgb8_view_t view =
 		interleaved_view(
 				getWidth(),
@@ -136,7 +134,7 @@ rgb8_view_t FltkImage::make_rgb8_view_t() {
 	return view;
 }
 
-gray8_view_t FltkImage::make_gray8_view_t() {
+gray8_view_t FltkImage::make_gray8_view_t() const {
 	gray8_view_t view =
 		interleaved_view(
 				getWidth(),
@@ -145,4 +143,3 @@ gray8_view_t FltkImage::make_gray8_view_t() {
 				getWidth());
 	return view;
 }
-

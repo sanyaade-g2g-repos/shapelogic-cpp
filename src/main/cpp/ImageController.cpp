@@ -110,7 +110,7 @@ void ImageController::startOperation() {
 		  _lastImage = _currentImage->copy();
 	  }
 	  else {
-		  _nextImage = SLFactory::getInstance()->makeSimilarImage(_currentImage);
+		  _nextImage = _currentImage->makeSimilarImage();
 	  }
 }
 

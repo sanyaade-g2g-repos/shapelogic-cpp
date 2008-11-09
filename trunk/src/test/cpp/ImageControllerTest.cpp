@@ -10,12 +10,15 @@
 #include <gtest/gtest.h>
 
 
-// Tests factorial of negative numbers.
-TEST(ImageControllerTest, Dummy) {
+// Tests Open SLImage
+TEST(ImageControllerTest, OpenSLImage) {
     ImageController imageController;
     const char * filename = "/home/sbadawi/shapelogic-cpp/src/test/resources/images/particles/spot1Clean.jpg";
     imageController.open(filename);
     Fl_Image * image = imageController.getCurrentImage();
-    EXPECT_NE((void *)NULL, image );
+    ASSERT_NE((void *)NULL, image ) << "File did not open " << filename;
     EXPECT_EQ(30, image->w());
+    EXPECT_EQ(30, image->h());
+    EXPECT_EQ(3, image->d());
+    EXPECT_EQ(90, image->ld());
 }

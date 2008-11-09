@@ -117,6 +117,7 @@ Fl_Image * FltkImage::getFlImage() const {
 FltkImage * FltkImage::copy() const {
 	Fl_Image * copyOfFlImage = _flImage->copy();
 	FltkImage * result = new FltkImage(copyOfFlImage);
+	result->setFilename(getFilename());
 	return result;
 }
 
@@ -149,3 +150,6 @@ void FltkImage::setFilename(const char * filename) {
 	_filename = filename;
 }
 
+FltkImage * FltkImage::makeSimilarImage() const {
+	return copy(); //TODO change to make an empty image
+}

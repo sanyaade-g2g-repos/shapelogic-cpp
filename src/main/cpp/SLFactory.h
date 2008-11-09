@@ -14,7 +14,7 @@
 
 class SLImage;
 class FltkImage;
-//class OpenCVImage;
+class OpenCVImage;
 
 class SLFactory {
 public:
@@ -31,11 +31,7 @@ public:
 
 	FltkImage * makeFltkImage(const char * filename) const;
 
-//	OpenCVImage * makeOpenCVImage(const char * filename) const;
-
-	SLImage * makeSimilarImage(const SLImage * image) const;
-
-	FltkImage * makeSimilarFltkImage(const SLImage * image) const;
+	OpenCVImage * makeOpenCVImage(const char * filename) const;
 
 	bool saveImageAs(SLImage * image, const char *filename);
 

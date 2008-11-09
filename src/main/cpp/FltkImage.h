@@ -87,6 +87,8 @@ public:
 
 	virtual void setFilename(const char * filename);
 
+	virtual FltkImage * makeSimilarImage() const;
+
 protected:
 	Fl_Image * _flImage;
 

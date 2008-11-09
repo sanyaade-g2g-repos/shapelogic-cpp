@@ -7,11 +7,14 @@ project shapelogic-top :
 #Defines all the FLTK libraries
 lib fltk fltk_images fltk_forms jpeg tiff gtest ;
 
+#Defines all the OpenCV libraries
+lib m cv cvaux cxcore highgui ;
+
 #Build the main shapelogic-cpp application 
 exe shapelogic-cpp : shapelogic-cpp.cpp shapelogic ;
 
 #Make a static library that are used for testing and the shapelogic-cpp application
-lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] fltk fltk_images fltk_forms jpeg tiff ;
+lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] fltk fltk_images fltk_forms jpeg tiff m cv cvaux cxcore highgui ;
 
 
 ########Setup for running unit tests from shapelogic-cpp 

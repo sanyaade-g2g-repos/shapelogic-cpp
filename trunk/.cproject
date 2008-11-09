@@ -44,6 +44,10 @@
 <listOptionValue builtIn="false" value="jpeg"/>
 <listOptionValue builtIn="false" value="tiff"/>
 <listOptionValue builtIn="false" value="fltk_forms"/>
+<listOptionValue builtIn="false" value="m"/>
+<listOptionValue builtIn="false" value="cv"/>
+<listOptionValue builtIn="false" value="cvaux"/>
+<listOptionValue builtIn="false" value="highgui"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.843740363" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>

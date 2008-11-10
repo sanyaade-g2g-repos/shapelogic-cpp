@@ -8,6 +8,7 @@
 #include "ImageController.h"
 
 #include "GILOperation.h"
+#include "OpenCVOperations.h"
 #include "SLImage.h"
 #include "SLFactory.h"
 
@@ -51,7 +52,10 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Clear") clear();
 	else if (command == "Edge")	edge();
 	else if (command == "Fill")	fill();
+	else if (command == "Flip_Horizontally") flipHorizontally();
+	else if (command == "Flip_Vertically") flipVertically();
 	else if (command == "Invert") invert();
+	else if (command == "Laplace") laplace();
 	else if (command == "Open")	open(arg);
 	else if (command == "Quit") quit();
 	else if (command == "Save") save();
@@ -59,6 +63,7 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Sobel_X") sobelX();
 	else if (command == "Sobel_XY") sobelXY();
 	else if (command == "Sobel_Y") sobelY();
+	else if (command == "Swap_RB") swapRB();
 	else if (command == "Undo")	undo();
 }
 
@@ -221,12 +226,40 @@ void ImageController::quit() {
 }
 
 void ImageController::about() {
-	string message = "ShapeLogic C++ 0.3\n"
+	string message = "ShapeLogic C++ 0.4\n"
 			"Author Sami Badawi\n"
 			"http://www.shapelogic.org\n"
 			"Compile date: ";
 	message += __DATE__;
 	strcpy(messageBuffer, message.c_str());
 	fl_message(messageBuffer);
+}
+
+void ImageController::laplace() {
+	_directOperation = false;
+	startOperation();
+	OpenCVOperations::laplace(_currentImage, _nextImage);
+	endOperation();
+}
+
+void ImageController::flipHorizontally() {
+	_directOperation = false;
+	startOperation();
+	OpenCVOperations::flipHorizontally(_currentImage, _nextImage);
+	endOperation();
+}
+
+void ImageController::flipVertically() {
+	_directOperation = false;
+	startOperation();
+	OpenCVOperations::flipVertically(_currentImage, _nextImage);
+	endOperation();
+}
+
+void ImageController::swapRB() {
+	_directOperation = false;
+	startOperation();
+	OpenCVOperations::swapRB(_currentImage, _nextImage);
+	endOperation();
 }
 

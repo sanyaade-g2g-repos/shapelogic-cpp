@@ -32,7 +32,10 @@ public:
 	virtual void clear();
 	virtual void edge();
 	virtual void fill();
+	virtual void flipHorizontally();
+	virtual void flipVertically();
 	virtual void invert();
+	virtual void laplace();
 	virtual void open(const char * filename);
 	virtual void quit();
 	virtual void save();
@@ -40,6 +43,7 @@ public:
 	virtual void sobelX();
 	virtual void sobelXY();
 	virtual void sobelY();
+	virtual void swapRB();
 	virtual void undo();
 
 	virtual void startOperation();

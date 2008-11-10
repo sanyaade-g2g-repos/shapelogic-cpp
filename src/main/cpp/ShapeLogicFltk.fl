@@ -29,14 +29,14 @@ decl {\#include "shapelogic-cpp.h"} {}
 
 decl {\#include <FL/Fl_Color_Chooser.H>} {} 
 
-decl {const char * appLabel = "ShapeLogic C++ v 0.3 ";} {} 
+decl {const char * appLabel = "ShapeLogic C++ v 0.4 ";} {} 
 
 class ShapeLogicFltk {open
 } {
   Function {ShapeLogicFltk()} {open
   } {
     Fl_Window _window {
-      label {ShapeLogic C++ v 0.3} open selected
+      label {ShapeLogic C++ v 0.4} open selected
       xywh {451 49 730 600} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
@@ -135,6 +135,26 @@ updateLabel();}
   fl_color_chooser("Chose foreground color", background[0], background[1], background[2]);}
               xywh {10 10 36 21}
             }
+            MenuItem {} {
+              label Swap_RB
+              callback {imageSetup("Swap_RB", NULL);}
+              xywh {20 20 36 21}
+            }
+          }
+          Submenu {} {
+            label Rotate open
+            xywh {5 5 70 21}
+          } {
+            MenuItem {} {
+              label Flip_Horizontally
+              callback {imageSetup("Flip_Horizontally", NULL);}
+              xywh {5 5 36 21}
+            }
+            MenuItem {} {
+              label Flip_Vertically
+              callback {imageSetup("Flip_Vertically", NULL);}
+              xywh {15 15 36 21}
+            }
           }
         }
         Submenu {} {
@@ -190,6 +210,11 @@ updateLabel();}
             label Sobel_XY
             callback {imageSetup("Sobel_XY", NULL);}
             xywh {30 30 36 21}
+          }
+          MenuItem {} {
+            label Laplace
+            callback {imageSetup("Laplace", NULL);}
+            xywh {40 40 36 21}
           }
         }
         Submenu {} {

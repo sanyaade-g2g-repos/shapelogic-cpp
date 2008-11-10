@@ -11,9 +11,6 @@
 class Fl_Image;
 class SLImage;
 
-//class Fl_Shared_Image;
-#include <string>
-
 class ImageController {
 public:
 	ImageController();
@@ -51,7 +48,7 @@ public:
 
 //Getter and setter methods
 	virtual Fl_Image * getCurrentImage();
-	virtual std::string getFilename();
+	virtual const char * getFilename();
 
 	unsigned char _foreground[3];
 	unsigned char _background[3];
@@ -59,7 +56,6 @@ private:
 	SLImage * _currentImage;
 	SLImage * _lastImage;
 	SLImage * _nextImage;
-	std::string _filename;
     bool _directOperation;
 	const char * _brush;
 

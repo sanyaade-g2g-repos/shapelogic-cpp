@@ -71,25 +71,21 @@ void ImageController::undo() {
 	SLImage * tempImage = _currentImage;
 	_currentImage =_lastImage;
 	_lastImage = tempImage;
-	if (0 != _currentImage && 0 != _currentImage->getFilename())
-		_filename = _currentImage->getFilename();
 }
 
 void ImageController::open(const char *filename) {
 	SLImage * image = SLFactory::getInstance()->makeSLImage(filename);
 	if ( 0 == image )
 		return;
+	image->setFilename(filename);
 	delete _lastImage;
 	_lastImage = _currentImage;
 	_currentImage = image;
-	_filename = filename;
 }
 
 void ImageController::saveAs(const char *filename) {
 	bool success = SLFactory::getInstance()->saveImageAs(_currentImage, filename);
-	if (success)
-		_filename = filename;
-	else {
+	if (!success) {
 		std::string message = "The file could not be written ";
 		message += filename;
 		fl_message(message.c_str());
@@ -97,15 +93,17 @@ void ImageController::saveAs(const char *filename) {
 }
 
 void ImageController::save() {
-	saveAs(_filename.c_str());
+	saveAs(getFilename());
 }
 
 Fl_Image * ImageController::getCurrentImage() {
 	return _currentImage->getFlImage();
 }
 
-string ImageController::getFilename() {
-	return _filename;
+const char * ImageController::getFilename() {
+	if (_currentImage)
+		return _currentImage->getFilename();
+	return "";
 }
 
 void ImageController::startOperation() {

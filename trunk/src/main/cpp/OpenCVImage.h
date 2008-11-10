@@ -90,6 +90,8 @@ public:
 
 	virtual OpenCVImage * makeSimilarImage() const;
 
+	virtual _IplImage * getIplImage() const;
+
 	//-------------Special for OpenCVImage
 
 	virtual void swapRB();

@@ -172,3 +172,8 @@ void OpenCVImage::swapRB() {
 OpenCVImage * OpenCVImage::makeSimilarImage() const {
 	return copy(); //TODO change to make an empty image
 }
+
+_IplImage * OpenCVImage::getIplImage() const {
+	return _iplImage;
+}
+

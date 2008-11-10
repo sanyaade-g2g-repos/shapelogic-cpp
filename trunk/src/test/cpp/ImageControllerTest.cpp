@@ -20,5 +20,5 @@ TEST(ImageControllerTest, OpenSLImage) {
     EXPECT_EQ(30, image->w());
     EXPECT_EQ(30, image->h());
     EXPECT_EQ(3, image->d());
-    EXPECT_EQ(90, image->ld());
+    EXPECT_EQ(92, image->ld()); //4 byte aligned
 }

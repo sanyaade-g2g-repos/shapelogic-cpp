@@ -89,6 +89,10 @@ public:
 
 	virtual FltkImage * makeSimilarImage() const;
 
+	virtual FltkImage * load(char const * filename) const;
+
+	virtual bool saveAs(const char *filename);
+
 protected:
 	Fl_Image * _flImage;
 

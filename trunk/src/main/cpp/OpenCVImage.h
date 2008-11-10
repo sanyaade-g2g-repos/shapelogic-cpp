@@ -1,5 +1,5 @@
 /*
- * FltkImage.h
+ * OpenCVImage.h
  *
  * The idea with this class is that it should be able to provide images of all
  * the classes FLTK, GIL and OpenCV.
@@ -91,6 +91,10 @@ public:
 	virtual OpenCVImage * makeSimilarImage() const;
 
 	virtual _IplImage * getIplImage() const;
+
+	virtual OpenCVImage * load(char const * filename) const;
+
+	virtual bool saveAs(const char *filename);
 
 	//-------------Special for OpenCVImage
 

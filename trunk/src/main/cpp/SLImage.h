@@ -83,6 +83,11 @@ public:
 	virtual void setFilename(const char * filename) = 0;
 
 	virtual SLImage * makeSimilarImage() const = 0;
+
+	virtual SLImage * load(char const * filename) const = 0;
+
+	virtual bool saveAs(const char *filename) = 0;
+
 };
 
 #endif /* SLIMAGE_H_ */

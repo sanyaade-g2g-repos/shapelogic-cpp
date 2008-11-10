@@ -1,13 +1,17 @@
 /*
- * FltkImage.cpp
+ * OpenCVImage.cpp
  *
  *  Created on: Oct 2, 2008
  *      Author: Sami Badawi
  */
 
 #include "OpenCVImage.h"
-#include <FL/Fl_Image.H>
+#include "SLStringUtil.h"
+
 #include <boost/gil/extension/dynamic_image/image_view_factory.hpp> //for interleaved_view()
+
+#include <FL/Fl_Image.H>
+
 #include <opencv/cv.h>
 #include <opencv/cxcore.h>
 #include <opencv/highgui.h>
@@ -167,12 +171,35 @@ void OpenCVImage::setFilename(const char * filename) {
 	_filename = filename;
 }
 
-void OpenCVImage::swapRB() {
-	cvConvertImage( _iplImage, _iplImage,CV_CVTIMG_SWAP_RB );
-}
-
 OpenCVImage * OpenCVImage::makeSimilarImage() const {
 	return copy(); //TODO change to make an empty image
+}
+
+OpenCVImage * OpenCVImage::load(char const * filename) const {
+	IplImage * iplImage =cvLoadImage(filename);
+	if (0 == iplImage)
+		return NULL;
+	OpenCVImage * image = new OpenCVImage(iplImage);
+	image->setFilename(filename);
+	return image;
+}
+
+bool OpenCVImage::saveAs(const char *filename) {
+	if (SLStringUtil::empty(filename) || isEmpty())
+		return false;
+	swapRB();
+	bool success = cvSaveImage(filename, _iplImage);
+	if (success) {
+		setFilename(filename);
+	}
+	swapRB();
+	return success;
+}
+
+//-------------Special for OpenCVImage
+
+void OpenCVImage::swapRB() {
+	cvConvertImage( _iplImage, _iplImage,CV_CVTIMG_SWAP_RB );
 }
 
 _IplImage * OpenCVImage::getIplImage() const {

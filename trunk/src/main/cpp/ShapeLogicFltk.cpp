@@ -14,7 +14,7 @@
 #include "FltkUtil.h"
 #include "shapelogic-cpp.h"
 #include <FL/Fl_Color_Chooser.H>
-static const char * appLabel = "ShapeLogic C++ v 0.3 ";
+static const char * appLabel = "ShapeLogic C++ v 0.4 ";
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog(true);
@@ -94,6 +94,27 @@ void ShapeLogicFltk::cb_Background(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Background_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Swap_RB_i(Fl_Menu_*, void*) {
+  imageSetup("Swap_RB", NULL);
+}
+void ShapeLogicFltk::cb_Swap_RB(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Swap_RB_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Flip_Horizontally_i(Fl_Menu_*, void*) {
+  imageSetup("Flip_Horizontally", NULL);
+}
+void ShapeLogicFltk::cb_Flip_Horizontally(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Flip_Horizontally_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Flip_Vertically_i(Fl_Menu_*, void*) {
+  imageSetup("Flip_Vertically", NULL);
+}
+void ShapeLogicFltk::cb_Flip_Vertically(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Flip_Vertically_i(o,v);
+}
+
 void ShapeLogicFltk::cb_None_i(Fl_Menu_*, void*) {
   imageSetup("Brush", "None");
 }
@@ -157,6 +178,13 @@ void ShapeLogicFltk::cb_Sobel_XY(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Sobel_XY_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Laplace_i(Fl_Menu_*, void*) {
+  imageSetup("Laplace", NULL);
+}
+void ShapeLogicFltk::cb_Laplace(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Laplace_i(o,v);
+}
+
 void ShapeLogicFltk::cb_About_i(Fl_Menu_*, void*) {
   imageSetup("About", NULL);
 }
@@ -186,6 +214,11 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Color", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Foreground", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Foreground, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Background", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Background, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Swap_RB", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Swap_RB, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ {"Rotate", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Flip_Horizontally", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Flip_Horizontally, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Flip_Vertically", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Flip_Vertically, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {0,0,0,0,0,0,0,0,0},
  {"Brushes", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -200,6 +233,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Sobel_X", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_X, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_Y", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_Y, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_XY", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_XY, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Laplace", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Laplace, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Plugins", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"ShapeLogic", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
@@ -215,7 +249,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
 
 ShapeLogicFltk::ShapeLogicFltk() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic C++ v 0.3");
+  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic C++ v 0.4");
     w = o;
     o->user_data((void*)(this));
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 730, 20);

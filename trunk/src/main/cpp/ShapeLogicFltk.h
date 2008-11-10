@@ -43,6 +43,12 @@ private:
   static void cb_Foreground(Fl_Menu_*, void*);
   void cb_Background_i(Fl_Menu_*, void*);
   static void cb_Background(Fl_Menu_*, void*);
+  void cb_Swap_RB_i(Fl_Menu_*, void*);
+  static void cb_Swap_RB(Fl_Menu_*, void*);
+  void cb_Flip_Horizontally_i(Fl_Menu_*, void*);
+  static void cb_Flip_Horizontally(Fl_Menu_*, void*);
+  void cb_Flip_Vertically_i(Fl_Menu_*, void*);
+  static void cb_Flip_Vertically(Fl_Menu_*, void*);
   void cb_None_i(Fl_Menu_*, void*);
   static void cb_None(Fl_Menu_*, void*);
   void cb_Pen_i(Fl_Menu_*, void*);
@@ -61,6 +67,8 @@ private:
   static void cb_Sobel_Y(Fl_Menu_*, void*);
   void cb_Sobel_XY_i(Fl_Menu_*, void*);
   static void cb_Sobel_XY(Fl_Menu_*, void*);
+  void cb_Laplace_i(Fl_Menu_*, void*);
+  static void cb_Laplace(Fl_Menu_*, void*);
   void cb_About_i(Fl_Menu_*, void*);
   static void cb_About(Fl_Menu_*, void*);
 public:

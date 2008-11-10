@@ -83,10 +83,10 @@ OpenCVImage * SLFactory::makeOpenCVImage(const char * filename) const {
 bool SLFactory::saveImageAs(SLImage * image, const char *filename) {
 	if (SLStringUtil::empty(filename))
 		return false;
-	if (GILOperation::saveAnyImage(filename, image)) {
+	bool saved = image->saveAs(filename);
+	if (!saved && GILOperation::saveAnyImage(filename, image)) {
 		image->setFilename(filename);
-		return true;
+		saved = true;
 	}
-	else
-		return false;
+	return saved;
 }

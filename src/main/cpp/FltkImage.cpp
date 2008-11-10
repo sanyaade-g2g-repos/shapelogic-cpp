@@ -6,8 +6,12 @@
  */
 
 #include "FltkImage.h"
-#include <FL/Fl_Image.H>
+#include "SLStringUtil.h"
+
 #include <boost/gil/extension/dynamic_image/image_view_factory.hpp> //for interleaved_view()
+
+#include <FL/Fl_Image.H>
+#include <FL/Fl_Shared_Image.H>
 
 using namespace boost::gil;
 
@@ -153,3 +157,23 @@ void FltkImage::setFilename(const char * filename) {
 FltkImage * FltkImage::makeSimilarImage() const {
 	return copy(); //TODO change to make an empty image
 }
+
+FltkImage * FltkImage::load(char const * filename) const {
+	if (SLStringUtil::empty(filename))
+		return 0;
+	Fl_Shared_Image *sharedImage = Fl_Shared_Image::get(filename);
+	Fl_Image * image = sharedImage->copy();
+	sharedImage->release();
+	if ( image->h() == 0 ) {
+		delete image;
+		return 0;
+	}
+	FltkImage * result = new FltkImage(image);
+	result->setFilename(filename);
+	return result;
+}
+
+bool FltkImage::saveAs(const char *filename) {
+	return false; //There are no save in FLTK
+}
+

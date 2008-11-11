@@ -13,7 +13,7 @@
 #include <opencv/cxcore.h>
 #include <opencv/highgui.h>
 
-void OpenCVOperations::laplace(SLImage * input, SLImage * output) {
+void OpenCVOperations::cannyEdge(SLImage * input, SLImage * output) {
 	if (NULL == input || NULL == output)
 		return;
 	OpenCVImage * iplInput = dynamic_cast<OpenCVImage *>(input);
@@ -21,8 +21,7 @@ void OpenCVOperations::laplace(SLImage * input, SLImage * output) {
 	if (0 == iplInput || 0 == iplOutput ||
 			0 == iplInput->getIplImage() || 0 == iplOutput->getIplImage())
 		return;
-//	cvPyrUp(iplInput->getIplImage(), iplOutput->getIplImage());
-	cvConvertImage( iplInput->getIplImage(), iplOutput->getIplImage(),CV_CVTIMG_SWAP_RB ); //TODO fix
+	cvCanny (iplInput->getIplImage(), iplOutput->getIplImage(), 30., 50.);
 
 }
 

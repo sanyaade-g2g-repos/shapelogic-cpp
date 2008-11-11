@@ -26,13 +26,13 @@ public:
 	virtual void blur();
 	virtual void setBrush(const char * brush);
 	virtual const char * getBrush();
+	virtual void cannyEdge();
 	virtual void clear();
 	virtual void fill();
 	virtual void flipHorizontally();
 	virtual void flipVertically();
 	virtual void gray8();
 	virtual void invert();
-	virtual void laplace();
 	virtual void open(const char * filename);
 	virtual void quit();
 	virtual void rgb8();

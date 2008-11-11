@@ -56,7 +56,7 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Flip_Vertically") flipVertically();
 	else if (command == "Gray8") gray8();
 	else if (command == "Invert") invert();
-	else if (command == "Laplace") laplace();
+	else if (command == "Canny_Edge") cannyEdge();
 	else if (command == "Open")	open(arg);
 	else if (command == "Quit") quit();
 	else if (command == "rgb8") rgb8();
@@ -235,10 +235,10 @@ void ImageController::about() {
 	fl_message(messageBuffer);
 }
 
-void ImageController::laplace() {
+void ImageController::cannyEdge() {
 	_directOperation = false;
 	startOperation();
-	OpenCVOperations::laplace(_currentImage, _nextImage);
+	OpenCVOperations::cannyEdge(_currentImage, _nextImage);
 	endOperation();
 }
 

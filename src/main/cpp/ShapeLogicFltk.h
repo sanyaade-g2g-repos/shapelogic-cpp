@@ -71,8 +71,8 @@ private:
   static void cb_Sobel_Y(Fl_Menu_*, void*);
   void cb_Sobel_XY_i(Fl_Menu_*, void*);
   static void cb_Sobel_XY(Fl_Menu_*, void*);
-  void cb_Laplace_i(Fl_Menu_*, void*);
-  static void cb_Laplace(Fl_Menu_*, void*);
+  void cb_Canny_Edge_i(Fl_Menu_*, void*);
+  static void cb_Canny_Edge(Fl_Menu_*, void*);
   void cb_About_i(Fl_Menu_*, void*);
   static void cb_About(Fl_Menu_*, void*);
 public:

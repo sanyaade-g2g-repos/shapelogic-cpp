@@ -112,7 +112,7 @@ void BaseImage::setFilename(const char * filename) {
 }
 
 BaseImage * BaseImage::makeSimilarImage() const {
-	BaseImage * image = (BaseImage *) createImage(getWidth(), getHeight(),getNChannels(), IPL_DEPTH_8U);
+	BaseImage * image = (BaseImage *) createImage(getWidth(), getHeight(),getNChannels(), getDepth());
 	image->setFilename(getFilename());
 	return image;
 }

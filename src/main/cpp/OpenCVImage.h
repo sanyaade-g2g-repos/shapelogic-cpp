@@ -98,6 +98,8 @@ public:
 
 	virtual bool saveAs(const char *filename);
 
+	virtual OpenCVImage * createImage(int width, int height, int nChannels, int depth = 0)  const;
+
 //-------------Special for OpenCVImage
 
 	virtual void swapRB();

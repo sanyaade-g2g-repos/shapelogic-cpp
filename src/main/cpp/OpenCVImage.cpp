@@ -201,6 +201,11 @@ bool OpenCVImage::saveAs(const char *filename) {
 	return success;
 }
 
+OpenCVImage * OpenCVImage::createImage(int width, int height, int nChannels, int depth) const {
+	IplImage* image = cvCreateImage(cvSize(width, height),IPL_DEPTH_8U,1);
+	return new OpenCVImage(image);
+}
+
 //-------------Special for OpenCVImage
 
 void OpenCVImage::swapRB() {

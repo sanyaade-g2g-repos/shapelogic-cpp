@@ -13,6 +13,8 @@
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Shared_Image.H>
 
+#include <opencv/cxtypes.h>
+
 using namespace boost::gil;
 
 
@@ -110,5 +112,7 @@ void BaseImage::setFilename(const char * filename) {
 }
 
 BaseImage * BaseImage::makeSimilarImage() const {
-	return (BaseImage *) copy(); //TODO change to make an empty image
+	BaseImage * image = (BaseImage *) createImage(getWidth(), getHeight(),getNChannels(), IPL_DEPTH_8U);
+	image->setFilename(getFilename());
+	return image;
 }

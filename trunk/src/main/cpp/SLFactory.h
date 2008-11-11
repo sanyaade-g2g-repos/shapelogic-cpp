@@ -29,10 +29,6 @@ public:
 
 	SLImage * makeSLImage(const char * filename) const;
 
-	FltkImage * makeFltkImage(const char * filename) const;
-
-	OpenCVImage * makeOpenCVImage(const char * filename) const;
-
 	bool saveImageAs(SLImage * image, const char *filename);
 
 protected:

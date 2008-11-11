@@ -130,7 +130,7 @@ bool OpenCVImage::saveAs(const char *filename) {
 }
 
 OpenCVImage * OpenCVImage::createImage(int width, int height, int nChannels, int depth) const {
-	IplImage* image = cvCreateImage(cvSize(width, height),IPL_DEPTH_8U,1);
+	IplImage* image = cvCreateImage(cvSize(width, height), depth, nChannels);
 	return new OpenCVImage(image);
 }
 

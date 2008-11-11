@@ -5,20 +5,61 @@
  *      Author: Sami Badawi
  */
 
+#include <FltkImage.h>
 #include <ImageController.h>
+#include <OpenCVImage.h>
+#include <SLFactory.h>
+
 #include <FL/Fl_Image.H>
 #include <gtest/gtest.h>
 
+static const char * filename = "/home/sbadawi/shapelogic-cpp/src/test/resources/images/particles/spot1Clean.jpg";
 
 // Tests Open SLImage
-TEST(ImageControllerTest, OpenSLImage) {
+TEST(ImageControllerTest, loadSLImageWithImageController) {
     ImageController imageController;
-    const char * filename = "/home/sbadawi/shapelogic-cpp/src/test/resources/images/particles/spot1Clean.jpg";
     imageController.open(filename);
     Fl_Image * image = imageController.getCurrentImage();
     ASSERT_NE((void *)NULL, image ) << "File did not open " << filename;
     EXPECT_EQ(30, image->w());
     EXPECT_EQ(30, image->h());
     EXPECT_EQ(3, image->d());
-    EXPECT_EQ(92, image->ld()); //4 byte aligned
+    EXPECT_EQ(92, image->ld()); //4 byte aligned under OpenCV not under FLTK
+}
+
+// Tests Open SLImage
+TEST(ImageControllerTest, loadSLImageWithSLFactory) {
+	SLFactory sLFactory;
+	sLFactory.setImageType("FLTK");
+	SLImage * slImage = sLFactory.makeSLImage(filename);
+    Fl_Image * image = slImage->getFlImage();
+    ASSERT_NE((void *)NULL, image ) << "File did not open " << filename;
+    EXPECT_EQ(30, image->w());
+    EXPECT_EQ(30, image->h());
+    EXPECT_EQ(3, image->d());
+    EXPECT_EQ(0, image->ld()); //4 byte aligned under OpenCV not under FLTK
+}
+
+// Tests load OpenCVImage
+TEST(ImageControllerTest, loadOpenCVImage) {
+	OpenCVImage * openCVImage = OpenCVImage::NULL_OBJECT->load(filename);
+    ASSERT_NE((void *)NULL, openCVImage ) << "File did not open " << filename;
+    Fl_Image * image = openCVImage->getFlImage();
+    ASSERT_NE((void *)NULL, image ) << "File did not open " << filename;
+    EXPECT_EQ(30, image->w());
+    EXPECT_EQ(30, image->h());
+    EXPECT_EQ(3, image->d());
+    EXPECT_EQ(92, image->ld()); //4 byte aligned under OpenCV not under FLTK
+}
+
+// Tests load FltkImage
+TEST(ImageControllerTest, loadFltkImage) {
+	FltkImage * fltkImage = FltkImage::NULL_OBJECT->load(filename);
+    ASSERT_NE((void *)NULL, fltkImage ) << "File did not open " << filename;
+    Fl_Image * image = fltkImage->getFlImage();
+    ASSERT_NE((void *)NULL, image ) << "File did not open " << filename;
+    EXPECT_EQ(30, image->w());
+    EXPECT_EQ(30, image->h());
+    EXPECT_EQ(3, image->d());
+    EXPECT_EQ(0, image->ld()); //4 byte aligned under OpenCV not under FLTK
 }

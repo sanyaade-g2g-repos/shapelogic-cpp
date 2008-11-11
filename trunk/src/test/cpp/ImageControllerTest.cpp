@@ -1,5 +1,7 @@
 /*
- * FltkImage.cpp
+ * ImageControllerTest.cpp
+ *
+ * Current version test opening images of different types from different classes.
  *
  *  Created on: Oct 2, 2008
  *      Author: Sami Badawi
@@ -13,6 +15,7 @@
 #include <FL/Fl_Image.H>
 #include <gtest/gtest.h>
 
+//TODO have a way to find the top directory and give address relative to that
 static const char * filename = "/home/sbadawi/shapelogic-cpp/src/test/resources/images/particles/spot1Clean.jpg";
 
 // Tests Open SLImage
@@ -50,6 +53,8 @@ TEST(ImageControllerTest, loadOpenCVImage) {
     EXPECT_EQ(30, image->h());
     EXPECT_EQ(3, image->d());
     EXPECT_EQ(92, image->ld()); //4 byte aligned under OpenCV not under FLTK
+    EXPECT_EQ(8, openCVImage->getDepth());
+    EXPECT_EQ(92, openCVImage->getWidthStep());
 }
 
 // Tests load FltkImage
@@ -62,4 +67,6 @@ TEST(ImageControllerTest, loadFltkImage) {
     EXPECT_EQ(30, image->h());
     EXPECT_EQ(3, image->d());
     EXPECT_EQ(0, image->ld()); //4 byte aligned under OpenCV not under FLTK
+    EXPECT_EQ(8, fltkImage->getDepth());
+    EXPECT_EQ(90, fltkImage->getWidthStep());
 }

@@ -108,7 +108,7 @@ updateLabel();}
           } {
             MenuItem {} {
               label Gray8
-              callback {imageSetup("Gray8", NULL);} selected
+              callback {imageSetup("Gray8", NULL);}
               xywh {5 5 36 21}
             }
             MenuItem {} {
@@ -210,8 +210,8 @@ updateLabel();}
             xywh {30 30 36 21}
           }
           MenuItem {} {
-            label Laplace
-            callback {imageSetup("Laplace", NULL);}
+            label Canny_Edge
+            callback {imageSetup("Canny_Edge", NULL);} selected
             xywh {40 40 36 21}
           }
         }

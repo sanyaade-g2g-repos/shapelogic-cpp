@@ -68,6 +68,12 @@ int OpenCVImage::getDepth() const {
 	return 0;
 }
 
+int OpenCVImage::getWidthStep() const {
+	if (0 != _iplImage)
+		return _iplImage->widthStep;
+	return getWidth() * getNChannels();
+}
+
 /** Returns a reference to this image's pixel array. The
 array type (byte[], short[], float[] or int[]) varies
 depending on the image type. */

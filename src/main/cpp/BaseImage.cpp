@@ -25,6 +25,10 @@ BaseImage::BaseImage(Fl_Image * flImage) : SLImage(), _flImage(flImage) {
 BaseImage::~BaseImage() {
 }
 
+int BaseImage::getWidthStep() const {
+	return getWidth() * getNChannels();
+}
+
 //void BaseImage::setRoi(Rectangle roi) {
 //
 //}
@@ -63,11 +67,11 @@ bool BaseImage::isGray() const {
 }
 
 bool BaseImage::isGray8() const {
-	return 1 == getNChannels();
+	return 1 == getNChannels() && 8 == getDepth();
 }
 
 bool BaseImage::isGray16() const {
-	return false;
+	return 1 == getNChannels() && 16 == getDepth();
 }
 
 bool BaseImage::isRgb() const {
@@ -88,7 +92,7 @@ rgb8_view_t BaseImage::make_rgb8_view_t() const {
 				getWidth(),
 				getHeight(),
 				(rgb8_view_t::value_type *)(getPixels()),
-				getWidth()*getNChannels());
+				getWidthStep() );
 	return view;
 }
 
@@ -98,7 +102,7 @@ gray8_view_t BaseImage::make_gray8_view_t() const {
 				getWidth(),
 				getHeight(),
 				(gray8_view_t::value_type *)(getPixels()),
-				getWidth());
+				getWidthStep() );
 	return view;
 }
 

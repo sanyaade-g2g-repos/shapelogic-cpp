@@ -55,6 +55,16 @@ int FltkImage::getDepth() const {
 	return 8; //Fltk only handles one depth 8 bits
 }
 
+int FltkImage::getWidthStep() const {
+	int widthStep = 0;
+	if (0 !=_flImage)
+		widthStep = _flImage->ld();
+	if (0 == widthStep)
+		return getWidth() * getNChannels();
+	else
+		return widthStep;
+}
+
 /** Returns a reference to this image's pixel array. The
 array type (byte[], short[], float[] or int[]) varies
 depending on the image type. */

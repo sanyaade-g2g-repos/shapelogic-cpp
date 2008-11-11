@@ -41,6 +41,9 @@ public:
 	/** Returns the depth of each channels. */
 	virtual int getDepth() const;
 
+	/** Bytes in line with padding. */
+	virtual int getWidthStep() const;
+
 	/** Returns a reference to this image's pixel array. The
 	array type (byte[], short[], float[] or int[]) varies
 	depending on the image type. */

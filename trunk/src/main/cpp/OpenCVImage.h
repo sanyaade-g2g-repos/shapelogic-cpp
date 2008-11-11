@@ -32,6 +32,15 @@ public:
 	/** Returns the height of this image in pixels. */
 	virtual int getHeight() const;
 
+	/** Returns the number of color channels in the image. The color channels can be
+	*  accessed by toFloat(channelNumber, fp) and written by setPixels(channelNumber, fp).
+	* @return 1 for gray scale images, 3 for RGB images
+	*/
+	virtual int getNChannels() const;
+
+	/** Returns the depth of each channels. */
+	virtual int getDepth() const;
+
 	/** Returns a reference to this image's pixel array. The
 	array type (byte[], short[], float[] or int[]) varies
 	depending on the image type. */
@@ -40,12 +49,6 @@ public:
 	/** Returns true if this image uses an inverting LUT
 	that displays zero as white and 255 as black. */
 	virtual bool isInvertedLut() const;
-
-	/** Returns the number of color channels in the image. The color channels can be
-	*  accessed by toFloat(channelNumber, fp) and written by setPixels(channelNumber, fp).
-	* @return 1 for gray scale images, 3 for RGB images
-	*/
-	virtual int getNChannels() const;
 
 	virtual bool isGray() const;
 

@@ -27,6 +27,8 @@ public:
 	/** Returns the height of this image in pixels. */
 	virtual int getHeight() const = 0;
 
+	virtual int getDepth() const = 0;
+
 //	virtual void setRoi(Rectangle roi) = 0;
 //
 //	virtual void setRoi(int x, int y, int rwidth, int rheight) = 0;

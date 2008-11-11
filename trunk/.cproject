@@ -26,6 +26,7 @@
 <option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1064711891" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.include.paths.1284382645" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/shapelogic-cpp/src/main/cpp}&quot;"/>
+<listOptionValue builtIn="false" value="/usr/include/opencv"/>
 <listOptionValue builtIn="false" value="/home/sbadawi/src/boost_1_36_0"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1043201790" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>

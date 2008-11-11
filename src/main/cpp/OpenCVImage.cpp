@@ -51,6 +51,23 @@ int OpenCVImage::getHeight() const {
 	return 0;
 }
 
+/** Returns the number of color channels in the image. The color channels can be
+*  accessed by toFloat(channelNumber, fp) and written by setPixels(channelNumber, fp).
+* @return 1 for grayscale images, 3 for RGB images
+*/
+int OpenCVImage::getNChannels() const {
+	if (0 != _iplImage)
+		return _iplImage->nChannels;
+	return 0;
+}
+
+/** Returns the depth of each channels. */
+int OpenCVImage::getDepth() const {
+	if (0 != _iplImage)
+		return _iplImage->depth;
+	return 0;
+}
+
 /** Returns a reference to this image's pixel array. The
 array type (byte[], short[], float[] or int[]) varies
 depending on the image type. */
@@ -64,16 +81,6 @@ unsigned char * OpenCVImage::getPixels() const { //TODO should this be replaced 
 that displays zero as white and 255 as black. */
 bool OpenCVImage::isInvertedLut() const {
     return false;
-}
-
-/** Returns the number of color channels in the image. The color channels can be
-*  accessed by toFloat(channelNumber, fp) and written by setPixels(channelNumber, fp).
-* @return 1 for grayscale images, 3 for RGB images
-*/
-int OpenCVImage::getNChannels() const {
-	if (0 != _iplImage)
-		return _iplImage->nChannels;
-	return 0;
 }
 
 bool OpenCVImage::isGray() const {

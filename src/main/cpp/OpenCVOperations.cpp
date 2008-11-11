@@ -9,9 +9,8 @@
 
 #include "OpenCVImage.h"
 
-#include <opencv/cv.h>
-#include <opencv/cxcore.h>
-#include <opencv/highgui.h>
+#include <cv.h>
+#include <highgui.h>
 
 void OpenCVOperations::cannyEdge(SLImage * input, SLImage * output) {
 	if (NULL == input || NULL == output)

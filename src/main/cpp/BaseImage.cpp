@@ -13,8 +13,6 @@
 #include <FL/Fl_Image.H>
 #include <FL/Fl_Shared_Image.H>
 
-#include <opencv/cxtypes.h>
-
 using namespace boost::gil;
 
 

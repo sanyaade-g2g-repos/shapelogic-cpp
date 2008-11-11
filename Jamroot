@@ -18,13 +18,15 @@ if $(boost-path)
   boost-path =  ../src/boost_1_36_0  ;
 }
 
+path-constant OPEN_CV : /usr/include/opencv ;
+
 #Make the Boost library known to shapelogic-cpp
 use-project /boost : $(boost-path)  ;
 
 
 #Main common requirements: use costom boost distribution
 project shapelogic-cpp
-    : requirements <include>$(boost-path) <threading>multi
+    : requirements <include>$(boost-path) <include>$(OPEN_CV) <threading>multi
     ;
 
 install dist : src/main/cpp ;

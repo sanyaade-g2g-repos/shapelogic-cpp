@@ -18,7 +18,7 @@ using namespace boost::gil;
 //--------------static
 const FltkImage * FltkImage::NULL_OBJECT = new FltkImage(NULL);
 
-FltkImage::FltkImage(Fl_Image * image) : SLImage(), _flImage(image) {
+FltkImage::FltkImage(Fl_Image * flImage) : BaseImage(flImage) {
 
 }
 
@@ -40,22 +40,6 @@ int FltkImage::getHeight() const {
 	return 0;
 }
 
-//void FltkImage::setRoi(Rectangle roi) {
-//
-//}
-//
-//void FltkImage::setRoi(int x, int y, int rwidth, int rheight) {
-//
-//}
-//
-//Rectangle FltkImage::getRoi() {
-//
-//}
-
-int FltkImage::getPixelCount() const {
-	return getWidth() * getHeight();
-}
-
 /** Returns a reference to this image's pixel array. The
 array type (byte[], short[], float[] or int[]) varies
 depending on the image type. */
@@ -63,12 +47,6 @@ unsigned char * FltkImage::getPixels() const {
 	if (0 == _flImage)
 		return 0;
 	return (unsigned char *) *_flImage->data();
-}
-
-/** Sets a new pixel array for the image. The length of the array must be equal to width*height.
-Use setSnapshotPixels(null) to clear the snapshot buffer. */
-void FltkImage::setPixels(unsigned char * pixels) {
-
 }
 
 /** Returns true if this image uses an inverting LUT
@@ -82,39 +60,21 @@ bool FltkImage::isInvertedLut() const {
 * @return 1 for grayscale images, 3 for RGB images
 */
 int FltkImage::getNChannels() const {
-	return _flImage->d();
-}
-
-bool FltkImage::isEmpty() const {
-	return false;
+	if (0 !=_flImage)
+		return _flImage->d();
+	return 0;
 }
 
 bool FltkImage::isGray() const {
-	return false;
+	return 1 == getNChannels();
 }
 
 bool FltkImage::isGray8() const {
-	if (0 !=_flImage)
-		return 1 == _flImage->d();
-	return false;
+	return 1 == getNChannels();
 }
 
 bool FltkImage::isGray16() const {
 	return false;
-}
-
-bool FltkImage::isRgb() const {
-	if (0 !=_flImage)
-		return 3 <= _flImage->d();
-	return true;
-}
-
-//Rectangle FltkImage::getActiveRectangle() {
-//
-//}
-
-int FltkImage::getLineStride() const {
-    return 0;
 }
 
 Fl_Image * FltkImage::getFlImage() const {
@@ -126,35 +86,6 @@ FltkImage * FltkImage::copy() const {
 	FltkImage * result = new FltkImage(copyOfFlImage);
 	result->setFilename(getFilename());
 	return result;
-}
-
-rgb8_view_t FltkImage::make_rgb8_view_t() const {
-	rgb8_view_t view =
-		interleaved_view(
-				getWidth(),
-				getHeight(),
-				(rgb8_view_t::value_type *)(getPixels()),
-				getWidth()*getNChannels());
-	return view;
-}
-
-gray8_view_t FltkImage::make_gray8_view_t() const {
-	gray8_view_t view =
-		interleaved_view(
-				getWidth(),
-				getHeight(),
-				(gray8_view_t::value_type *)(getPixels()),
-				getWidth());
-	return view;
-}
-
-
-const char * FltkImage::getFilename() const {
-	return _filename.c_str();
-}
-
-void FltkImage::setFilename(const char * filename) {
-	_filename = filename;
 }
 
 FltkImage * FltkImage::makeSimilarImage() const {

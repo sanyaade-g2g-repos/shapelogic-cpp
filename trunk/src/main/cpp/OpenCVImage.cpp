@@ -23,9 +23,8 @@ const OpenCVImage * OpenCVImage::NULL_OBJECT = new OpenCVImage(NULL);
 
 //-------------Constructor and Destructor
 
-OpenCVImage::OpenCVImage(IplImage * image) : SLImage() {
+OpenCVImage::OpenCVImage(IplImage * image) : BaseImage() {
 	_iplImage = image;
-	_flImage = NULL;
 }
 
 OpenCVImage::~OpenCVImage() {
@@ -52,22 +51,6 @@ int OpenCVImage::getHeight() const {
 	return 0;
 }
 
-//void OpenCVImage::setRoi(Rectangle roi) {
-//
-//}
-//
-//void OpenCVImage::setRoi(int x, int y, int rwidth, int rheight) {
-//
-//}
-//
-//Rectangle OpenCVImage::getRoi() {
-//
-//}
-
-int OpenCVImage::getPixelCount() const {
-	return getWidth() * getHeight();
-}
-
 /** Returns a reference to this image's pixel array. The
 array type (byte[], short[], float[] or int[]) varies
 depending on the image type. */
@@ -75,12 +58,6 @@ unsigned char * OpenCVImage::getPixels() const { //TODO should this be replaced 
 	if (0 == _iplImage)
 		return 0;
 	return (unsigned char *) _iplImage->imageData;
-}
-
-/** Sets a new pixel array for the image. The length of the array must be equal to width*height.
-Use setSnapshotPixels(null) to clear the snapshot buffer. */
-void OpenCVImage::setPixels(unsigned char * pixels) {
-
 }
 
 /** Returns true if this image uses an inverting LUT
@@ -99,10 +76,6 @@ int OpenCVImage::getNChannels() const {
 	return 0;
 }
 
-bool OpenCVImage::isEmpty() const {
-	return 0 == _iplImage;
-}
-
 bool OpenCVImage::isGray() const {
 	if (0 !=_iplImage)
 		return 1 == _iplImage->nChannels;
@@ -117,20 +90,6 @@ bool OpenCVImage::isGray8() const {
 
 bool OpenCVImage::isGray16() const {
 	return false;
-}
-
-bool OpenCVImage::isRgb() const {
-	if (0 !=_iplImage)
-		return 3 <= _iplImage->nChannels;
-	return true;
-}
-
-//Rectangle OpenCVImage::getActiveRectangle() {
-//
-//}
-
-int OpenCVImage::getLineStride() const {
-    return getWidth();
 }
 
 Fl_Image * OpenCVImage::getFlImage() const {
@@ -148,43 +107,12 @@ OpenCVImage * OpenCVImage::copy() const {
 	return result;
 }
 
-rgb8_view_t OpenCVImage::make_rgb8_view_t() const {
-	rgb8_view_t view =
-		interleaved_view(
-				getWidth(),
-				getHeight(),
-				(rgb8_view_t::value_type *)(getPixels()),
-				getWidth()*getNChannels());
-	return view;
-}
-
-gray8_view_t OpenCVImage::make_gray8_view_t() const {
-	gray8_view_t view =
-		interleaved_view(
-				getWidth(),
-				getHeight(),
-				(gray8_view_t::value_type *)(getPixels()),
-				getWidth());
-	return view;
-}
-
-const char * OpenCVImage::getFilename() const {
-	return _filename.c_str();
-}
-
-void OpenCVImage::setFilename(const char * filename) {
-	_filename = filename;
-}
-
-OpenCVImage * OpenCVImage::makeSimilarImage() const {
-	return copy(); //TODO change to make an empty image
-}
-
 OpenCVImage * OpenCVImage::load(char const * filename) const {
 	IplImage * iplImage =cvLoadImage(filename);
 	if (0 == iplImage)
 		return NULL;
 	OpenCVImage * image = new OpenCVImage(iplImage);
+	image->swapRB();
 	image->setFilename(filename);
 	return image;
 }

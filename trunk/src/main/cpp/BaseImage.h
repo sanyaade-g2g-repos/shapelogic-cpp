@@ -27,6 +27,9 @@ public:
 	BaseImage(Fl_Image * flImage = 0);
 	virtual ~BaseImage();
 
+	/** Bytes in line with padding. */
+	virtual int getWidthStep() const;
+
 //	virtual void setRoi(Rectangle roi) = 0;
 //
 //	virtual void setRoi(int x, int y, int rwidth, int rheight) = 0;

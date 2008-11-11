@@ -29,6 +29,9 @@ public:
 
 	virtual int getDepth() const = 0;
 
+	/** Bytes in line with padding. */
+	virtual int getWidthStep() const = 0;
+
 //	virtual void setRoi(Rectangle roi) = 0;
 //
 //	virtual void setRoi(int x, int y, int rwidth, int rheight) = 0;

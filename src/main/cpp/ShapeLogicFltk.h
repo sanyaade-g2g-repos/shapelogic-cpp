@@ -39,6 +39,10 @@ private:
   static void cb_Fill(Fl_Menu_*, void*);
   void cb_Invert_i(Fl_Menu_*, void*);
   static void cb_Invert(Fl_Menu_*, void*);
+  void cb_Gray8_i(Fl_Menu_*, void*);
+  static void cb_Gray8(Fl_Menu_*, void*);
+  void cb_RGB8_i(Fl_Menu_*, void*);
+  static void cb_RGB8(Fl_Menu_*, void*);
   void cb_Foreground_i(Fl_Menu_*, void*);
   static void cb_Foreground(Fl_Menu_*, void*);
   void cb_Background_i(Fl_Menu_*, void*);
@@ -59,8 +63,8 @@ private:
   static void cb_Sample_color(Fl_Menu_*, void*);
   void cb_Smooth_i(Fl_Menu_*, void*);
   static void cb_Smooth(Fl_Menu_*, void*);
-  void cb_Edge_i(Fl_Menu_*, void*);
-  static void cb_Edge(Fl_Menu_*, void*);
+  void cb_Signed_Gradient_i(Fl_Menu_*, void*);
+  static void cb_Signed_Gradient(Fl_Menu_*, void*);
   void cb_Sobel_X_i(Fl_Menu_*, void*);
   static void cb_Sobel_X(Fl_Menu_*, void*);
   void cb_Sobel_Y_i(Fl_Menu_*, void*);

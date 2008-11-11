@@ -50,14 +50,16 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Blur") blur();
 	else if (command == "Brush") setBrush(arg);
 	else if (command == "Clear") clear();
-	else if (command == "Edge")	edge();
+	else if (command == "Signed_Gradient") signedGradient();
 	else if (command == "Fill")	fill();
 	else if (command == "Flip_Horizontally") flipHorizontally();
 	else if (command == "Flip_Vertically") flipVertically();
+	else if (command == "Gray8") gray8();
 	else if (command == "Invert") invert();
 	else if (command == "Laplace") laplace();
 	else if (command == "Open")	open(arg);
 	else if (command == "Quit") quit();
+	else if (command == "rgb8") rgb8();
 	else if (command == "Save") save();
 	else if (command == "Save_As") saveAs(arg);
 	else if (command == "Sobel_X") sobelX();
@@ -184,7 +186,7 @@ void ImageController::fill() {
 	endOperation();
 }
 
-void ImageController::edge() {
+void ImageController::signedGradient() {
 	_directOperation = false;
 	startOperation();
 	GILOperation::fltkGradient(_currentImage, _nextImage);
@@ -259,5 +261,23 @@ void ImageController::swapRB() {
 	startOperation();
 	OpenCVOperations::swapRB(_currentImage, _nextImage);
 	endOperation();
+}
+
+//turn image into type gray 8 bit
+void ImageController::gray8() {
+	if (_currentImage->isGray())
+		return;
+	delete _lastImage;
+	_lastImage = NULL;
+	_nextImage = _currentImage->createImage(_currentImage->getWidth(),
+			_currentImage->getHeight(), 1, _currentImage->getDepth());
+	GILOperation::rgbToGray(_currentImage, _nextImage);
+	_lastImage = _currentImage;
+	_currentImage = _nextImage;
+	_nextImage = NULL;
+}
+
+void ImageController::rgb8() {
+
 }
 

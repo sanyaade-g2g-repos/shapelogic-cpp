@@ -78,6 +78,20 @@ void ShapeLogicFltk::cb_Invert(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Invert_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Gray8_i(Fl_Menu_*, void*) {
+  imageSetup("Gray8", NULL);
+}
+void ShapeLogicFltk::cb_Gray8(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Gray8_i(o,v);
+}
+
+void ShapeLogicFltk::cb_RGB8_i(Fl_Menu_*, void*) {
+  imageSetup("RGB8", NULL);
+}
+void ShapeLogicFltk::cb_RGB8(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_RGB8_i(o,v);
+}
+
 void ShapeLogicFltk::cb_Foreground_i(Fl_Menu_*, void*) {
   unsigned char * foreground = getImageController()->_foreground;
   fl_color_chooser("Chose foreground color", foreground[0], foreground[1], foreground[2]);
@@ -150,11 +164,11 @@ void ShapeLogicFltk::cb_Smooth(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Smooth_i(o,v);
 }
 
-void ShapeLogicFltk::cb_Edge_i(Fl_Menu_*, void*) {
-  imageSetup("Edge", NULL);
+void ShapeLogicFltk::cb_Signed_Gradient_i(Fl_Menu_*, void*) {
+  imageSetup("Signed_Gradient", NULL);
 }
-void ShapeLogicFltk::cb_Edge(Fl_Menu_* o, void* v) {
-  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Edge_i(o,v);
+void ShapeLogicFltk::cb_Signed_Gradient(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Signed_Gradient_i(o,v);
 }
 
 void ShapeLogicFltk::cb_Sobel_X_i(Fl_Menu_*, void*) {
@@ -207,9 +221,8 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {"Image", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Type", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {"8-bit", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {"16-bit", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {"RGB Color", 0,  0, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Gray8", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Gray8, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"RGB8", 0,  (Fl_Callback*)ShapeLogicFltk::cb_RGB8, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Color", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Foreground", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Foreground, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -229,7 +242,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {0,0,0,0,0,0,0,0,0},
  {"Process", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Smooth", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Smooth, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {"Edge", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Edge, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Signed_Gradient", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Signed_Gradient, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_X", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_X, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_Y", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_Y, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_XY", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_XY, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

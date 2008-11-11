@@ -236,6 +236,8 @@ void ImageController::about() {
 }
 
 void ImageController::cannyEdge() {
+	if (_currentImage->isRgb())
+		gray8();
 	_directOperation = false;
 	startOperation();
 	OpenCVOperations::cannyEdge(_currentImage, _nextImage);

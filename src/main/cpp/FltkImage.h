@@ -23,6 +23,9 @@ class Fl_Image;
 
 class FltkImage : public SLImage {
 public:
+
+	const static FltkImage * NULL_OBJECT;
+
 	FltkImage(Fl_Image * _image);
 	virtual ~FltkImage();
 

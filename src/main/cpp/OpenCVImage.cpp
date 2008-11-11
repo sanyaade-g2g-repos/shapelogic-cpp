@@ -18,6 +18,11 @@
 
 using namespace boost::gil;
 
+//--------------static
+const OpenCVImage * OpenCVImage::NULL_OBJECT = new OpenCVImage(NULL);
+
+//-------------Constructor and Destructor
+
 OpenCVImage::OpenCVImage(IplImage * image) : SLImage() {
 	_iplImage = image;
 	_flImage = NULL;

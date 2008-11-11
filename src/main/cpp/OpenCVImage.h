@@ -24,6 +24,8 @@ struct _IplImage;
 
 class OpenCVImage : public SLImage {
 public:
+	const static OpenCVImage * NULL_OBJECT;
+
 	OpenCVImage(_IplImage * _image);
 	virtual ~OpenCVImage();
 
@@ -96,7 +98,7 @@ public:
 
 	virtual bool saveAs(const char *filename);
 
-	//-------------Special for OpenCVImage
+//-------------Special for OpenCVImage
 
 	virtual void swapRB();
 
@@ -108,6 +110,7 @@ protected:
 	_IplImage * _iplImage;
 
 	std::string _filename;
+
 };
 
 #endif /* OPENCVIMAGE_H_ */

@@ -15,6 +15,9 @@
 
 using namespace boost::gil;
 
+//--------------static
+const FltkImage * FltkImage::NULL_OBJECT = new FltkImage(NULL);
+
 FltkImage::FltkImage(Fl_Image * image) : SLImage(), _flImage(image) {
 
 }

@@ -180,3 +180,8 @@ bool FltkImage::saveAs(const char *filename) {
 	return false; //There are no save in FLTK
 }
 
+FltkImage * FltkImage::createImage(int width, int height, int nChannels, int depth) const {
+	uchar * buffer = new uchar[width * height * nChannels];
+	Fl_RGB_Image * image = new Fl_RGB_Image(buffer, width, height, nChannels);
+	return new FltkImage(image);
+}

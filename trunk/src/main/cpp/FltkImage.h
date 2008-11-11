@@ -96,6 +96,8 @@ public:
 
 	virtual bool saveAs(const char *filename);
 
+	virtual FltkImage * createImage(int width, int height, int nChannels, int depth = 0) const;
+
 protected:
 	Fl_Image * _flImage;
 

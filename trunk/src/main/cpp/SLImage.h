@@ -88,6 +88,8 @@ public:
 
 	virtual bool saveAs(const char *filename) = 0;
 
+	virtual SLImage * createImage(int width, int height, int nChannels, int depth = 0) const = 0;
+
 };
 
 #endif /* SLIMAGE_H_ */

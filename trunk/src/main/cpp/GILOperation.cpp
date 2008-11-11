@@ -235,13 +235,12 @@ template <typename SrcView, typename DstView>
 void rgbToGrayView(const SrcView& src, const DstView& dst) {
     typedef typename channel_type<DstView>::type dst_channel_t;
 
-    int max_x = src.width();
     int width = src.width();
     for (int y=0; y< src.height(); ++y) {
         typename SrcView::x_iterator src_it = src.row_begin(y);
         typename DstView::x_iterator dst_it = dst.row_begin(y);
 
-        for (int x=0; x < max_x; ++x) {
+        for (int x=0; x < width; ++x) {
         	int combination = 0;
             for (int c=0; c< num_channels<rgb8_view_t>::value; ++c) {
             	combination += src_it[x][c] * RGB_TO_GRAY_INT[c];

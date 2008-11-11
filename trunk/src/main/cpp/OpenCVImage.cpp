@@ -12,9 +12,9 @@
 
 #include <FL/Fl_Image.H>
 
-#include <opencv/cv.h>
-#include <opencv/cxcore.h>
-#include <opencv/highgui.h>
+#include <cv.h>
+#include <cxcore.h>
+#include <highgui.h>
 
 using namespace boost::gil;
 

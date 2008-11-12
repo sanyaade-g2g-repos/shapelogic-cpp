@@ -53,12 +53,6 @@ public:
 	that displays zero as white and 255 as black. */
 	virtual bool isInvertedLut() const;
 
-	virtual bool isGray() const;
-
-	virtual bool isGray8() const;
-
-	virtual bool isGray16() const;
-
 //-------------New members now part of base class SLImage
 
 	virtual Fl_Image * getFlImage() const;

@@ -89,22 +89,6 @@ bool OpenCVImage::isInvertedLut() const {
     return false;
 }
 
-bool OpenCVImage::isGray() const {
-	if (0 !=_iplImage)
-		return 1 == _iplImage->nChannels;
-	return false;
-}
-
-bool OpenCVImage::isGray8() const {
-	if (0 !=_iplImage)
-		return 1 == _iplImage->nChannels;
-	return false;
-}
-
-bool OpenCVImage::isGray16() const {
-	return false;
-}
-
 Fl_Image * OpenCVImage::getFlImage() const {
 	if (NULL ==_flImage) {
 		_flImage = new Fl_RGB_Image(getPixels(),getWidth(), getHeight(),

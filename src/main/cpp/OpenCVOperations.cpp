@@ -32,7 +32,7 @@ void OpenCVOperations::flipHorizontally(SLImage * input, SLImage * output) {
 	if (0 == iplInput || 0 == iplOutput ||
 			0 == iplInput->getIplImage() || 0 == iplOutput->getIplImage())
 		return;
-	cvConvertImage( iplInput->getIplImage(), iplOutput->getIplImage(), CV_CVTIMG_FLIP );
+	cvFlip( iplInput->getIplImage(), iplOutput->getIplImage(), 1); //over 0 means horizontally
 
 }
 

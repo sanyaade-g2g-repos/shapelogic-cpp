@@ -17,6 +17,7 @@ public:
 	static void fltkSobelX(SLImage * input, SLImage * output);
 	static void fltkSobelY(SLImage * input, SLImage * output);
 	static void fltkSobelXY(SLImage * input, SLImage * output);
+	static void grayToRgb(SLImage * input, SLImage * output);
 	static void rgbToGray(SLImage * input, SLImage * output);
 
 	static bool saveJpg(const char * filename, SLImage * input);

@@ -25,6 +25,7 @@ static char messageBuffer[1024];
 ImageController::ImageController() {
 	_currentImage = NULL;
 	_lastImage = NULL;
+	_nextImage = NULL;
 	for (int i=0; i<3; i++) {
 		_foreground[i] = 0;
 		_background[i] = 255;
@@ -59,7 +60,7 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Canny_Edge") cannyEdge();
 	else if (command == "Open")	open(arg);
 	else if (command == "Quit") quit();
-	else if (command == "rgb8") rgb8();
+	else if (command == "RGB8") rgb8();
 	else if (command == "Save") save();
 	else if (command == "Save_As") saveAs(arg);
 	else if (command == "Sobel_X") sobelX();
@@ -280,6 +281,15 @@ void ImageController::gray8() {
 }
 
 void ImageController::rgb8() {
-
+	if (_currentImage->isRgb())
+		return;
+	delete _lastImage;
+	_lastImage = NULL;
+	_nextImage = _currentImage->createImage(_currentImage->getWidth(),
+			_currentImage->getHeight(), 3, _currentImage->getDepth());
+	GILOperation::grayToRgb(_currentImage, _nextImage);
+	_lastImage = _currentImage;
+	_currentImage = _nextImage;
+	_nextImage = NULL;
 }
 

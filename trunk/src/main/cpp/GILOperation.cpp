@@ -254,6 +254,30 @@ void GILOperation::rgbToGray(SLImage * input, SLImage * output) {
 	rgbToGrayView(input->make_rgb8_view_t(),output->make_gray8_view_t());
 }
 
+//-----------------------grayToRgb functions-----------------------------
+
+template <typename SrcView, typename DstView>
+void grayToRgbView(const SrcView& src, const DstView& dst) {
+    typedef typename channel_type<DstView>::type dst_channel_t;
+
+    int width = src.width();
+    for (int y=0; y< src.height(); ++y) {
+        typename SrcView::x_iterator src_it = src.row_begin(y);
+        typename DstView::x_iterator dst_it = dst.row_begin(y);
+
+        for (int x=0; x < width; ++x) {
+        	dst_channel_t grayValue = (dst_channel_t) src_it[x];
+            for (int c=0; c< num_channels<rgb8_view_t>::value; ++c) {
+            	dst_it[x][c] = grayValue;
+            }
+        }
+    }
+}
+
+void GILOperation::grayToRgb(SLImage * input, SLImage * output) {
+	grayToRgbView(input->make_gray8_view_t(),output->make_rgb8_view_t());
+}
+
 //-----------------------save jpg-----------------------------
 
 bool GILOperation::saveJpg(const char * filename, SLImage * input) {

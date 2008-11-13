@@ -1,20 +1,51 @@
 # The Jamfile and Jamroot should work both for Windows, OS X and UNIX, 
 # this is a temorary version for Windows, this does not call the unit tests
-#I thought that this should be in user-config.jam or site-config.jam, but that did not get picked up
-using msvc ;
 
-#Main common requirements: use costom boost distribution
-project
-    : requirements 
-    # <include>../src/boost_1_36_0/ 
-#    <include>../src/fltk-1.1.9/ 
-#    <include>../src/fltk-1.1.7/lib/ 
-#     <include>../src/fltk-1.1.9/vc2005/
-    <threading>multi
+#There should be a user-config.jam in the home directory defining what toolset to use else define here
+#using gcc ;
+
+###############path-constant###############
+
+#Define a name for the top directory, that can be used in all Jamfiles
+path-constant TOP : . ;
+
+#To customize this file change these path-constants
+path-constant OPEN_CV_DIR : ../OpenCV ;
+
+path-constant SRC_DIR : ../src ;
+
+path-constant FLTK_DIR : $(SRC_DIR)/fltk-1.1.9 ;
+
+###############Imports
+import set ;
+import os ;
+import testing ;
+import feature : feature ;
+
+###############Find where the Boost library is located
+local boost-path = [ os.environ BOOST_PATH ] ;
+if $(boost-path)
+{
+#  boost-path = [ path.make $(boost-path) ] ; #Change to the platform specific path
+} else {
+  boost-path =  $(SRC_DIR)/boost_1_36_0  ;
+}
+
+###############Make the Boost library known to shapelogic-cpp
+use-project /boost : $(boost-path)  ;
+
+
+###############Main common requirements: use costom boost distribution
+project shapelogic-cpp
+    : requirements <include>$(boost-path) <threading>multi
     ;
 
 install dist : src/main/cpp ;
 
-#This will cause the ShapeLogic C++ target to be run when the top target is run
+###############Default targets###############
+#This will cause the ShapeLogic C++ targets to be run when the top target is run
+#Top application project
 build-project src/main/cpp ;
+#Top build project
+#build-project src/test/cpp ;
 

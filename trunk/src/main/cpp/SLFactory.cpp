@@ -24,7 +24,7 @@ const char * SHAPELOGIC_ROOT_DIR = "./";
 
 SLFactory::SLFactory() {
 	_imageType = "OpenCV";
-	fl_register_images(); //TODO make conditional
+//	fl_register_images(); //TODO make conditional
 }
 
 SLFactory::~SLFactory() {

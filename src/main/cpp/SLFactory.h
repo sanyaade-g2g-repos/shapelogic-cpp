@@ -31,6 +31,8 @@ public:
 
 	bool saveImageAs(SLImage * image, const char *filename);
 
+	static const char * getShapeLogicDir();
+
 protected:
 	const char * _imageType;
 

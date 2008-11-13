@@ -19,6 +19,9 @@ using namespace std;
 
 SLFactory * SLFactory::INSTANCE = 0;
 
+//Only works when called from the top dir
+const char * SHAPELOGIC_ROOT_DIR = "./";
+
 SLFactory::SLFactory() {
 	_imageType = "OpenCV";
 	fl_register_images(); //TODO make conditional
@@ -55,4 +58,11 @@ bool SLFactory::saveImageAs(SLImage * image, const char *filename) {
 		saved = true;
 	}
 	return saved;
+}
+
+/** Used for testing.
+ * This should really be changed so it can do some searching.
+ * */
+const char * SLFactory::getShapeLogicDir() {
+	return SHAPELOGIC_ROOT_DIR;
 }

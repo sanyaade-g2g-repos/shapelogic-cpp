@@ -1,31 +1,60 @@
-import testing ;
+#Jamfile for building ShapeLogic C++
 
+import os ;
+
+###############Name project
 project shapelogic-top :
   usage-requirements <include>.
 ;
 
-#Defines all the FLTK libraries
-lib fltk fltk_images fltk_forms jpeg tiff gtest ;
+###############Defines all the FLTK libraries
+FLTK_REQUIREMENTS = fltk fltk_images fltk_forms jpeg tiff ;
 
-#Defines all the OpenCV libraries
-lib m cv cvaux cxcore highgui ;
+switch [ os.name ]
+{
+    case NT :
+    {
+		lib z : :  <file>$(FLTK_DIR)/lib/fltkzd.lib ;
+		lib fltk : : <file>$(FLTK_DIR)/lib/fltkd.lib ;
+		lib fltk_images : : <file>$(FLTK_DIR)/lib/fltkimagesd.lib ;
+		lib fltk_forms : : <file>$(FLTK_DIR)/lib/fltkformsd.lib ;
+		lib jpeg : : <file>$(FLTK_DIR)/lib/fltkjpegd.lib ;
+		lib png : : <file>$(FLTK_DIR)/lib/fltkpngd.lib ;    
+		#lib z : : <name>z <search>/home/ghost ; 
+    }
+    case * :
+    {
+        lib $(FLTK_REQUIREMENTS) ;
+    }
+}
 
-#Build the main shapelogic-cpp application 
+###############Defines all the OpenCV libraries
+OPEN_CV_REQUIREMENTS = m cv cvaux cxcore highgui ;
+
+lib $(OPEN_CV_REQUIREMENTS) ;
+
+
+
+###############Defines all Windows requirments
+
+WINDOWS_REQUIREMENTS = ;
+
+switch [ os.name ]
+{
+    case CYGWIN :
+    {
+        WINDOWS_REQUIREMENTS =  ; #TODO fix
+    }
+    case NT :
+    {
+        lib wsock32 comctl32 ;
+        lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
+        WINDOWS_REQUIREMENTS = wsock32 comctl32 ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
+    }
+}
+
+###############Build the main shapelogic-cpp application 
 exe shapelogic-cpp : shapelogic-cpp.cpp shapelogic ;
 
-#Make a static library that are used for testing and the shapelogic-cpp application
-lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] fltk fltk_images fltk_forms jpeg tiff m cv cvaux cxcore highgui ;
-
-
-########Setup for running unit tests from shapelogic-cpp 
-
-#Compile all cpp files and all the fltk libraries
-#unit-test shapelogic-cpp : [ glob *.cpp ../../test/cpp/*.cc ] fltk fltk_images fltk_forms jpeg tiff gtest 
-#: <include>. ;
-
-#Build as start the main application, useful if tests are run from this
-#unit-test shapelogic-cpp : shapelogic-cpp.cpp shapelogic ;
-
-#test-suite test_shapelogic-cpp :  
-#    [ run      shapelogic-cpp ]
-#;
+###############Make a static library that are used for testing and the shapelogic-cpp application
+lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) ;

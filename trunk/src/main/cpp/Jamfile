@@ -8,7 +8,7 @@ project shapelogic-top :
 ;
 
 ###############Defines all the FLTK libraries
-FLTK_REQUIREMENTS = fltk fltk_images fltk_forms jpeg tiff ;
+FLTK_REQUIREMENTS = fltk fltk_images fltk_forms jpeg ;
 
 switch [ os.name ]
 {

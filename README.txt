@@ -1,16 +1,18 @@
 ====================
-ShapeLogic C++ v 0.3
+ShapeLogic C++ v 0.4
 ====================
 
-This is a very rudimentary release. This is not an adequate description of how
+This is the first apha release. This is not an adequate description of how
 to build ShapeLogic C++, but just a few pointers.
 See project site for more information: http://www.shapelogic.org/cpp.html
 
-ShapeLogic C++ v 0.3 release does not do much, the main function is to
-show how the different components of ShapeLogic C++ work together.
+ShapeLogic C++ v 0.4 only has a limited number of image processing algorithms 
+and brushes. The main function is to show how the different components of 
+ShapeLogic C++ work together. Drawing is slow, and only have a pen size of 1.
 
 Main components:
-* Boost  the C++ library
+* Boost the C++ library
+* OpenCV for reading and writing and a long list of existing computer vision algorithms
 * Generic Image Library for writing new image processing code
 * FLTK, Fast Light Toolkit lightweight cross platform GUI
 * Google Testing Framework
@@ -18,8 +20,13 @@ Main components:
 
 Make sure that they are available on your system.
 
-In ShapeLogic C++ 0.4 OpenCV will be added for reading and writing more
-image formats and for a long list of existing computer vision algorithms.
+Future plans:
+* Wiring up a long list of existing computer vision algorithms in OpenCV
+* Dialog box class for setting parameters
+* Selection of ROI
+* Macros
+* Faster draw
+* More pen sizes
 
 -------------------------------------------------------------------------------
 Build under UNIX, Linux, possibly OS X

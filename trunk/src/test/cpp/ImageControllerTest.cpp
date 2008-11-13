@@ -16,7 +16,7 @@
 #include <gtest/gtest.h>
 
 //TODO have a way to find the top directory and give address relative to that
-static const char * filename = "/home/sbadawi/shapelogic-cpp/src/test/resources/images/particles/spot1Clean.jpg";
+static const char * filename = "./src/test/resources/images/particles/spot1Clean.jpg";
 
 // Tests Open SLImage
 TEST(ImageControllerTest, loadSLImageWithImageController) {

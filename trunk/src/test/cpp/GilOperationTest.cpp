@@ -24,7 +24,8 @@ namespace {
 using namespace std;
 using namespace boost::gil;
 
-const string testImageDir("/home/sbadawi/shapelogic-cpp/src/test/resources/images/particles/");
+//TODO have a way to find the top directory and give address relative to that
+const string testImageDir("./src/test/resources/images/particles/");
 
 TEST(GILOperation, xGradientFile) {
 	//There is a problem with using relative path, you can call bjam from either

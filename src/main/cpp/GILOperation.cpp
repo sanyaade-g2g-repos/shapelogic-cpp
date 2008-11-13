@@ -13,7 +13,7 @@
 #include <FL/Fl_JPEG_Image.H>
 #include <iostream>
 #include <boost/gil/extension/io/jpeg_dynamic_io.hpp>
-#include <boost/gil/extension/io/png_dynamic_io.hpp>
+//#include <boost/gil/extension/io/png_dynamic_io.hpp>
 //#include <boost/gil/extension/io/tiff_dynamic_io.hpp>
 
 using namespace boost::gil;
@@ -290,7 +290,7 @@ bool GILOperation::saveJpg(const char * filename, SLImage * input) {
 
 bool GILOperation::saveAnyImage(const char * filename, SLImage * input) {
 	if (SLStringUtil::isJpeg(filename)) jpeg_write_view(filename, input->make_rgb8_view_t());
-	else if (SLStringUtil::isPng(filename)) png_write_view(filename, input->make_rgb8_view_t());
+//	else if (SLStringUtil::isPng(filename)) png_write_view(filename, input->make_rgb8_view_t());
 //	else if (SLStringUtil::isTiff(filename)) tiff_write_view(filename, make_rgb8_view_t(input));
 	else return false;
 	return true;

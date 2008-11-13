@@ -1,5 +1,5 @@
 /*
- * Util.h
+ * FltkUtil.h
  *
  *  Created on: Sep 25, 2008
  *      Author: Sami Badawi

@@ -1,5 +1,5 @@
 /*
- * Util.cpp
+ * FltkUtil.cpp
  *
  *  Created on: Sep 25, 2008
  *      Author: Sami Badawi

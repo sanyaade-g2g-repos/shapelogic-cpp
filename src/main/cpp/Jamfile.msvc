@@ -1,30 +1,91 @@
 # The Jamfile and Jamroot should work both for Windows, OS X and UNIX, 
 # this is a temorary version for Windows, this does not call the unit tests
-#Defines all the FLTK libraries
-lib z : :  <file>../../../../src/fltk-1.1.9/lib/fltkzd.lib ;
-lib fltk : : <file>../../../../src/fltk-1.1.9/lib/fltkd.lib ;
-lib fltk_images : : <file>../../../../src/fltk-1.1.9/lib/fltkimagesd.lib ;
-lib fltk_forms : : <file>../../../../src/fltk-1.1.9/lib/fltkformsd.lib ;
-lib jpeg : : <file>../../../../src/fltk-1.1.9/lib/fltkjpegd.lib ;
-lib png : : <file>../../../../src/fltk-1.1.9/lib/fltkpngd.lib ;
 
-#lib user32 gdi32 wsock32 ;
-#lib wsock32 : : <file>"/C:/Program Files/Microsoft SDKs/Windows/v6.0A/Lib/WSock32.Lib" ;
+#Jamfile for building ShapeLogic C++ excecutable
+
+import os ;
+
+###############Name project
+project shapelogic-top :
+  usage-requirements <include>.
+;
+
+###############Defines all the FLTK libraries
+# FLTK PNG images caused linker problems under Window and has been disabled with fltk_images png 
+FLTK_REQUIREMENTS = fltk fltk_forms jpeg ;
+FLTK_INCLUDES = ;
+
+switch [ os.name ]
+{
+    case NT :
+    {
+		lib z : :  <file>$(FLTK_DIR)/lib/fltkzd.lib ;
+		lib fltk : : <file>$(FLTK_DIR)/lib/fltkd.lib ;
+#		lib fltk_images : : <file>$(FLTK_DIR)/lib/fltkimagesd.lib ;
+		lib fltk_forms : : <file>$(FLTK_DIR)/lib/fltkformsd.lib ;
+		lib jpeg : : <file>$(FLTK_DIR)/lib/fltkjpegd.lib ;
+#		lib png : : <file>$(FLTK_DIR)/lib/fltkpngd.lib ;    
+#		#lib z : : <name>z <search>/home/ghost ; 
+
+        FLTK_INCLUDES = <include>$(FLTK_DIR) <include>$(FLTK_DIR)/vc2005/ <include>$(FLTK_DIR)/zlib/ <include>$(FLTK_DIR)/jpeg/ <include>$(FLTK_DIR)/png/ ;
+      }
+    case * :
+    {
+        lib $(FLTK_REQUIREMENTS) ;
+    }
+}
+
+###############Defines all the OpenCV libraries
+OPEN_CV_REQUIREMENTS = m cv cvaux cxcore highgui ;
+OPEN_CV_INCLUDES = ;
+
+switch [ os.name ]
+{
+    case NT :
+    {
+        OPEN_CV_INCLUDES = <include>$(OPEN_CV_DIR)/cv/include/ <include>$(OPEN_CV_DIR)/cxcore/include/ <include>$(OPEN_CV_DIR)/otherlibs/highgui/ ;
+        lib m : : <file>$(OPEN_CV_DIR)/lib/ml.lib ;
+        lib cv : : <file>$(OPEN_CV_DIR)/lib/cv.lib ;
+        lib cvaux : : <file>$(OPEN_CV_DIR)/lib/cvaux.lib ;
+        lib cxcore : : <file>$(OPEN_CV_DIR)/lib/cxcore.lib ;
+        lib highgui : : <file>$(OPEN_CV_DIR)/lib/highgui.lib ;
+    }
+    case * :
+    {
+        lib $(OPEN_CV_REQUIREMENTS) ;
+    }
+}
 
 
-lib wsock32 comctl32 ;
-lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
 
+###############Defines all Windows requirments
 
-#Compile all cpp files and all the fltk libraries
-exe shapelogic-cpp : [ glob *.cpp ] 
-    z fltk fltk_images fltk_forms jpeg png z 
-    wsock32 comctl32 
-    ws2_32 user32 gdi32 comdlg32 shell32 advapi32 ole32
-    :
-      <include>../../../../src/fltk-1.1.9/ <include>../../../../src/fltk-1.1.9/vc2005/ <include>../../../../src/fltk-1.1.9/zlib/
-      <include>../../../../src/fltk-1.1.9/jpeg/ 
-      <include>../../../../src/fltk-1.1.9/png/ 
-      <include>../../../../src/boost_1_36_0/ :
-      <define>WIN32 <define>_WIN32
- ;
+WINDOWS_REQUIREMENTS = ;
+
+WINDOWS_DEFINES = ;
+
+switch [ os.name ]
+{
+    case CYGWIN :
+    {
+        WINDOWS_REQUIREMENTS =  ; #TODO fix
+    }
+    case NT :
+    {
+        lib wsock32 comctl32 ;
+        lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
+        WINDOWS_REQUIREMENTS = wsock32 comctl32 ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
+        
+        WINDOWS_DEFINES = <define>WIN32 <define>_WIN32 ;
+    }
+}
+
+###############Build the main shapelogic-cpp application 
+#exe shapelogic-cpp : shapelogic-cpp.cpp shapelogic ;
+
+###############Make a static library that are used for testing and the shapelogic-cpp application
+#lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) 
+exe shapelogic-cpp : [ glob *.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS)
+    : $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES)   
+    : $(WINDOWS_DEFINES) 
+    ;

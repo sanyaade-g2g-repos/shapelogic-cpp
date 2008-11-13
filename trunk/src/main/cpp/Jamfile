@@ -83,7 +83,6 @@ exe shapelogic-cpp : shapelogic-cpp.cpp shapelogic ;
 
 ###############Make a static library that are used for testing and the shapelogic-cpp application
 lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS) 
-#exe shapelogic-cpp : [ glob *.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS)
-    : $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES)   
+    : $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES) <link>static
     : $(WINDOWS_DEFINES) 
     ;

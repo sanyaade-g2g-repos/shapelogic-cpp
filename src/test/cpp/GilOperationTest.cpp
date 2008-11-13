@@ -11,10 +11,10 @@
 #include <boost/lambda/lambda.hpp>
 #include <GILOperation.h>
 #include <FltkImage.h>
+#include <OpenCVImage.h>
 #include <boost/gil/extension/io/jpeg_dynamic_io.hpp>
 #include <FL/Fl_GIF_Image.H>
 #include <FL/Fl_JPEG_Image.H>
-#include <FL/Fl_PNG_Image.H>
 #include <FL/Fl_Bitmap.H>
 #include <FL/Fl_Pixmap.H>
 #include <iostream>
@@ -37,48 +37,36 @@ TEST(GILOperation, xGradientFile) {
 
 TEST(GILOperation, xSobelImage) {
 	string inputFilename = testImageDir + "embryos6.jpg";
-	Fl_Image * image = new Fl_JPEG_Image(inputFilename.c_str());
-	EXPECT_EQ(3, image->d());
+	OpenCVImage * image = OpenCVImage::NULL_OBJECT->load(inputFilename.c_str());
+	EXPECT_EQ(3, image->getNChannels()) << "gray image does not have 1 channel";
+
 	EXPECT_EQ(3, num_channels<boost::gil::rgb8_view_t>::value);
-	Fl_RGB_Image * rgbImage = dynamic_cast<Fl_RGB_Image *>(image);
-	EXPECT_TRUE(rgbImage != NULL);
-	FltkImage * fltkImage = new FltkImage(rgbImage);
-	FltkImage * imageOut = fltkImage->copy();
-	GILOperation::fltkSobelX(fltkImage, imageOut);
-	rgb8_view_t view = fltkImage->make_rgb8_view_t();
+	OpenCVImage * imageOut = image->copy();
+	GILOperation::fltkSobelX(image, imageOut);
+	rgb8_view_t view = image->make_rgb8_view_t();
 	int fistByte = view.row_begin(0)[0][0];
 	EXPECT_EQ(191, fistByte);
-	EXPECT_EQ(image->h(), imageOut->getHeight());
-	EXPECT_EQ(image->w(), imageOut->getWidth());
-	EXPECT_EQ(image->d(), imageOut->getNChannels());
+	EXPECT_EQ(image->getHeight(), imageOut->getHeight());
+	EXPECT_EQ(image->getWidth(), imageOut->getWidth());
+	EXPECT_EQ(image->getNChannels(), imageOut->getNChannels());
 	delete imageOut;
-	delete fltkImage;
+	delete image;
 }
 
 TEST(GILOperation, xSobelImageGrayGif) {
 	string inputFilename = testImageDir + "spot1Noise10.gif";
-	Fl_Image * image = new Fl_GIF_Image(inputFilename.c_str());
-	EXPECT_EQ(1, image->d());
-	Fl_Pixmap * pixmapImage = dynamic_cast<Fl_Pixmap *>(image); //GIF is a Fl_Pixmap with LUT not a gray bitmap
-	EXPECT_TRUE(pixmapImage != NULL);
-//TODO fix. This did not work got and assert failure
-//	Fl_Image * imageOut = pixmapImage->copy();
-//	GILOperation::fltkSobelX(image, imageOut);
-//	delete imageOut;
-	delete image;
+	OpenCVImage * image = OpenCVImage::NULL_OBJECT->load(inputFilename.c_str());
+	ASSERT_EQ(NULL, image) << "OpenCV does not open gif";
+//	EXPECT_EQ(1, image->getNChannels()) << "gray image does not have 1 channel";
 }
 
 TEST(GILOperation, xSobelImageGrayPng) {
 	string inputFilename = testImageDir + "spot1Noise10.png";
-	Fl_Image * image = new Fl_PNG_Image(inputFilename.c_str());
-	EXPECT_EQ(3, image->d()) << "gray image does not have 1 channel";
-	Fl_RGB_Image * rgbImage = dynamic_cast<Fl_RGB_Image *>(image); //PNG is a Fl_RGB_Pixmap even if it is a gray image
-	EXPECT_TRUE(rgbImage != NULL) << "png image is not of type Fl_RGB_Image";
-	FltkImage * fltkImage = new FltkImage(rgbImage);
-	FltkImage * imageOut = fltkImage->copy();
-	GILOperation::fltkSobelX(fltkImage, imageOut);
+	OpenCVImage * image = OpenCVImage::NULL_OBJECT->load(inputFilename.c_str());
+	EXPECT_EQ(3, image->getNChannels()) << "gray image does not have 1 channel";
+	OpenCVImage * imageOut = image->copy();
+	GILOperation::fltkSobelX(image, imageOut);
 	delete imageOut;
-	delete fltkImage;
 }
 
 }

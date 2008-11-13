@@ -13,12 +13,14 @@ import feature : feature ;
 path-constant TOP : . ;
 
 #To customize this file change these path-constants
-path-constant OPEN_CV_DIR : ../OpenCV ;
+path-constant OPEN_CV_DIR : ../OpenCV ; #Windows
 path-constant OPEN_CV_DIR_UNIX : /usr/include/opencv ;
 
 path-constant SRC_DIR : ../src ;
 
 path-constant FLTK_DIR : $(SRC_DIR)/fltk-1.1.9 ;
+
+path-constant GTEST_DIR : $(SRC_DIR)/gtest-1.1.0 ; #Windows, UNIX should find it std palce
 
 ###############Find where the Boost library is located
 local boost-path = [ os.environ BOOST_PATH ] ;

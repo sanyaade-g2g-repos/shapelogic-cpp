@@ -52,13 +52,21 @@ It has been built using MSVC Express.
 
 Start by compiling FLTK. This worked with the MSVC version 2005 project file.
 
-Rename the Jamfile.msvc and Jamroot.msvc to Jamfile and Jamroot.
- 
 Then from a command line run:
 
 cd shapelogic-cpp
 bjam
 
-This will build ShapeLogic but will not run the unit tests.
+This will build ShapeLogic, but will not run the unit tests.
 
 For more information see http://www.shapelogic.org/cpp-setup-windows.html
+
+-------------------------------------------------------------------------------
+Known problems
+-------------------------------------------------------------------------------
+
+The build script creates both a static and a shared/dll library for shapelogic.
+Under Window the problem is that shapelogic.dll is created without the include 
+lib shapelogic.lib. But when you also create a static lib: libshapelogic.lib, 
+then it will link under Windows. This make the build slower, but works under 
+both UNIX and Windows.

@@ -1,6 +1,7 @@
-#Jamfile for building ShapeLogic C++ excecutable
+#Jamfile for building ShapeLogic C++ executable
 
 import os ;
+import set ;
 
 ###############Name project
 project shapelogic-top :
@@ -56,7 +57,7 @@ switch [ os.name ]
 
 
 
-###############Defines all Windows requirments
+###############Defines all Windows requirements
 
 WINDOWS_REQUIREMENTS = ;
 
@@ -71,8 +72,8 @@ switch [ os.name ]
     case NT :
     {
         lib wsock32 comctl32 ;
-        lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
-        WINDOWS_REQUIREMENTS = wsock32 comctl32 ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
+        lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrtd ole32 ;
+        WINDOWS_REQUIREMENTS = wsock32 comctl32 ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrtd ole32 ;
         
         WINDOWS_DEFINES = <define>WIN32 <define>_WIN32 ;
     }

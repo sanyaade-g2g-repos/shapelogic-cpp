@@ -1,9 +1,9 @@
-# The Jamfile and Jamroot should work both for Windows, OS X and UNIX, 
-# this is a temorary version for Windows, this does not call the unit tests
-
-#Jamfile for building ShapeLogic C++ excecutable
+#This works for all platforms, but does not run unit test for Windows.
+#It builds faster on UINX, but does not make stand alone excecutables. 
+#Jamfile for building ShapeLogic C++ executable
 
 import os ;
+import set ;
 
 ###############Name project
 project shapelogic-top :
@@ -52,13 +52,14 @@ switch [ os.name ]
     }
     case * :
     {
+    	OPEN_CV_INCLUDES = <include>$(OPEN_CV_DIR_UNIX) ;
         lib $(OPEN_CV_REQUIREMENTS) ;
     }
 }
 
 
 
-###############Defines all Windows requirments
+###############Defines all Windows requirements
 
 WINDOWS_REQUIREMENTS = ;
 
@@ -73,19 +74,31 @@ switch [ os.name ]
     case NT :
     {
         lib wsock32 comctl32 ;
-        lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
-        WINDOWS_REQUIREMENTS = wsock32 comctl32 ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrt ole32 ;
+        lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrtd ole32 ;
+        WINDOWS_REQUIREMENTS = wsock32 comctl32 ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrtd ole32 ;
         
         WINDOWS_DEFINES = <define>WIN32 <define>_WIN32 ;
     }
 }
 
 ###############Build the main shapelogic-cpp application 
-#exe shapelogic-cpp : shapelogic-cpp.cpp shapelogic ;
+exe shapelogic-cpp 
+    : #sources
+    shapelogic-cpp.cpp shapelogic 
+    $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS) 
+    : #requirements
+    $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES) $(WINDOWS_DEFINES)
+    <os>NT:<link>static
+    : #default settings
+     
+    ;
 
 ###############Make a static library that are used for testing and the shapelogic-cpp application
-#lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) 
-exe shapelogic-cpp : [ glob *.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS)
-    : $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES)   
-    : $(WINDOWS_DEFINES) 
+lib shapelogic 
+    : #sources 
+    [ glob *.cpp : shapelogic-cpp.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS) 
+    : #requirements
+    $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES) $(WINDOWS_DEFINES)
+    : #default settings
+     
     ;

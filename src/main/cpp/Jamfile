@@ -80,13 +80,22 @@ switch [ os.name ]
 }
 
 ###############Build the main shapelogic-cpp application 
-exe shapelogic-cpp : shapelogic-cpp.cpp shapelogic/<link>static 
+exe shapelogic-cpp 
+    : #sources
+    shapelogic-cpp.cpp shapelogic/<link>static 
     $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS) 
-    : $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES)
-    : $(WINDOWS_DEFINES) ;
+    : #requirements
+    $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES) $(WINDOWS_DEFINES)
+    : #default settings
+     
+    ;
 
 ###############Make a static library that are used for testing and the shapelogic-cpp application
-lib shapelogic : [ glob *.cpp : shapelogic-cpp.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS) 
-    : $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES)
-    : $(WINDOWS_DEFINES) 
+lib shapelogic 
+    : #sources 
+    [ glob *.cpp : shapelogic-cpp.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS) 
+    : #requirements
+    $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES) $(WINDOWS_DEFINES)
+    : #default settings
+     
     ;

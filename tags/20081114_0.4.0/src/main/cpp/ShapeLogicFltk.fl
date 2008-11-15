@@ -1,0 +1,285 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0107 
+header_name {.h} 
+code_name {.cpp}
+comment {/*
+ * shapelogic-cpp.cxx
+ *
+ *  Created on: Sep 17, 2008
+ *      Author: Sami Badawi
+ */
+} {in_source in_header
+} 
+
+decl {\#include <iostream>} {} 
+
+decl {\#include <string>} {public
+} 
+
+decl {\#include <FL/Fl_File_Chooser.H>} {} 
+
+decl {\#include <FL/Fl_JPEG_Image.H>} {} 
+
+decl {\#include "FltkUtil.h"} {} 
+
+decl {\#include "ImageController.h"} {public
+} 
+
+decl {\#include "shapelogic-cpp.h"} {} 
+
+decl {\#include <FL/Fl_Color_Chooser.H>} {} 
+
+decl {const char * appLabel = "ShapeLogic C++ v 0.4 ";} {} 
+
+class ShapeLogicFltk {open
+} {
+  Function {ShapeLogicFltk()} {open
+  } {
+    Fl_Window _window {
+      label {ShapeLogic C++ v 0.4} open
+      xywh {451 49 730 600} type Double resizable visible
+    } {
+      Fl_Menu_Bar {} {open
+        xywh {0 0 730 20}
+      } {
+        Submenu {} {
+          label File open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label {Open...}
+            callback {const char * filename = FltkUtil::singleFileDialog(true);
+imageSetup("Open", filename);
+updateLabel();}
+            xywh {0 0 36 21} shortcut 0x4006f
+          }
+          MenuItem {} {
+            label Save
+            callback {imageSetup("Save", NULL);
+updateLabel();}
+            xywh {20 20 36 21} shortcut 0x40073
+          }
+          MenuItem {} {
+            label {Save As...}
+            callback {const char * filename = FltkUtil::singleFileDialog(false);
+imageSetup("Save_As", filename);
+updateLabel();}
+            xywh {10 10 36 21} shortcut 0x40061
+          }
+          MenuItem {} {
+            label Quit
+            callback {imageSetup("Quit", NULL);}
+            xywh {0 0 36 21}
+          }
+        }
+        Submenu {} {
+          label Edit open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label Undo
+            callback {imageSetup("Undo", NULL);
+updateLabel();}
+            xywh {0 0 36 21} shortcut 0x4007a divider
+          }
+          MenuItem {} {
+            label Clear
+            callback {imageSetup("Clear", NULL);}
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Fill
+            callback {imageSetup("Fill", NULL);}
+            xywh {0 0 36 21} divider
+          }
+          MenuItem {} {
+            label Invert
+            callback {imageSetup("Invert", NULL);}
+            xywh {0 0 36 21} shortcut 0x50069
+          }
+        }
+        Submenu {} {
+          label Image open
+          xywh {5 5 70 21}
+        } {
+          Submenu {} {
+            label Type open
+            xywh {0 0 70 21}
+          } {
+            MenuItem {} {
+              label Gray8
+              callback {imageSetup("Gray8", NULL);}
+              xywh {5 5 36 21}
+            }
+            MenuItem {} {
+              label RGB8
+              callback {imageSetup("RGB8", NULL);}
+              xywh {0 0 36 21}
+            }
+          }
+          Submenu {} {
+            label Color open
+            xywh {0 0 70 21}
+          } {
+            MenuItem {} {
+              label Foreground
+              callback {unsigned char * foreground = getImageController()->_foreground;
+  fl_color_chooser("Chose foreground color", foreground[0], foreground[1], foreground[2]);}
+              xywh {0 0 36 21}
+            }
+            MenuItem {} {
+              label Background
+              callback {unsigned char * background = getImageController()->_background;
+  fl_color_chooser("Chose foreground color", background[0], background[1], background[2]);}
+              xywh {10 10 36 21}
+            }
+            MenuItem {} {
+              label Swap_RB
+              callback {imageSetup("Swap_RB", NULL);}
+              xywh {20 20 36 21}
+            }
+          }
+          Submenu {} {
+            label Rotate open
+            xywh {5 5 70 21}
+          } {
+            MenuItem {} {
+              label Flip_Horizontally
+              callback {imageSetup("Flip_Horizontally", NULL);}
+              xywh {5 5 36 21}
+            }
+            MenuItem {} {
+              label Flip_Vertically
+              callback {imageSetup("Flip_Vertically", NULL);}
+              xywh {15 15 36 21}
+            }
+          }
+        }
+        Submenu {} {
+          label Brushes open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label None
+            callback {imageSetup("Brush", "None");}
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Pen
+            callback {imageSetup("Brush", "Pen");}
+            xywh {0 0 36 21} shortcut 0xc0070
+          }
+          MenuItem {} {
+            label Point_info
+            callback {imageSetup("Brush", "Point_info");}
+            xywh {0 0 36 21} shortcut 0xc0069
+          }
+          MenuItem {} {
+            label Sample_color
+            callback {imageSetup("Brush", "Sample_color");}
+            xywh {0 0 36 21} shortcut 0xc0063
+          }
+        }
+        Submenu {} {
+          label Process open
+          xywh {10 10 70 21}
+        } {
+          MenuItem {} {
+            label Smooth
+            callback {imageSetup("Blur", NULL);}
+            xywh {0 0 36 21} shortcut 0x50073
+          }
+          MenuItem {} {
+            label Signed_Gradient
+            callback {imageSetup("Signed_Gradient", NULL);}
+            xywh {0 0 36 21}
+          }
+          MenuItem {} {
+            label Sobel_X
+            callback {imageSetup("Sobel_X", NULL);}
+            xywh {10 10 36 21}
+          }
+          MenuItem {} {
+            label Sobel_Y
+            callback {imageSetup("Sobel_Y", NULL);}
+            xywh {20 20 36 21}
+          }
+          MenuItem {} {
+            label Sobel_XY
+            callback {imageSetup("Sobel_XY", NULL);}
+            xywh {30 30 36 21}
+          }
+          MenuItem {} {
+            label Canny_Edge
+            callback {imageSetup("Canny_Edge", NULL);} selected
+            xywh {40 40 36 21}
+          }
+        }
+        Submenu {} {
+          label Plugins open
+          xywh {0 0 70 21}
+        } {
+          Submenu {} {
+            label ShapeLogic open
+            xywh {5 5 70 21}
+          } {}
+          Submenu {} {
+            label ShapeLogicOld open
+            xywh {15 15 70 21}
+          } {}
+        }
+        Submenu {} {
+          label Help open
+          xywh {0 0 70 21}
+        } {
+          MenuItem {} {
+            label {About ShapeLogic}
+            callback {imageSetup("About", NULL);}
+            xywh {0 0 36 21}
+          }
+        }
+      }
+      Fl_Scroll _imageScroll {
+        xywh {0 20 730 580} resizable
+      } {}
+      Fl_Box _imageBox {
+        xywh {0 20 730 580} labeltype NO_LABEL
+        code0 {\#include "ImageBox.h"}
+        class ImageBox
+      }
+    }
+    code {_imageBox->setScroll(_imageScroll); 
+      w->show();} {}
+  }
+  Function {imageSetup(const char* command, const char* arg)} {open return_type void
+  } {
+    code {getImageController()->run(command, arg);
+  if (0 == strcmp("Brush",command))
+	  return;
+  if (NULL == getImageController()->getCurrentImage())
+	  return;
+  getImageController()->getCurrentImage()->uncache();
+  _imageScroll->clear(); //Removes and deletes all children
+  int menuBarHeight = 20;
+  _imageBox = new ImageBox(0,menuBarHeight,getImageController()->getCurrentImage()->w(),getImageController()->getCurrentImage()->h());
+  _imageScroll->add(_imageBox);
+  _imageBox->image(getImageController()->getCurrentImage());
+  _window->redraw();} {}
+  }
+  Function {updateLabel()} {open return_type void
+  } {
+    code {std::string fullLabel = appLabel;
+  fullLabel += getImageController()->getFilename();
+  _window->label(fullLabel.c_str());} {}
+  }
+  Function {getImageController()} {open return_type {ImageController *}
+  } {
+    code {return ImageController::getInstance();} {}
+  }
+} 
+
+Function {main_proxy(int argc, char **argv)} {open return_type int
+} {
+  code {ShapeLogicFltk shapeLogicFltk;
+return Fl::run();} {}
+} 

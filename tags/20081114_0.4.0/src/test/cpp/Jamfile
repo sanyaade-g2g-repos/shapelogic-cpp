@@ -1,0 +1,33 @@
+#Top testing Jamfile
+import testing ; #Done in top file
+import os ;
+
+###############Name project
+project shapelogic-test-top :
+  usage-requirements <include>.
+;
+
+GTEST_INCLUDES = ;
+
+WINDOWS_DEFINES = ;
+
+switch [ os.name ]
+{
+    case NT :
+    {
+        GTEST_INCLUDES = <include>$(GTEST_DIR)/include ;
+        lib gtest_main : : <file>$(GTEST_DIR)/msvc/Debug/gtest_maind.lib ;
+        WINDOWS_DEFINES = <define>WIN32 <define>_WIN32 ;
+    }
+    case * :
+    {
+		lib gtest_main ;
+    }
+}
+
+unit-test shapelogic-cpp-test : 
+    [ glob *.cpp ] $(TOP)/src/main/cpp//shapelogic gtest_main :
+    $(GTEST_INCLUDES) :
+    $(WINDOWS_DEFINES)
+    ;
+

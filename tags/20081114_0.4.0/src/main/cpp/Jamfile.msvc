@@ -1,0 +1,104 @@
+#This works for all platforms, but does not run unit test for Windows.
+#It builds faster on UINX, but does not make stand alone excecutables. 
+#Jamfile for building ShapeLogic C++ executable
+
+import os ;
+import set ;
+
+###############Name project
+project shapelogic-top :
+  usage-requirements <include>.
+;
+
+###############Defines all the FLTK libraries
+# FLTK PNG images caused linker problems under Window and has been disabled with fltk_images png 
+FLTK_REQUIREMENTS = fltk fltk_forms jpeg ;
+FLTK_INCLUDES = ;
+
+switch [ os.name ]
+{
+    case NT :
+    {
+		lib z : :  <file>$(FLTK_DIR)/lib/fltkzd.lib ;
+		lib fltk : : <file>$(FLTK_DIR)/lib/fltkd.lib ;
+#		lib fltk_images : : <file>$(FLTK_DIR)/lib/fltkimagesd.lib ;
+		lib fltk_forms : : <file>$(FLTK_DIR)/lib/fltkformsd.lib ;
+		lib jpeg : : <file>$(FLTK_DIR)/lib/fltkjpegd.lib ;
+#		lib png : : <file>$(FLTK_DIR)/lib/fltkpngd.lib ;    
+#		#lib z : : <name>z <search>/home/ghost ; 
+
+        FLTK_INCLUDES = <include>$(FLTK_DIR) <include>$(FLTK_DIR)/vc2005/ <include>$(FLTK_DIR)/zlib/ <include>$(FLTK_DIR)/jpeg/ <include>$(FLTK_DIR)/png/ ;
+      }
+    case * :
+    {
+        lib $(FLTK_REQUIREMENTS) ;
+    }
+}
+
+###############Defines all the OpenCV libraries
+OPEN_CV_REQUIREMENTS = m cv cvaux cxcore highgui ;
+OPEN_CV_INCLUDES = ;
+
+switch [ os.name ]
+{
+    case NT :
+    {
+        OPEN_CV_INCLUDES = <include>$(OPEN_CV_DIR)/cv/include/ <include>$(OPEN_CV_DIR)/cxcore/include/ <include>$(OPEN_CV_DIR)/otherlibs/highgui/ ;
+        lib m : : <file>$(OPEN_CV_DIR)/lib/ml.lib ;
+        lib cv : : <file>$(OPEN_CV_DIR)/lib/cv.lib ;
+        lib cvaux : : <file>$(OPEN_CV_DIR)/lib/cvaux.lib ;
+        lib cxcore : : <file>$(OPEN_CV_DIR)/lib/cxcore.lib ;
+        lib highgui : : <file>$(OPEN_CV_DIR)/lib/highgui.lib ;
+    }
+    case * :
+    {
+    	OPEN_CV_INCLUDES = <include>$(OPEN_CV_DIR_UNIX) ;
+        lib $(OPEN_CV_REQUIREMENTS) ;
+    }
+}
+
+
+
+###############Defines all Windows requirements
+
+WINDOWS_REQUIREMENTS = ;
+
+WINDOWS_DEFINES = ;
+
+switch [ os.name ]
+{
+    case CYGWIN :
+    {
+        WINDOWS_REQUIREMENTS =  ; #TODO fix
+    }
+    case NT :
+    {
+        lib wsock32 comctl32 ;
+        lib ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrtd ole32 ;
+        WINDOWS_REQUIREMENTS = wsock32 comctl32 ws2_32 user32 gdi32 comdlg32 shell32 advapi32 msvcrtd ole32 ;
+        
+        WINDOWS_DEFINES = <define>WIN32 <define>_WIN32 ;
+    }
+}
+
+###############Build the main shapelogic-cpp application 
+exe shapelogic-cpp 
+    : #sources
+    shapelogic-cpp.cpp shapelogic 
+    $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS) 
+    : #requirements
+    $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES) $(WINDOWS_DEFINES)
+    <os>NT:<link>static
+    : #default settings
+     
+    ;
+
+###############Make a static library that are used for testing and the shapelogic-cpp application
+lib shapelogic 
+    : #sources 
+    [ glob *.cpp : shapelogic-cpp.cpp ] $(FLTK_REQUIREMENTS) $(OPEN_CV_REQUIREMENTS) $(WINDOWS_REQUIREMENTS) 
+    : #requirements
+    $(FLTK_INCLUDES) $(OPEN_CV_INCLUDES) $(WINDOWS_DEFINES)
+    : #default settings
+     
+    ;

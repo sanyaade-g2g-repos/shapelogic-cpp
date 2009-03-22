@@ -14,7 +14,7 @@
 #include "FltkUtil.h"
 #include "shapelogic-cpp.h"
 #include <FL/Fl_Color_Chooser.H>
-static const char * appLabel = "ShapeLogic C++ v 0.4 ";
+static const char * appLabel = "ShapeLogic C++ v 0.5 ";
 
 void ShapeLogicFltk::cb_Open_i(Fl_Menu_*, void*) {
   const char * filename = FltkUtil::singleFileDialog(true);
@@ -298,7 +298,7 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
 
 ShapeLogicFltk::ShapeLogicFltk() {
   Fl_Double_Window* w;
-  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic C++ v 0.4");
+  { Fl_Double_Window* o = _window = new Fl_Double_Window(730, 600, "ShapeLogic C++ v 0.5");
     w = o;
     o->user_data((void*)(this));
     { Fl_Menu_Bar* o = new Fl_Menu_Bar(0, 0, 730, 20);

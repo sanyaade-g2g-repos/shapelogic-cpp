@@ -92,6 +92,13 @@ void ShapeLogicFltk::cb_RGB8(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_RGB8_i(o,v);
 }
 
+void ShapeLogicFltk::cb_AdaptiveThreshold_i(Fl_Menu_*, void*) {
+  imageSetup("AdaptiveThreshold", NULL);
+}
+void ShapeLogicFltk::cb_AdaptiveThreshold(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_AdaptiveThreshold_i(o,v);
+}
+
 void ShapeLogicFltk::cb_Threshold_i(Fl_Menu_*, void*) {
   imageSetup("Threshold", NULL);
 }
@@ -246,7 +253,8 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"RGB8", 0,  (Fl_Callback*)ShapeLogicFltk::cb_RGB8, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Adjust", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {"Threshold...", 0x50074,  (Fl_Callback*)ShapeLogicFltk::cb_Threshold, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"AdaptiveThreshold", 0x50074,  (Fl_Callback*)ShapeLogicFltk::cb_AdaptiveThreshold, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Threshold", 0x50074,  (Fl_Callback*)ShapeLogicFltk::cb_Threshold, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Color", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Foreground", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Foreground, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

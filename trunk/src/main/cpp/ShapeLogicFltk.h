@@ -43,6 +43,8 @@ private:
   static void cb_Gray8(Fl_Menu_*, void*);
   void cb_RGB8_i(Fl_Menu_*, void*);
   static void cb_RGB8(Fl_Menu_*, void*);
+  void cb_AdaptiveThreshold_i(Fl_Menu_*, void*);
+  static void cb_AdaptiveThreshold(Fl_Menu_*, void*);
   void cb_Threshold_i(Fl_Menu_*, void*);
   static void cb_Threshold(Fl_Menu_*, void*);
   void cb_Foreground_i(Fl_Menu_*, void*);

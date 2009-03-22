@@ -23,14 +23,11 @@ public:
 	virtual void run(const char * name, const char * arg);
 
 	virtual void about();
-	virtual void adaptiveThreshold();
 	virtual void blur();
 	virtual void setBrush(const char * brush);
 	virtual const char * getBrush();
 	virtual void cannyEdge();
 	virtual void clear();
-	virtual void dilate();
-	virtual void erode();
 	virtual void fill();
 	virtual void flipHorizontally();
 	virtual void flipVertically();
@@ -46,7 +43,6 @@ public:
 	virtual void sobelXY();
 	virtual void sobelY();
 	virtual void swapRB();
-	virtual void threshold();
 	virtual void undo();
 
 	virtual void startOperation();

@@ -92,20 +92,6 @@ void ShapeLogicFltk::cb_RGB8(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_RGB8_i(o,v);
 }
 
-void ShapeLogicFltk::cb_AdaptiveThreshold_i(Fl_Menu_*, void*) {
-  imageSetup("AdaptiveThreshold", NULL);
-}
-void ShapeLogicFltk::cb_AdaptiveThreshold(Fl_Menu_* o, void* v) {
-  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_AdaptiveThreshold_i(o,v);
-}
-
-void ShapeLogicFltk::cb_Threshold_i(Fl_Menu_*, void*) {
-  imageSetup("Threshold", NULL);
-}
-void ShapeLogicFltk::cb_Threshold(Fl_Menu_* o, void* v) {
-  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Threshold_i(o,v);
-}
-
 void ShapeLogicFltk::cb_Foreground_i(Fl_Menu_*, void*) {
   unsigned char * foreground = getImageController()->_foreground;
   fl_color_chooser("Chose foreground color", foreground[0], foreground[1], foreground[2]);
@@ -171,20 +157,6 @@ void ShapeLogicFltk::cb_Sample_color(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Sample_color_i(o,v);
 }
 
-void ShapeLogicFltk::cb_Dilate_i(Fl_Menu_*, void*) {
-  imageSetup("Dilate", NULL);
-}
-void ShapeLogicFltk::cb_Dilate(Fl_Menu_* o, void* v) {
-  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Dilate_i(o,v);
-}
-
-void ShapeLogicFltk::cb_Erode_i(Fl_Menu_*, void*) {
-  imageSetup("Erode", NULL);
-}
-void ShapeLogicFltk::cb_Erode(Fl_Menu_* o, void* v) {
-  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Erode_i(o,v);
-}
-
 void ShapeLogicFltk::cb_Smooth_i(Fl_Menu_*, void*) {
   imageSetup("Blur", NULL);
 }
@@ -248,13 +220,9 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Invert", 0x50069,  (Fl_Callback*)ShapeLogicFltk::cb_Invert, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Image", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {"Type", 0,  0, 0, 192, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Type", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Gray8", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Gray8, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"RGB8", 0,  (Fl_Callback*)ShapeLogicFltk::cb_RGB8, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {0,0,0,0,0,0,0,0,0},
- {"Adjust", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {"AdaptiveThreshold", 0x50074,  (Fl_Callback*)ShapeLogicFltk::cb_AdaptiveThreshold, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {"Threshold", 0x50074,  (Fl_Callback*)ShapeLogicFltk::cb_Threshold, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Color", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Foreground", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Foreground, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -273,10 +241,6 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Sample_color", 0xc0063,  (Fl_Callback*)ShapeLogicFltk::cb_Sample_color, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Process", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {"Morphology", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {"Dilate", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Dilate, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {"Erode", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Erode, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
- {0,0,0,0,0,0,0,0,0},
  {"Smooth", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Smooth, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Signed_Gradient", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Signed_Gradient, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_X", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_X, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

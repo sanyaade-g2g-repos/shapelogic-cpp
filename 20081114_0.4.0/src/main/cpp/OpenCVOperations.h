@@ -12,14 +12,10 @@ class SLImage;
 
 class OpenCVOperations {
 public:
-	static void adaptiveThreshold(SLImage * input, SLImage * output);
 	static void cannyEdge(SLImage * input, SLImage * output);
-	static void dilate(SLImage * input, SLImage * output);
-	static void erode(SLImage * input, SLImage * output);
 	static void flipHorizontally(SLImage * input, SLImage * output);
 	static void flipVertically(SLImage * input, SLImage * output);
 	static void swapRB(SLImage * input, SLImage * output);
-	static void threshold(SLImage * input, SLImage * output, double thresholdValue);
 };
 
 #endif /* OPENCVOPERATIONS_H_ */

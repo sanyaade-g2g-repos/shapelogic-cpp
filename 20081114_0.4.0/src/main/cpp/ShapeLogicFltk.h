@@ -43,10 +43,6 @@ private:
   static void cb_Gray8(Fl_Menu_*, void*);
   void cb_RGB8_i(Fl_Menu_*, void*);
   static void cb_RGB8(Fl_Menu_*, void*);
-  void cb_AdaptiveThreshold_i(Fl_Menu_*, void*);
-  static void cb_AdaptiveThreshold(Fl_Menu_*, void*);
-  void cb_Threshold_i(Fl_Menu_*, void*);
-  static void cb_Threshold(Fl_Menu_*, void*);
   void cb_Foreground_i(Fl_Menu_*, void*);
   static void cb_Foreground(Fl_Menu_*, void*);
   void cb_Background_i(Fl_Menu_*, void*);
@@ -65,10 +61,6 @@ private:
   static void cb_Point_info(Fl_Menu_*, void*);
   void cb_Sample_color_i(Fl_Menu_*, void*);
   static void cb_Sample_color(Fl_Menu_*, void*);
-  void cb_Dilate_i(Fl_Menu_*, void*);
-  static void cb_Dilate(Fl_Menu_*, void*);
-  void cb_Erode_i(Fl_Menu_*, void*);
-  static void cb_Erode(Fl_Menu_*, void*);
   void cb_Smooth_i(Fl_Menu_*, void*);
   static void cb_Smooth(Fl_Menu_*, void*);
   void cb_Signed_Gradient_i(Fl_Menu_*, void*);

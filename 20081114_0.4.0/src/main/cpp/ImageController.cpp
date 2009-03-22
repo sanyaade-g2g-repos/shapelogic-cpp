@@ -48,12 +48,10 @@ ImageController * ImageController::getInstance() {
 void ImageController::run(const char *name, const char *arg) {
 	std::string command(name);
 	if (command == "About") about();
-	else if (command == "AdaptiveThreshold") adaptiveThreshold();
 	else if (command == "Blur") blur();
 	else if (command == "Brush") setBrush(arg);
 	else if (command == "Clear") clear();
-	else if (command == "Dilate") dilate();
-	else if (command == "Erode") erode();
+	else if (command == "Signed_Gradient") signedGradient();
 	else if (command == "Fill")	fill();
 	else if (command == "Flip_Horizontally") flipHorizontally();
 	else if (command == "Flip_Vertically") flipVertically();
@@ -65,12 +63,10 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "RGB8") rgb8();
 	else if (command == "Save") save();
 	else if (command == "Save_As") saveAs(arg);
-	else if (command == "Signed_Gradient") signedGradient();
 	else if (command == "Sobel_X") sobelX();
 	else if (command == "Sobel_XY") sobelXY();
 	else if (command == "Sobel_Y") sobelY();
 	else if (command == "Swap_RB") swapRB();
-	else if (command == "Threshold") threshold();
 	else if (command == "Undo")	undo();
 }
 
@@ -295,35 +291,5 @@ void ImageController::rgb8() {
 	_lastImage = _currentImage;
 	_currentImage = _nextImage;
 	_nextImage = NULL;
-}
-
-void ImageController::threshold() {
-	_directOperation = false;
-	startOperation();
-	OpenCVOperations::threshold(_currentImage, _nextImage, 127.);
-	endOperation();
-}
-
-void ImageController::adaptiveThreshold() {
-	if (_currentImage->isRgb())
-		gray8();
-	_directOperation = false;
-	startOperation();
-	OpenCVOperations::adaptiveThreshold(_currentImage, _nextImage);
-	endOperation();
-}
-
-void ImageController::dilate() {
-	_directOperation = false;
-	startOperation();
-	OpenCVOperations::dilate(_currentImage, _nextImage);
-	endOperation();
-}
-
-void ImageController::erode() {
-	_directOperation = false;
-	startOperation();
-	OpenCVOperations::erode(_currentImage, _nextImage);
-	endOperation();
 }
 

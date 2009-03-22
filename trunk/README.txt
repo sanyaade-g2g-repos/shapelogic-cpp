@@ -1,12 +1,12 @@
 ====================
-ShapeLogic C++ v 0.4
+ShapeLogic C++ v 0.5
 ====================
 
 This is the first apha release. This is not an adequate description of how
 to build ShapeLogic C++, but just a few pointers.
 See project site for more information: http://www.shapelogic.org/cpp.html
 
-ShapeLogic C++ v 0.4 only has a limited number of image processing algorithms 
+ShapeLogic C++ v 0.5 only has a limited number of image processing algorithms 
 and brushes. The main function is to show how the different components of 
 ShapeLogic C++ work together. Drawing is slow, and only have a pen size of 1.
 

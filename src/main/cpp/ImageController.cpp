@@ -51,7 +51,8 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Blur") blur();
 	else if (command == "Brush") setBrush(arg);
 	else if (command == "Clear") clear();
-	else if (command == "Signed_Gradient") signedGradient();
+	else if (command == "Dilate") dilate();
+	else if (command == "Erode") erode();
 	else if (command == "Fill")	fill();
 	else if (command == "Flip_Horizontally") flipHorizontally();
 	else if (command == "Flip_Vertically") flipVertically();
@@ -63,6 +64,7 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "RGB8") rgb8();
 	else if (command == "Save") save();
 	else if (command == "Save_As") saveAs(arg);
+	else if (command == "Signed_Gradient") signedGradient();
 	else if (command == "Sobel_X") sobelX();
 	else if (command == "Sobel_XY") sobelXY();
 	else if (command == "Sobel_Y") sobelY();
@@ -298,6 +300,20 @@ void ImageController::threshold() {
 	_directOperation = false;
 	startOperation();
 	OpenCVOperations::threshold(_currentImage, _nextImage, 127.);
+	endOperation();
+}
+
+void ImageController::dilate() {
+	_directOperation = false;
+	startOperation();
+	OpenCVOperations::dilate(_currentImage, _nextImage);
+	endOperation();
+}
+
+void ImageController::erode() {
+	_directOperation = false;
+	startOperation();
+	OpenCVOperations::erode(_currentImage, _nextImage);
 	endOperation();
 }
 

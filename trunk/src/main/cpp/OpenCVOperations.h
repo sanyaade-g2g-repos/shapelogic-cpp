@@ -12,6 +12,7 @@ class SLImage;
 
 class OpenCVOperations {
 public:
+	static void adaptiveThreshold(SLImage * input, SLImage * output);
 	static void cannyEdge(SLImage * input, SLImage * output);
 	static void dilate(SLImage * input, SLImage * output);
 	static void erode(SLImage * input, SLImage * output);

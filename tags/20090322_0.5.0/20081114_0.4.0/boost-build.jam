@@ -1,0 +1,6 @@
+#Just need one line indicating the location of the Boost Build
+#Here this is assumed to be in a dir that is relative to shapelogic-cpp 
+boost-build ../src/boost_1_36_0/tools/build/v2 ;
+
+#Normal location of boost-build under Linux and Unix
+#boost-build /usr/share/boost-build/ ;

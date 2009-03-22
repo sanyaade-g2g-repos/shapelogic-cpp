@@ -231,7 +231,7 @@ void ImageController::quit() {
 }
 
 void ImageController::about() {
-	string message = "ShapeLogic C++ 0.4\n"
+	string message = "ShapeLogic C++ 0.5\n"
 			"Author Sami Badawi\n"
 			"http://www.shapelogic.org\n"
 			"Compile date: ";

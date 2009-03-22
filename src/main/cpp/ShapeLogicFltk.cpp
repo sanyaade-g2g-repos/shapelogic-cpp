@@ -164,6 +164,20 @@ void ShapeLogicFltk::cb_Sample_color(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Sample_color_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Dilate_i(Fl_Menu_*, void*) {
+  imageSetup("Dilate", NULL);
+}
+void ShapeLogicFltk::cb_Dilate(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Dilate_i(o,v);
+}
+
+void ShapeLogicFltk::cb_Erode_i(Fl_Menu_*, void*) {
+  imageSetup("Erode", NULL);
+}
+void ShapeLogicFltk::cb_Erode(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Erode_i(o,v);
+}
+
 void ShapeLogicFltk::cb_Smooth_i(Fl_Menu_*, void*) {
   imageSetup("Blur", NULL);
 }
@@ -251,6 +265,10 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Sample_color", 0xc0063,  (Fl_Callback*)ShapeLogicFltk::cb_Sample_color, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Process", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Morphology", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Dilate", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Dilate, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Erode", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Erode, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
  {"Smooth", 0x50073,  (Fl_Callback*)ShapeLogicFltk::cb_Smooth, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Signed_Gradient", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Signed_Gradient, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Sobel_X", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Sobel_X, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

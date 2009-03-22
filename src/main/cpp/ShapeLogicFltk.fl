@@ -29,15 +29,15 @@ decl {\#include "shapelogic-cpp.h"} {}
 
 decl {\#include <FL/Fl_Color_Chooser.H>} {} 
 
-decl {const char * appLabel = "ShapeLogic C++ v 0.4 ";} {} 
+decl {const char * appLabel = "ShapeLogic C++ v 0.5 ";} {} 
 
 class ShapeLogicFltk {open
 } {
   Function {ShapeLogicFltk()} {open
   } {
     Fl_Window _window {
-      label {ShapeLogic C++ v 0.4} open
-      xywh {478 49 730 600} type Double hide resizable
+      label {ShapeLogic C++ v 0.5} open selected
+      xywh {478 49 730 600} type Double resizable visible
     } {
       Fl_Menu_Bar {} {open
         xywh {0 0 730 20}
@@ -123,7 +123,7 @@ updateLabel();}
           } {
             MenuItem {} {
               label AdaptiveThreshold
-              callback {imageSetup("AdaptiveThreshold", NULL);} selected
+              callback {imageSetup("AdaptiveThreshold", NULL);}
               xywh {0 0 36 21} shortcut 0x50074
             }
             MenuItem {} {

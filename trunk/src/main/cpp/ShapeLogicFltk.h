@@ -63,6 +63,10 @@ private:
   static void cb_Point_info(Fl_Menu_*, void*);
   void cb_Sample_color_i(Fl_Menu_*, void*);
   static void cb_Sample_color(Fl_Menu_*, void*);
+  void cb_Dilate_i(Fl_Menu_*, void*);
+  static void cb_Dilate(Fl_Menu_*, void*);
+  void cb_Erode_i(Fl_Menu_*, void*);
+  static void cb_Erode(Fl_Menu_*, void*);
   void cb_Smooth_i(Fl_Menu_*, void*);
   static void cb_Smooth(Fl_Menu_*, void*);
   void cb_Signed_Gradient_i(Fl_Menu_*, void*);

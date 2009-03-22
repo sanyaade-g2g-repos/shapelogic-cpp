@@ -108,7 +108,7 @@ updateLabel();}
           } {
             MenuItem {} {
               label Gray8
-              callback {imageSetup("Gray8", NULL);} selected
+              callback {imageSetup("Gray8", NULL);}
               xywh {5 5 36 21}
             }
             MenuItem {} {
@@ -194,6 +194,21 @@ updateLabel();}
           label Process open
           xywh {10 10 70 21}
         } {
+          Submenu {} {
+            label Morphology open
+            xywh {0 0 70 21}
+          } {
+            MenuItem {} {
+              label Dilate
+              callback {imageSetup("Dilate", NULL);}
+              xywh {10 10 36 21} shortcut 0x50073
+            }
+            MenuItem {} {
+              label Erode
+              callback {imageSetup("Erode", NULL);} selected
+              xywh {20 20 36 21} shortcut 0x50073
+            }
+          }
           MenuItem {} {
             label Smooth
             callback {imageSetup("Blur", NULL);}

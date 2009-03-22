@@ -72,3 +72,25 @@ void OpenCVOperations::threshold(SLImage * input, SLImage * output, double thres
 	                  255., CV_THRESH_BINARY);
 }
 
+void OpenCVOperations::dilate(SLImage * input, SLImage * output) {
+	if (NULL == input || NULL == output)
+		return;
+	OpenCVImage * iplInput = dynamic_cast<OpenCVImage *>(input);
+	OpenCVImage * iplOutput = dynamic_cast<OpenCVImage *>(output);
+	if (0 == iplInput || 0 == iplOutput ||
+			0 == iplInput->getIplImage() || 0 == iplOutput->getIplImage())
+		return;
+	cvDilate( iplInput->getIplImage(), iplOutput->getIplImage());
+}
+
+void OpenCVOperations::erode(SLImage * input, SLImage * output) {
+	if (NULL == input || NULL == output)
+		return;
+	OpenCVImage * iplInput = dynamic_cast<OpenCVImage *>(input);
+	OpenCVImage * iplOutput = dynamic_cast<OpenCVImage *>(output);
+	if (0 == iplInput || 0 == iplOutput ||
+			0 == iplInput->getIplImage() || 0 == iplOutput->getIplImage())
+		return;
+	cvErode( iplInput->getIplImage(), iplOutput->getIplImage());
+}
+

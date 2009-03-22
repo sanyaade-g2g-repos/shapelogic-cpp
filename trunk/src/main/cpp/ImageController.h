@@ -28,6 +28,8 @@ public:
 	virtual const char * getBrush();
 	virtual void cannyEdge();
 	virtual void clear();
+	virtual void dilate();
+	virtual void erode();
 	virtual void fill();
 	virtual void flipHorizontally();
 	virtual void flipVertically();

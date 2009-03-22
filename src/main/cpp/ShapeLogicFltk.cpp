@@ -92,6 +92,13 @@ void ShapeLogicFltk::cb_RGB8(Fl_Menu_* o, void* v) {
   ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_RGB8_i(o,v);
 }
 
+void ShapeLogicFltk::cb_Threshold_i(Fl_Menu_*, void*) {
+  imageSetup("Threshold", NULL);
+}
+void ShapeLogicFltk::cb_Threshold(Fl_Menu_* o, void* v) {
+  ((ShapeLogicFltk*)(o->parent()->user_data()))->cb_Threshold_i(o,v);
+}
+
 void ShapeLogicFltk::cb_Foreground_i(Fl_Menu_*, void*) {
   unsigned char * foreground = getImageController()->_foreground;
   fl_color_chooser("Chose foreground color", foreground[0], foreground[1], foreground[2]);
@@ -220,9 +227,12 @@ Fl_Menu_Item ShapeLogicFltk::menu_[] = {
  {"Invert", 0x50069,  (Fl_Callback*)ShapeLogicFltk::cb_Invert, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Image", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
- {"Type", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Type", 0,  0, 0, 192, FL_NORMAL_LABEL, 0, 14, 0},
  {"Gray8", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Gray8, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"RGB8", 0,  (Fl_Callback*)ShapeLogicFltk::cb_RGB8, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {0,0,0,0,0,0,0,0,0},
+ {"Adjust", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Threshold...", 0x50074,  (Fl_Callback*)ShapeLogicFltk::cb_Threshold, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0},
  {"Color", 0,  0, 0, 64, FL_NORMAL_LABEL, 0, 14, 0},
  {"Foreground", 0,  (Fl_Callback*)ShapeLogicFltk::cb_Foreground, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},

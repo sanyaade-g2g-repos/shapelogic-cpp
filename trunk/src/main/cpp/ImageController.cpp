@@ -305,6 +305,8 @@ void ImageController::threshold() {
 }
 
 void ImageController::adaptiveThreshold() {
+	if (_currentImage->isRgb())
+		gray8();
 	_directOperation = false;
 	startOperation();
 	OpenCVOperations::adaptiveThreshold(_currentImage, _nextImage);

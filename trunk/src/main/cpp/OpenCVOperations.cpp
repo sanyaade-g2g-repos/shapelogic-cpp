@@ -59,3 +59,16 @@ void OpenCVOperations::swapRB(SLImage * input, SLImage * output) {
 	cvConvertImage( iplInput->getIplImage(), iplOutput->getIplImage(),CV_CVTIMG_SWAP_RB );
 
 }
+
+void OpenCVOperations::threshold(SLImage * input, SLImage * output, double thresholdValue) {
+	if (NULL == input || NULL == output)
+		return;
+	OpenCVImage * iplInput = dynamic_cast<OpenCVImage *>(input);
+	OpenCVImage * iplOutput = dynamic_cast<OpenCVImage *>(output);
+	if (0 == iplInput || 0 == iplOutput ||
+			0 == iplInput->getIplImage() || 0 == iplOutput->getIplImage())
+		return;
+	cvThreshold( iplInput->getIplImage(), iplOutput->getIplImage(), thresholdValue,
+	                  255., CV_THRESH_BINARY);
+}
+

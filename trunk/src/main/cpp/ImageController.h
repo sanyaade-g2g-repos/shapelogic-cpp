@@ -43,6 +43,7 @@ public:
 	virtual void sobelXY();
 	virtual void sobelY();
 	virtual void swapRB();
+	virtual void threshold();
 	virtual void undo();
 
 	virtual void startOperation();

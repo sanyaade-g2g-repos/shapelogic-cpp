@@ -72,6 +72,17 @@ void OpenCVOperations::threshold(SLImage * input, SLImage * output, double thres
 	                  255., CV_THRESH_BINARY);
 }
 
+void OpenCVOperations::adaptiveThreshold(SLImage * input, SLImage * output) {
+	if (NULL == input || NULL == output)
+		return;
+	OpenCVImage * iplInput = dynamic_cast<OpenCVImage *>(input);
+	OpenCVImage * iplOutput = dynamic_cast<OpenCVImage *>(output);
+	if (0 == iplInput || 0 == iplOutput ||
+			0 == iplInput->getIplImage() || 0 == iplOutput->getIplImage())
+		return;
+	cvAdaptiveThreshold( iplInput->getIplImage(), iplOutput->getIplImage(), 255.);
+}
+
 void OpenCVOperations::dilate(SLImage * input, SLImage * output) {
 	if (NULL == input || NULL == output)
 		return;

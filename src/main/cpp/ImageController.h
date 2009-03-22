@@ -23,6 +23,7 @@ public:
 	virtual void run(const char * name, const char * arg);
 
 	virtual void about();
+	virtual void adaptiveThreshold();
 	virtual void blur();
 	virtual void setBrush(const char * brush);
 	virtual const char * getBrush();

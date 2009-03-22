@@ -48,6 +48,7 @@ ImageController * ImageController::getInstance() {
 void ImageController::run(const char *name, const char *arg) {
 	std::string command(name);
 	if (command == "About") about();
+	else if (command == "AdaptiveThreshold") adaptiveThreshold();
 	else if (command == "Blur") blur();
 	else if (command == "Brush") setBrush(arg);
 	else if (command == "Clear") clear();
@@ -300,6 +301,13 @@ void ImageController::threshold() {
 	_directOperation = false;
 	startOperation();
 	OpenCVOperations::threshold(_currentImage, _nextImage, 127.);
+	endOperation();
+}
+
+void ImageController::adaptiveThreshold() {
+	_directOperation = false;
+	startOperation();
+	OpenCVOperations::adaptiveThreshold(_currentImage, _nextImage);
 	endOperation();
 }
 

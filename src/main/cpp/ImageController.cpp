@@ -67,6 +67,7 @@ void ImageController::run(const char *name, const char *arg) {
 	else if (command == "Sobel_XY") sobelXY();
 	else if (command == "Sobel_Y") sobelY();
 	else if (command == "Swap_RB") swapRB();
+	else if (command == "Threshold") threshold();
 	else if (command == "Undo")	undo();
 }
 
@@ -291,5 +292,12 @@ void ImageController::rgb8() {
 	_lastImage = _currentImage;
 	_currentImage = _nextImage;
 	_nextImage = NULL;
+}
+
+void ImageController::threshold() {
+	_directOperation = false;
+	startOperation();
+	OpenCVOperations::threshold(_currentImage, _nextImage, 127.);
+	endOperation();
 }
 
